@@ -1,4 +1,13 @@
 {
   "name": "yvees",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.4.5"
+  },
   "packageManager": "^bun@1.1.0"
 }
