@@ -1,0 +1,9 @@
+{
+  "name": "example-app.ts",
+  "scripts": {
+    "start": "bun main.ts"
+  },
+  "dependencies": {
+    "hello": "workspace:*"
+  }
+}
