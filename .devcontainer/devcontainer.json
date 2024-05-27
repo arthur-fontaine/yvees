@@ -1,5 +1,55 @@
 {
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "devcontainer",
-	"workspaceFolder": "/workspace"
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "eslint.enable": true,
+        "eslint.experimental.useFlatConfig": true,
+        "eslint.workingDirectories": [
+          {
+            "mode": "auto"
+          }
+        ],
+        "eslint.format.enable": true,
+        "eslint.probe": [
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact",
+          "html",
+          "vue",
+          "markdown",
+          "json",
+          "jsonc",
+          "yaml",
+          "dockercompose"
+        ],
+        "eslint.validate": [
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact",
+          "html",
+          "vue",
+          "markdown",
+          "json",
+          "jsonc",
+          "yaml",
+          "dockercompose"
+        ],
+        "explorer.fileNesting.enabled": true,
+        "explorer.fileNesting.expand": false,
+        "explorer.fileNesting.patterns": {
+          ".env": "*.env, .env.*, .envrc, env.d.ts",
+          ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
+          "package.json": "bun.lockb, eslint*, tsconfig.*"
+        }
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  }
 }
