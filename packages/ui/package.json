@@ -1,0 +1,14 @@
+{
+  "name": "ui",
+  "exports": {
+    "./components": "./src/components.ts",
+    "./theme": "./src/theme.ts"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "tamagui": "^1.99.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3"
+  }
+}
