@@ -1,14 +1,33 @@
 {
   "name": "ui",
   "exports": {
-    "./components": "./src/components.ts",
-    "./theme": "./src/theme.ts"
+    "./components": {
+      "types": "./dist/components.d.ts",
+      "import": "./dist/components.mjs",
+      "require": "./dist/components.js"
+    },
+    "./theme": {
+      "types": "./dist/theme.d.ts",
+      "import": "./dist/theme.mjs",
+      "require": "./dist/theme.js"
+    },
+    "./vite": {
+      "types": "./dist/plugins/vite.d.ts",
+      "import": "./dist/plugins/vite.mjs",
+      "require": "./dist/plugins/vite.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup src/theme.ts src/components.ts src/plugins/vite.ts --dts --format esm,cjs --minify"
   },
   "dependencies": {
+    "@tamagui/vite-plugin": "^1.99.1",
     "react": "^18.3.1",
     "tamagui": "^1.99.1"
   },
   "devDependencies": {
-    "@types/react": "^18.3.3"
+    "@types/react": "^18.3.3",
+    "tsup": "^8.0.2"
   }
 }

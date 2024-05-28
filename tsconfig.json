@@ -1,4 +1,4 @@
 {
   "extends": "@tsconfig/strictest/tsconfig.json",
-  "exclude": ["*.config.*"]
+  "exclude": ["*.config.*", "dist"]
 }
