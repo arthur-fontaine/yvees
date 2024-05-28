@@ -44,7 +44,7 @@
         "explorer.fileNesting.patterns": {
           ".env": "*.env, .env.*, .envrc, env.d.ts",
           ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
-          "package.json": "bun.lockb, eslint*, tsconfig.*, turbo.json, vite.config.*"
+          "package.json": "bun.lockb, eslint*, tsconfig.*, turbo.json, vite.config.*, app.json, babel.config.*"
         }
       },
       "extensions": [

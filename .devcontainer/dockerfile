@@ -13,3 +13,5 @@ RUN curl https://pkgx.sh | sh
 RUN pkgx install \
     bun@1.1 \
     node
+
+ENV PATH="~/.bun/bin:${PATH}"
