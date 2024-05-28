@@ -19,7 +19,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "tsup src/theme.ts src/components.ts src/plugins/vite.ts --dts --format esm,cjs --minify"
+    "build": "tsup src/theme.ts src/components.ts src/plugins/vite.ts --dts --format esm,cjs --minify",
+    "dev": "bun run build --watch"
   },
   "dependencies": {
     "@tamagui/vite-plugin": "^1.99.1",
