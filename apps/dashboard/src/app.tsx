@@ -1,6 +1,5 @@
 import React from 'react'
-import { Button } from 'ui/components'
-import { ThemeProvider } from 'ui/theme'
+import { Button, ThemeProvider } from 'ui'
 
 /**
  * App component.

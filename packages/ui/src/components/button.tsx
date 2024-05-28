@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button as TamaguiButton } from 'tamagui'
 
-import type { Props } from '../types/props'
+import type { GetProps } from '../types/get-props'
 
-interface ButtonProps extends Props<typeof TamaguiButton> { }
+interface ButtonProps extends GetProps<typeof TamaguiButton> { }
 
 /**
  * Button component.

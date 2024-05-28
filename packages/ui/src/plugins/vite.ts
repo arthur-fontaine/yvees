@@ -1,21 +1,13 @@
-import { createRequire } from 'node:module'
-import path from 'node:path'
 import process from 'node:process'
 
 import { tamaguiExtractPlugin, tamaguiPlugin } from '@tamagui/vite-plugin'
 
-import packageJson from '../../package.json'
-import { tamaguiConfig } from '../theme/tamagui-config'
+import { getTamaguiConfigPath } from './utils/get-tamagui-config-path'
+import { tamaguiConfig } from '../tamagui.config'
 
 const tamaguiOptions: Parameters<typeof tamaguiPlugin>[0] = {
   ...tamaguiConfig.themeConfig,
-  config: path.relative(
-    process.cwd(),
-    path.resolve(
-      path.dirname(createRequire(import.meta.url).resolve(`${packageJson.name}/package.json`)),
-      'src/theme/tamagui-config.ts',
-    ),
-  ),
+  config: getTamaguiConfigPath(),
 }
 
 /**

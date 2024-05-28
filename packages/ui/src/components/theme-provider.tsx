@@ -2,10 +2,10 @@ import React from 'react'
 import type { ThemeName } from 'tamagui'
 import { TamaguiProvider, Theme } from 'tamagui'
 
-import { tamaguiConfig } from './tamagui-config'
+import { tamaguiConfig } from '../tamagui.config'
 
 interface ThemeProviderProps extends React.PropsWithChildren {
-  theme: ThemeName
+  theme?: ThemeName
 }
 
 /**
@@ -14,7 +14,8 @@ interface ThemeProviderProps extends React.PropsWithChildren {
 export function ThemeProvider(props: ThemeProviderProps) {
   return (
     <TamaguiProvider config={tamaguiConfig}>
-      <Theme name={props.theme}>
+      {/* eslint-disable-next-line unicorn/no-null */}
+      <Theme name={props.theme ?? null}>
         {props.children}
       </Theme>
     </TamaguiProvider>
