@@ -4,7 +4,7 @@ services:
   devcontainer:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     volumes:
       - ..:/yvees
     command: sleep infinity
