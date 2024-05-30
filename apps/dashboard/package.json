@@ -4,10 +4,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite"
+    "dev": "vite --host"
   },
   "dependencies": {
+    "@agrume/plugin": "2.0.0-beta.6",
     "@tamagui/vite-plugin": "^1.99.1",
+    "agrume": "2.0.0-beta.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "ui": "workspace:*"
