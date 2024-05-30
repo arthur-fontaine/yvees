@@ -1,5 +1,5 @@
 {
-  "name": "mobile2",
+  "name": "mobile",
   "version": "1.0.0",
   "private": true,
   "main": "./node_modules/.prebuild-rn/main.js",
