@@ -9,4 +9,5 @@ services:
       - ..:/yvees
     ports:
       - 5173:5173
+      - 7777:7777
     command: sleep infinity
