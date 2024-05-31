@@ -1,5 +1,7 @@
 # yvees
 
+> Searching for your tasks? Go to the [project board](https://github.com/users/arthur-fontaine/projects/5/views/3)
+
 ## Setup
 
 First, clone this repository:
