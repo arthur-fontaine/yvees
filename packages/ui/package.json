@@ -29,6 +29,7 @@
     "@tamagui/babel-plugin": "^1.99.1",
     "@tamagui/vite-plugin": "^1.99.1",
     "babel-plugin-transform-inline-environment-variables": "^0.4.4",
+    "diabolo": "npm:@jsr/arthur-fontaine__diabolo@^1.4.0",
     "react": "^18.3.1",
     "tamagui": "^1.99.1"
   },
