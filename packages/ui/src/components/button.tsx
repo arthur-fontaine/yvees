@@ -8,8 +8,8 @@ import { withVariants } from '../utils/with-variants'
 
 interface ButtonProps {
   children?: string
-  icon?: typeof Icon[keyof typeof Icon]
-  onClick?: () => void
+  icon?: typeof Icon[keyof typeof Icon] | undefined
+  onClick?: (() => void) | undefined
 }
 
 // eslint-disable-next-line ts/naming-convention
@@ -48,6 +48,7 @@ export const Button = withVariants<
         alignItems="center"
         display="flex"
         flexDirection="row"
+        height={48}
         icon={icon && withProps(icon, { size: 16, strokeWidth: 3 })}
         justifyContent="center"
         onPress={onClick}
