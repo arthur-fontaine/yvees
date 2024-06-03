@@ -17,8 +17,8 @@ export const tokens = createTokens({
     $true: 10, // TODO: adjust this value
   },
   space: {
-    $true: 12,
-    normal: 12,
+    $true: 16,
+    normal: 16,
   },
   zIndex: {
     $true: 10, // TODO: adjust this value

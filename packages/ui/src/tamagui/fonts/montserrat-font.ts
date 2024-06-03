@@ -21,7 +21,7 @@ export const montserratFont = createFont({
   lineHeight: {
   },
   size: {
-    button: 12,
+    button: 16,
   },
   weight: {
     button: '600',

@@ -48,7 +48,8 @@ export const Button = withVariants<
         alignItems="center"
         display="flex"
         flexDirection="row"
-        icon={icon && withProps(icon, { strokeWidth: 3 })}
+        icon={icon && withProps(icon, { size: 16, strokeWidth: 3 })}
+        justifyContent="center"
         onPress={onClick}
         unstyled
         {...variant}
