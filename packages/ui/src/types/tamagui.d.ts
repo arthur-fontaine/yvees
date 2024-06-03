@@ -1,4 +1,4 @@
-import type tamaguiConfig from './tamagui.config'
+import type tamaguiConfig from '../tamagui.config'
 
 export type TamaguiConfig = typeof tamaguiConfig
 

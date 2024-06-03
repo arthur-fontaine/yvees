@@ -1,16 +1,16 @@
+import './types/tamagui.d.ts'
+
 import { createTamagui } from 'tamagui'
 
-import { interFont } from './tamagui/fonts/inter-font'
-import { darkTheme } from './tamagui/themes/dark-theme'
+import { montserratFont } from './tamagui/fonts/montserrat-font'
 import { lightTheme } from './tamagui/themes/light-theme'
 import { tokens } from './tamagui/tokens'
 
 export const tamaguiConfig = createTamagui({
   fonts: {
-    body: interFont,
+    body: montserratFont,
   },
   themes: {
-    dark: darkTheme,
     light: lightTheme,
   },
   tokens,
