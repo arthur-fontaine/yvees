@@ -19,7 +19,7 @@ interface InputProps {
 }
 
 /**
- * Button component.
+ * Input component.
  */
 // eslint-disable-next-line ts/naming-convention
 export const Input = withVariants<
