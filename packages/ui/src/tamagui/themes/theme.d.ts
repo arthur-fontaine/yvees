@@ -1,6 +1,9 @@
 import type { Variable } from 'tamagui'
 
 type ThemeKeys =
+  | 'defaultSeparatorColor'
+  | 'defaultTitleIconColor'
+  | 'defaultTitleTextColor'
   | 'primaryButtonBackground'
   | 'primaryButtonHoverBackground'
   | 'primaryButtonTextColor'

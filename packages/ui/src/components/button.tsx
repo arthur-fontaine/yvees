@@ -7,6 +7,7 @@ import { withProps } from '../utils/with-props'
 import { withVariants } from '../utils/with-variants'
 
 interface ButtonProps {
+  backgroundColor?: string
   children?: string
   icon?: typeof Icon[keyof typeof Icon] | undefined
   onClick?: (() => void) | undefined
@@ -42,7 +43,11 @@ export const Button = withVariants<
     },
   },
 )(
-  ({ variant }, { children, icon, onClick }: ButtonProps) => {
+  ({ variant }, { backgroundColor, children, icon, onClick }: ButtonProps) => {
+    const variantStyles = { ...variant }
+    if (backgroundColor) {
+      variantStyles.backgroundColor = backgroundColor
+    }
     return (
       <TamaguiButton
         alignItems="center"
@@ -53,7 +58,11 @@ export const Button = withVariants<
         justifyContent="center"
         onPress={onClick}
         unstyled
-        {...variant}
+        {...variantStyles}
+        hoverStyle={{
+          backgroundColor:
+            backgroundColor || variant.hoverStyle?.backgroundColor,
+        }}
       >
         {children}
       </TamaguiButton>
