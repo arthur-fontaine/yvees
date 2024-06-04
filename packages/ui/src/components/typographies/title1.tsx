@@ -57,8 +57,10 @@ export const Title1 = withVariants<
           color={color || '$defaultTitleTextColor'}
           display="flex"
           flexDirection="row"
+          fontFamily="$title"
           fontSize="$title1"
-          fontWeight={800}
+          fontWeight="$title1"
+          lineHeight="$title1"
           unstyled
         >
           {children}

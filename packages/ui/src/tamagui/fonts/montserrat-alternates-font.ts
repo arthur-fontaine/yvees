@@ -19,6 +19,7 @@ export const montserratAlternatesFont = createFont({
     $true: -2,
   },
   lineHeight: {
+    title1: 32,
   },
   size: {
     title1: 24,

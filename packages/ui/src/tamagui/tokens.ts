@@ -7,6 +7,7 @@ export const tokens = createTokens({
     orange: '#E47B0C',
     orangeDark: '#D16C0A',
     orangeLight: '#F4C898',
+    red: '#FF0000',
     silver: '#EDEDED',
     silverDark: '#D6D6D6',
     white: '#FFFFFF',
