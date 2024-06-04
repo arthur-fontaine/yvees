@@ -2,11 +2,12 @@ import React from 'react'
 import type { GetProps } from 'tamagui'
 import { Button as TamaguiButton } from 'tamagui'
 
-import type { Icon } from './icon'
+import type { Icon } from './icon/icon'
 import { withProps } from '../utils/with-props'
 import { withVariants } from '../utils/with-variants'
 
 interface ButtonProps {
+  backgroundColor?: string
   children?: string
   icon?: typeof Icon[keyof typeof Icon] | undefined
   onClick?: (() => void) | undefined
@@ -22,6 +23,7 @@ export const Button = withVariants<
       borderRadius: '$mediumSizedElement',
       borderWidth: 0,
       cursor: 'pointer',
+      fontFamily: '$body',
       fontSize: '$button',
       fontWeight: '$button',
       padding: '$normal',
@@ -42,7 +44,11 @@ export const Button = withVariants<
     },
   },
 )(
-  ({ variant }, { children, icon, onClick }: ButtonProps) => {
+  ({ variant }, { backgroundColor, children, icon, onClick }: ButtonProps) => {
+    const variantStyles = { ...variant }
+    if (backgroundColor) {
+      variantStyles.backgroundColor = backgroundColor
+    }
     return (
       <TamaguiButton
         alignItems="center"
@@ -53,7 +59,11 @@ export const Button = withVariants<
         justifyContent="center"
         onPress={onClick}
         unstyled
-        {...variant}
+        {...variantStyles}
+        hoverStyle={{
+          backgroundColor:
+            backgroundColor || variant.hoverStyle?.backgroundColor,
+        }}
       >
         {children}
       </TamaguiButton>

@@ -3,7 +3,8 @@ import type { GetProps } from 'tamagui'
 import { Input as TamaguiInput, View as TamaguiView } from 'tamagui'
 
 import { Button } from './button'
-import type { Icon } from './icon'
+import type { Icon } from './icon/icon'
+import { Caption } from './typographies/caption'
 import { withVariants } from '../utils/with-variants'
 
 interface InputProps {
@@ -11,6 +12,7 @@ interface InputProps {
     icon: typeof Icon[keyof typeof Icon]
     onClick: () => void
   }
+  error?: false | string
   icon?: typeof Icon[keyof typeof Icon]
   onChangeText?: (e: string) => void
   placeholder?: string
@@ -19,7 +21,7 @@ interface InputProps {
 }
 
 /**
- * Button component.
+ * Input component.
  */
 // eslint-disable-next-line ts/naming-convention
 export const Input = withVariants<
@@ -40,6 +42,7 @@ export const Input = withVariants<
   },
 )(({ variant }, {
   action,
+  error,
   // eslint-disable-next-line ts/naming-convention
   icon: Icon,
   onChangeText,
@@ -51,6 +54,11 @@ export const Input = withVariants<
     <TamaguiView
       {...variant}
       {...(action ? { paddingRight: '0' } : {})}
+      position="relative"
+      {...(error ? {
+        borderColor: '$error',
+        borderWidth: 1,
+      } : {})}
     >
       {Icon && (
         <TamaguiView marginRight={8} opacity={0.3}>
@@ -62,6 +70,7 @@ export const Input = withVariants<
         fontFamily="$body"
         fontSize="$button"
         fontWeight="$button"
+        lineHeight="$button"
         onChangeText={onChangeText}
         outlineWidth={0}
         placeholder={placeholder}
@@ -75,6 +84,14 @@ export const Input = withVariants<
         onClick={action?.onClick}
         variant="secondary"
       />
+
+      {error && (
+        <TamaguiView bottom={-16} left={0} position="absolute">
+          <Caption color="$error">
+            {error}
+          </Caption>
+        </TamaguiView>
+      )}
     </TamaguiView>
   )
 })
