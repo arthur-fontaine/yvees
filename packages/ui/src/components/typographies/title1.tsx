@@ -58,6 +58,7 @@ export const Title1 = withVariants<
           display="flex"
           flexDirection="row"
           fontSize="$title1"
+          fontfamily={'MontserratAlternates-black'}
           fontWeight={800}
           unstyled
         >
