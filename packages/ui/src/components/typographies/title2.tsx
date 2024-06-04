@@ -22,6 +22,7 @@ export const H2 = withVariants<
 >(
   {
     $defaults: {
+      alignItems: 'center',
       borderRadius: '$mediumSizedElement',
       borderWidth: 0,
       display: 'flex',

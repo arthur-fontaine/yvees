@@ -22,6 +22,7 @@ export const H3 = withVariants<
 >(
   {
     $defaults: {
+      alignItems: 'center',
       borderRadius: '$mediumSizedElement',
       borderWidth: 0,
       display: 'flex',
