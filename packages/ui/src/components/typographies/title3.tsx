@@ -46,13 +46,13 @@ export const H3 = withVariants<
         {...variant}
       >
         {IconLeft && (
-          <TamaguiView opacity={0.3}>
-            <IconLeft color={iconColor} size={24} strokeWidth={3} />
+          <TamaguiView>
+            <IconLeft color={iconColor || '$defaultTitleIconColor'} size={24} strokeWidth={3} />
           </TamaguiView>
       )}
         <TamaguiH1
           alignItems="center"
-          color={color}
+          color={color || '$defaultTitleTextColor'}
           display="flex"
           flexDirection="row"
           fontSize={12}
@@ -62,8 +62,8 @@ export const H3 = withVariants<
           {children}
         </TamaguiH1>
         {IconRight && (
-          <TamaguiView opacity={0.3}>
-            <IconRight color={iconColor} size={24} strokeWidth={3} />
+          <TamaguiView>
+            <IconRight color={iconColor || '$defaultTitleIconColor'} size={24} strokeWidth={3} />
           </TamaguiView>
       )}
       </TamaguiView>
