@@ -2,7 +2,7 @@ import React from 'react'
 import type { GetProps } from 'tamagui'
 import { Button as TamaguiButton } from 'tamagui'
 
-import type { Icon } from './icon'
+import type { Icon } from './icon/icon'
 import { withProps } from '../utils/with-props'
 import { withVariants } from '../utils/with-variants'
 

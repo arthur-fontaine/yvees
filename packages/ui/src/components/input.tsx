@@ -3,7 +3,7 @@ import type { GetProps } from 'tamagui'
 import { Input as TamaguiInput, View as TamaguiView } from 'tamagui'
 
 import { Button } from './button'
-import type { Icon } from './icon'
+import type { Icon } from './icon/icon'
 import { withVariants } from '../utils/with-variants'
 
 interface InputProps {

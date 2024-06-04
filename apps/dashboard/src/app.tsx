@@ -22,7 +22,7 @@ export function App() {
 
       <Input
         action={{
-          icon: Icon.Search,
+          icon: Icon.BrandGoogle,
           onClick: () => console.log('Search clicked'),
         }}
         icon={Icon.Search}
