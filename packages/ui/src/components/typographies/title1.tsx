@@ -6,7 +6,7 @@ import { withVariants } from '../../utils/with-variants'
 import type { Icon } from '../icon/icon'
 
 interface H1Props {
-  children?: string
+  children?: string | undefined;
   color?: string
   iconColor?: string
   iconLeft?: typeof Icon[keyof typeof Icon] | undefined
