@@ -3,7 +3,7 @@ import type { GetProps } from 'tamagui'
 import { H1 as TamaguiH1, View as TamaguiView } from 'tamagui'
 
 import { withVariants } from '../../utils/with-variants'
-import type { Icon } from '../icon'
+import type { Icon } from '../icon/icon'
 
 interface H1Props {
   children?: string
@@ -14,9 +14,10 @@ interface H1Props {
 }
 
 /**
- * Title H1 component.
+ * Title component.
  */
-export const H1 = withVariants<
+// eslint-disable-next-line ts/naming-convention
+export const Title1 = withVariants<
   'default',
   GetProps<typeof TamaguiView>
 >(
@@ -34,14 +35,14 @@ export const H1 = withVariants<
 )(
 
   ({ variant }, {
-     children,
-     color,
-     iconColor,
-     // eslint-disable-next-line ts/naming-convention
-     iconLeft: IconLeft,
-     // eslint-disable-next-line ts/naming-convention
-     iconRight: IconRight,
- }: H1Props) => {
+    children,
+    color,
+    iconColor,
+    // eslint-disable-next-line ts/naming-convention
+    iconLeft: IconLeft,
+    // eslint-disable-next-line ts/naming-convention
+    iconRight: IconRight,
+  }: H1Props) => {
     return (
       <TamaguiView
         {...variant}
@@ -50,13 +51,13 @@ export const H1 = withVariants<
           <TamaguiView>
             <IconLeft color={iconColor || '$defaultTitleIconColor'} size={24} strokeWidth={3} />
           </TamaguiView>
-      )}
+        )}
         <TamaguiH1
           alignItems="center"
           color={color || '$defaultTitleTextColor'}
           display="flex"
           flexDirection="row"
-          fontSize={24}
+          fontSize="$title1"
           fontWeight={800}
           unstyled
         >
@@ -66,7 +67,7 @@ export const H1 = withVariants<
           <TamaguiView>
             <IconRight color={iconColor || '$defaultTitleIconColor'} size={24} strokeWidth={3} />
           </TamaguiView>
-      )}
+        )}
       </TamaguiView>
     )
   },
