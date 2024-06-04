@@ -1,6 +1,6 @@
 /* eslint-disable ts/naming-convention */
 
-import { createFont } from 'tamagui'
+import { createFont, isWeb } from 'tamagui'
 
 export const montserratFont = createFont({
   face: {
@@ -14,7 +14,7 @@ export const montserratFont = createFont({
     800: { italic: 'Montserrat-ExtraBoldItalic', normal: 'Montserrat-ExtraBold' },
     900: { italic: 'Montserrat-BlackItalic', normal: 'Montserrat-Black' },
   },
-  family: 'Montserrat, Helvetica, Arial, sans-serif',
+  family: isWeb ? 'Montserrat, Helvetica, Arial, sans-serif' : 'Montserrat',
   letterSpacing: {
     $true: -2,
   },
@@ -22,8 +22,9 @@ export const montserratFont = createFont({
   },
   size: {
     button: 16,
+    title1: 24,
   },
   weight: {
-    button: '600',
+    button: '500',
   },
 })

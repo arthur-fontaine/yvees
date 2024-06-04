@@ -1,7 +1,7 @@
 import { createRoute } from 'agrume'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import { Button, Icon, ThemeProvider } from 'ui'
 
 const hello = createRoute(async () => {
