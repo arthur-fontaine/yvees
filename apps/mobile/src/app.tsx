@@ -1,29 +1,20 @@
-import { createRoute } from 'agrume'
-import { StatusBar } from 'expo-status-bar'
+import { useFonts } from 'expo-font'
 import React from 'react'
 import { View } from 'react-native'
-import { Button, Icon, ThemeProvider } from 'ui'
+import { getRnFonts } from 'ui'
+import { Home } from './screens/Home/home'
 
-const hello = createRoute(async () => {
-  return 'HELLO'
-})
-
-/**
- * Main application component.
- */
 export function App() {
+  const [loaded] = useFonts(getRnFonts())
+  if (!loaded) {
+    return
+  }
+
   return (
     <View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
-      <ThemeProvider theme="light">
-        <Button
-          icon={Icon.Heart}
-          onClick={() => hello().then(console.log)}
-          variant="primary"
-        >
-          Click me
-        </Button>
-      </ThemeProvider>
-      <StatusBar style="auto" />
+     <Home/>
     </View>
   )
 }
+
+
