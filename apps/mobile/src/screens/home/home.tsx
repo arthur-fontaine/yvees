@@ -1,41 +1,38 @@
-import type { BarcodeScanningResult } from 'expo-camera'
-import { CameraView, useCameraPermissions } from 'expo-camera'
-import React, { useState } from 'react'
-import { View } from 'react-native'
+import { CameraView } from 'expo-camera'
+import React from 'react'
 import { Button, Card } from 'ui'
 
+import { useScanController } from './hooks/use-scan-controller'
 import { DefaultLayout } from '../../layouts/default-layout'
 
 /**
- *
+ * The home screen of the application.
  */
 export function HomeScreen() {
-  const [cameraOpen, setCameraOpen] = useState(false)
-  const [facing] = useState('back')
-  const [permission, requestPermission] = useCameraPermissions()
-  const [scanned, setScanned] = useState(false)
+  const {
+    allowToScanAgain,
+    handleBarCodeScanned,
+    hasPermissionToUseCamera,
+    isCameraOpen,
+    openCamera,
+    requestPermissionToUseCamera,
+  } = useScanController()
 
-  const handleBarCodeScanned = (scanningResult: BarcodeScanningResult) => {
-    setScanned(true)
-    console.log('ta mere elle me scan', scanningResult)
-  }
-
-  if (permission === null) {
-    return <View />
-  }
-
-  if (cameraOpen && permission.granted) {
+  if (isCameraOpen && hasPermissionToUseCamera) {
     return (
       <DefaultLayout>
         <CameraView
           barcodeScannerSettings={{
             barcodeTypes: ['qr', 'pdf417'],
           }}
-          facing={facing}
-          onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}
+          facing="back"
+          onBarcodeScanned={handleBarCodeScanned}
           style={{ flex: 1 }}
         >
-          <Button onClick={() => setScanned(false)} style={{ flex: 1 }} variant="primary">
+          <Button
+            onClick={allowToScanAgain}
+            variant="primary"
+          >
             Scan again
           </Button>
         </CameraView>
@@ -48,9 +45,9 @@ export function HomeScreen() {
       <Card
         action={{
           onClick: () => {
-            requestPermission().then((permission: any) => {
-              if (permission) {
-                setCameraOpen(true)
+            requestPermissionToUseCamera().then((permission) => {
+              if (permission.granted) {
+                openCamera()
               }
             })
           },
