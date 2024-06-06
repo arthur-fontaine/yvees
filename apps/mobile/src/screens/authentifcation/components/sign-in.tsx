@@ -3,37 +3,32 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Button, Icon, Input, Title1 } from 'ui'
 
+import { useAuthForm } from '../hook/use-auth-forms'
+import { useErrorHandling } from '../hook/use-error-handle'
+
 /**
  * Sign in component.
  */
 export function SignIn() {
   const { isLoaded, setActive, signIn } = useSignIn()
 
-  const [emailAddress, setEmailAddress] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const [showPassword, setShowPassword] = React.useState(true)
-  const [passwordError, setPasswordError] = React.useState('')
-  const [emailError, setEmailError] = React.useState('')
-  const [signInError, setSignInError] = React.useState('');
+    const {
+    emailAddress,
+    handleEmailChange,
+    handlePasswordChange,
+    password,
+    setShowPassword,
+    showPassword,
+  } = useAuthForm()
 
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-      setEmailError('Invalid email format')
-    }
-    else {
-      setEmailError('')
-    }
-  }
-
-  const validatePassword = (password: string) => {
-  if (password.length < 8) {
-    setPasswordError('Password must be at least 8 characters long')
-  }
-  else {
-    setPasswordError('')
-    }
-  }
+  const {
+    emailError,
+    handleSignInError,
+    passwordError,
+    signInError,
+    validateEmail,
+    validatePassword,
+  } = useErrorHandling()
 
   const onSignInPress = async () => {
     if (!isLoaded) {
@@ -56,20 +51,11 @@ export function SignIn() {
       // This indicates the user is signed in
       await setActive({ session: completeSignIn.createdSessionId })
     }
-  catch (err: any) {
-        setSignInError('Your email or password is incorrect')
-      }
+ catch (err) {
+      handleSignInError(err)
     }
-
-  const handleEmailChange = (email: string) => {
-    setEmailAddress(email)
-    validateEmail(email)
   }
 
-  const handlePasswordChange = (password: string) => {
-    setPassword(password)
-    validatePassword(password)
-  }
   return (
     <View style={styles.container}>
       <View marginBottom={24}>
@@ -79,6 +65,7 @@ export function SignIn() {
       </View>
       <View>
         <Input
+          autoCapitalize="none"
           error={emailError || signInError}
           onChangeText={handleEmailChange}
           placeholder="Email..."

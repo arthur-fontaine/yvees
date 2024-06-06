@@ -101,6 +101,7 @@ export function SignUp() {
           </Input>
           <View>
             <Input
+              autoCapitalize="none"
               onChangeText={email => setEmailAddress(email)}
               placeholder="Email... "
               value={emailAddress}
