@@ -2,7 +2,6 @@
 export * from './components/button'
 export * from './components/icon/icon'
 export * from './components/input'
-export * from './components/otpInput'
 export * from './components/separator'
 export * from './components/theme-provider'
 export * from './components/typographies/caption'

@@ -23,7 +23,7 @@ interface InputProps {
 /**
  * Input component.
  */
-
+// eslint-disable-next-line ts/naming-convention
 export const Input = withVariants<
   'default',
   GetProps<typeof TamaguiView>
@@ -36,7 +36,6 @@ export const Input = withVariants<
       borderWidth: 0,
       display: 'flex',
       flexDirection: 'row',
-      minHeight: 48,
       paddingHorizontal: '$normal',
     },
     default: {},
