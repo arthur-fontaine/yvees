@@ -45,7 +45,10 @@
           ".env": "*.env, .env.*, .envrc, env.d.ts",
           ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
           "package.json": "bun.lockb, eslint*, tsconfig.*, turbo.json, app.json, *.config.js, *.config.ts, bunfig.toml"
-        }
+        },
+        "terminal.integrated.defaultProfile.osx": "zsh",
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.defaultProfile.windows": "zsh"
       },
       "extensions": [
         "dbaeumer.vscode-eslint"
