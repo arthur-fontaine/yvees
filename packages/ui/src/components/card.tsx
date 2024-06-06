@@ -1,5 +1,5 @@
 import React from 'react'
-import { CardProps, Card as TamaguiCard, Paragraph } from 'tamagui'
+import { Card as TamaguiCard, Paragraph } from 'tamagui'
 import { GetProps } from 'tamagui'
 import { withVariants } from '../utils/with-variants'
 import { Button } from './button';
@@ -16,7 +16,7 @@ interface CardProps {
 
 export const Card = withVariants<
   'default',
-  GetProps<typeof CardProps>
+  GetProps<typeof TamaguiCard>
 >(
   {
     $defaults: {
@@ -37,8 +37,9 @@ export const Card = withVariants<
 )(
   ({ variant }, { text , title, action } : CardProps) => {
     return (
-      <TamaguiCard unstyled
+      <TamaguiCard
         {...variant}
+        unstyled
       >
         <Title1 variant='default'>{title}</Title1>
         <Paragraph paddingTop={8} fontSize="12" 

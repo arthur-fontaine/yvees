@@ -11,6 +11,7 @@ export const tokens = createTokens({
     silver: '#EDEDED',
     silverDark: '#D6D6D6',
     white: '#FFFFFF',
+    beige: '#FCF0E3'
   },
   radius: {
     $true: 12,
