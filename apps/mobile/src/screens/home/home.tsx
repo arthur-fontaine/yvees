@@ -21,19 +21,19 @@ export function HomeScreen() {
   if (isCameraOpen && hasPermissionToUseCamera) {
     return (
       <DefaultLayout>
-        <CameraView
+        <CameraView 
           barcodeScannerSettings={{
             barcodeTypes: ['qr', 'pdf417'],
           }}
           facing="back"
-          onBarcodeScanned={handleBarCodeScanned}
+          onBarcodeScanned={handleBarCodeScanned}  
           style={{ flex: 1 }}
         >
           <Button
             onClick={allowToScanAgain}
             variant="primary"
           >
-            Scan again
+            Annuler
           </Button>
         </CameraView>
       </DefaultLayout>
@@ -44,17 +44,11 @@ export function HomeScreen() {
     <DefaultLayout>
       <Card
         action={{
-          onClick: () => {
-            requestPermissionToUseCamera().then((permission) => {
-              if (permission.granted) {
-                openCamera()
-              }
-            })
-          },
-          text: 'Scanner votre QR code',
+          onClick: () => {},
+          text: 'Commencer',
         }}
-        text="Vous vous apprêtez à visiter un musée ? Demandez à l’accueil si ils prennent en charge les Yvees afin de rendre votre visite plus attractive !"
-        title="Rejoignez une session"
+        text="Yvees est votre guide personnel pour cette visite ! Pilotez-le, trouvez les QR Codes situez en-dessous des oeuvres du musée, et scannez les avec la caméra de votre Yvees. Des informations complémentaires apparaîtront sur votre téléphone."
+        title="Pilotez votre Yvees"
         variant="default"
       />
     </DefaultLayout>

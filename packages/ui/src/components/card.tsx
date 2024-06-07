@@ -21,10 +21,9 @@ export const Card = withVariants<
 >(
   {
     $defaults: {
-      backgroundColor: '#FFFBF5',
+      backgroundColor: '$$backgroundColor',
       borderRadius: 28,
       borderWidth: 0,
-      boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
       cursor: 'pointer',
       flexDirection: 'column',
       fontSize: '$button',
