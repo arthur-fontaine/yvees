@@ -11,13 +11,10 @@ import { useErrorHandling } from '../hook/use-error-handle'
  */
 export function SignIn() {
   const { isLoaded, setActive, signIn } = useSignIn()
-
     const {
     emailAddress,
-    handleEmailChange,
-    handlePasswordChange,
     password,
-    setShowPassword,
+    setFormValue,
     showPassword,
   } = useAuthForm()
 
@@ -47,7 +44,6 @@ export function SignIn() {
         identifier: emailAddress,
         password,
       })
-      // This is an important step,
       // This indicates the user is signed in
       await setActive({ session: completeSignIn.createdSessionId })
     }
@@ -67,7 +63,7 @@ export function SignIn() {
         <Input
           autoCapitalize="none"
           error={emailError || signInError}
-          onChangeText={handleEmailChange}
+          onChangeText={text => setFormValue('emailAddress', text)}
           placeholder="Email..."
           value={emailAddress}
           variant="default"
@@ -79,10 +75,10 @@ export function SignIn() {
         <Input
           action={{
           icon: showPassword ? Icon.EyeOff : Icon.Eye,
-          onClick: () => setShowPassword(!showPassword),
+          onClick: () => setFormValue('showPassword', !showPassword),
           }}
           error={passwordError || signInError}
-          onChangeText={handlePasswordChange}
+          onChangeText={text => setFormValue('password', text)}
           placeholder="Password..."
           secureTextEntry={showPassword}
           value={password}

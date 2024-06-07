@@ -1,35 +1,30 @@
 import { useSignUp } from '@clerk/clerk-expo'
-import React, { useRef, useState } from 'react'
-import type { RefObject } from 'react'
+import React from 'react'
 import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
-import type { TextInput } from 'react-native'
-import type { Input as TamaguiInput } from 'tamagui'
 import { Button, Icon, Input, OtpInput, Title1 } from 'ui'
+
+import { useAuthForm } from '../hook/use-auth-forms'
 
 /**
  *  Sign up component.
  */
 export function SignUp() {
   const { isLoaded, setActive, signUp } = useSignUp()
+  const {
+    codes,
+    confirmPassword,
+    emailAddress,
+    firstName,
+    handleCodeChange,
+    password,
+    pendingVerification,
+    refs,
+    setFormValue,
+    showConfPassword,
+    showPassword,
+  } = useAuthForm()
 
-  const [firstName, setFirstName] = React.useState('')
-  const [emailAddress, setEmailAddress] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const [showPassword, setShowPassword] = React.useState(true)
-  const [confirmPassword, setConfirmPassword] = React.useState('')
-  const [showConfPassword, setShowConfPassword] = React.useState(true)
-  const [pendingVerification, setPendingVerification] = React.useState(false)
-
-  const [codes, setCodes] = useState<string[] | undefined>(Array(6).fill(''))
-  const refs: RefObject<TextInput>[] = [
-    useRef<TamaguiInput>(null),
-    useRef<TamaguiInput>(null),
-    useRef<TamaguiInput>(null),
-    useRef<TamaguiInput>(null),
-    useRef<TamaguiInput>(null),
-    useRef<TamaguiInput>(null),
-  ]
-  const [errorMessages, setErrorMessages] = useState<string[]>()
+  const [errorMessages, setErrorMessages] = React.useState<string[]>()
 
   // start the sign up process.
   const onSignUpPress = async () => {
@@ -45,23 +40,10 @@ export function SignUp() {
       })
 
       await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
-      setPendingVerification(true)
+      setFormValue('pendingVerification', true)
     }
  catch (err: any) {
       console.error(JSON.stringify(err, undefined, 2))
-    }
-  }
-
-  const onChangeCode = (text: string, index: number) => {
-    if (text.length > 1) {
-      return
-    }
-    setErrorMessages(undefined)
-    const newCodes = [...codes!]
-    newCodes[index] = text
-    setCodes(newCodes)
-    if (text !== '' && index < 5) {
-      refs[index + 1]!.current?.focus()
     }
   }
 
@@ -73,7 +55,7 @@ export function SignUp() {
 
     try {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
-        code: codes?.join(''),
+        code: codes.join(''),
       })
       await setActive({ session: completeSignUp.createdSessionId })
     }
@@ -85,7 +67,6 @@ export function SignUp() {
   return (
     <View>
       {!pendingVerification && (
-
         <View style={styles.container}>
           <View marginBottom={24}>
             <Title1 iconLeft={Icon.LogIn} variant="default">
@@ -93,51 +74,45 @@ export function SignUp() {
             </Title1>
           </View>
           <Input
-            onChangeText={firstName => setFirstName(firstName)}
+            onChangeText={text => setFormValue('firstName', text)}
             placeholder="First Name..."
             value={firstName}
             variant="default"
-          >
-          </Input>
+          />
           <View>
             <Input
               autoCapitalize="none"
-              onChangeText={email => setEmailAddress(email)}
+              onChangeText={text => setFormValue('emailAddress', text)}
               placeholder="Email... "
               value={emailAddress}
               variant="default"
-            >
-            </Input>
+            />
           </View>
           <View>
             <Input
               action={{
-              icon: showPassword ? Icon.EyeOff : Icon.Eye,
-              onClick: () => setShowPassword(!showPassword),
+                icon: showPassword ? Icon.EyeOff : Icon.Eye,
+                onClick: () => setFormValue('showPassword', !showPassword),
               }}
-              onChangeText={password => setPassword(password)}
+              onChangeText={text => setFormValue('password', text)}
               placeholder="Password... "
               secureTextEntry={showPassword}
               value={password}
               variant="default"
-            >
-            </Input>
+            />
           </View>
           <View>
             <Input
               action={{
-              icon: showConfPassword ? Icon.EyeOff : Icon.Eye,
-              onClick: () => setShowConfPassword(!showConfPassword),
+                icon: showConfPassword ? Icon.EyeOff : Icon.Eye,
+                onClick: () => setFormValue('showConfPassword', !showConfPassword),
               }}
-              onChangeText={
-                confirmPassword => setConfirmPassword(confirmPassword)
-              }
+              onChangeText={text => setFormValue('confirmPassword', text)}
               placeholder="Confirm password... "
               secureTextEntry={showConfPassword}
               value={confirmPassword}
               variant="default"
-            >
-            </Input>
+            />
           </View>
           <Button onClick={onSignUpPress} variant="primary">Inscription</Button>
         </View>
@@ -151,9 +126,9 @@ export function SignUp() {
               par mail a l’adresse suivante:
             </Text>
             <OtpInput
-              codes={codes!}
+              codes={codes}
               errorMessages={errorMessages}
-              onChangeCode={onChangeCode}
+              onChangeCode={handleCodeChange}
               refs={refs}
             />
             <Button onClick={onPressVerify} variant="primary">Verify Email</Button>
