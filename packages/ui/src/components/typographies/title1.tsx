@@ -6,7 +6,7 @@ import { withVariants } from '../../utils/with-variants'
 import type { Icon } from '../icon/icon'
 
 interface H1Props {
-  children?: string
+  children?: string | undefined;
   color?: string
   iconColor?: string
   iconLeft?: typeof Icon[keyof typeof Icon] | undefined
@@ -59,8 +59,8 @@ export const Title1 = withVariants<
           flexDirection="row"
           fontFamily="$title"
           fontSize="$title1"
-          fontWeight="$title1"
-          lineHeight="$title1"
+          fontfamily={'MontserratAlternates-black'}
+          fontWeight={800}
           unstyled
         >
           {children}
