@@ -12,4 +12,5 @@ export const lightTheme: Theme = {
   secondaryButtonBackground: tokens.color.silver,
   secondaryButtonHoverBackground: tokens.color.silverDark,
   secondaryButtonTextColor: tokens.color.black,
+  backgroundColor: tokens.color.beige,
 }

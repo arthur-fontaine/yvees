@@ -11,4 +11,5 @@ type ThemeKeys =
   | 'secondaryButtonBackground'
   | 'secondaryButtonHoverBackground'
   | 'secondaryButtonTextColor'
+  |  'backgroundColor'
 export type Theme = Record<ThemeKeys, Variable | number | string>
