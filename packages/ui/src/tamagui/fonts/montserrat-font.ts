@@ -23,6 +23,7 @@ export const montserratFont = createFont({
     caption: 12,
   },
   size: {
+    body: 16,
     button: 16,
     caption: 12,
   },

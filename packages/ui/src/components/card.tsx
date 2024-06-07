@@ -44,11 +44,10 @@ export const Card = withVariants<
       >
         <Title1 variant="default">{title}</Title1>
         <Paragraph
-          fontSize="12"
-          fontfamily="Montserrat-Regular"
+          fontFamily="$body"
+          fontSize="$body"
           paddingBottom={24}
           paddingTop={8}
-          theme="alt2"
         >
           {text}
         </Paragraph>
