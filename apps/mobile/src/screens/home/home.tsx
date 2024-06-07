@@ -45,10 +45,10 @@ export function HomeScreen() {
       <Card
         action={{
           onClick: () => {},
-          text: 'Commencer',
+          text: 'Scanner un QR Code',
         }}
-        text="Yvees est votre guide personnel pour cette visite ! Pilotez-le, trouvez les QR Codes situez en-dessous des oeuvres du musée, et scannez les avec la caméra de votre Yvees. Des informations complémentaires apparaîtront sur votre téléphone."
-        title="Pilotez votre Yvees"
+        text="Vous vous apprêtez à visiter un musée ? Demandez à l’accueil si ils prennent en charge les Yvees afin de rendre votre visite plus attractive !"
+        title="Rejoignez une session"
         variant="default"
       />
     </DefaultLayout>
