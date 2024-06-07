@@ -4,6 +4,7 @@ import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'reac
 import { Button, Icon, Input, OtpInput, Title1 } from 'ui'
 
 import { useAuthForm } from '../hook/use-auth-forms'
+import { useErrorHandling } from '../hook/use-error-handle'
 
 /**
  *  Sign up component.
@@ -24,10 +25,26 @@ export function SignUp() {
     showPassword,
   } = useAuthForm()
 
-  const [errorMessages, setErrorMessages] = React.useState<string[]>()
+    const {
+    confirmPasswordError,
+    emailError,
+    handleSignUpError,
+    otpError,
+    passwordError,
+    signError,
+    validate2Password,
+    validateEmail,
+    validateOtp,
+    validatePassword,
+  } = useErrorHandling()
+
+  // const [errorMessages, setErrorMessages] = React.useState<string[]>()
 
   // start the sign up process.
   const onSignUpPress = async () => {
+    validatePassword(password)
+    validate2Password(password, confirmPassword)
+    validateEmail(emailAddress)
     if (!isLoaded) {
       return
     }
@@ -43,12 +60,13 @@ export function SignUp() {
       setFormValue('pendingVerification', true)
     }
  catch (err: any) {
-      console.error(JSON.stringify(err, undefined, 2))
+      handleSignUpError()
     }
   }
 
   // This verifies the user using email code that is delivered.
   const onPressVerify = async () => {
+    validateOtp(codes.join(''))
     if (!isLoaded) {
       return
     }
@@ -82,6 +100,7 @@ export function SignUp() {
           <View>
             <Input
               autoCapitalize="none"
+              error={emailError || signError}
               onChangeText={text => setFormValue('emailAddress', text)}
               placeholder="Email... "
               value={emailAddress}
@@ -94,6 +113,7 @@ export function SignUp() {
                 icon: showPassword ? Icon.EyeOff : Icon.Eye,
                 onClick: () => setFormValue('showPassword', !showPassword),
               }}
+              error={passwordError || signError}
               onChangeText={text => setFormValue('password', text)}
               placeholder="Password... "
               secureTextEntry={showPassword}
@@ -107,6 +127,7 @@ export function SignUp() {
                 icon: showConfPassword ? Icon.EyeOff : Icon.Eye,
                 onClick: () => setFormValue('showConfPassword', !showConfPassword),
               }}
+              error={confirmPasswordError || signError}
               onChangeText={text => setFormValue('confirmPassword', text)}
               placeholder="Confirm password... "
               secureTextEntry={showConfPassword}
@@ -127,11 +148,11 @@ export function SignUp() {
             </Text>
             <OtpInput
               codes={codes}
-              errorMessages={errorMessages}
+              error={otpError}
               onChangeCode={handleCodeChange}
               refs={refs}
             />
-            <Button onClick={onPressVerify} variant="primary">Verify Email</Button>
+            <Button onClick={onPressVerify} variant="primary">Verify Code</Button>
           </View>
         </TouchableWithoutFeedback>
       )}

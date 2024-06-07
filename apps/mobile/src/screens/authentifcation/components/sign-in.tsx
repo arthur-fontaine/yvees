@@ -22,7 +22,7 @@ export function SignIn() {
     emailError,
     handleSignInError,
     passwordError,
-    signInError,
+    signError,
     validateEmail,
     validatePassword,
   } = useErrorHandling()
@@ -48,7 +48,7 @@ export function SignIn() {
       await setActive({ session: completeSignIn.createdSessionId })
     }
  catch (err) {
-      handleSignInError(err)
+      handleSignInError()
     }
   }
 
@@ -62,7 +62,7 @@ export function SignIn() {
       <View>
         <Input
           autoCapitalize="none"
-          error={emailError || signInError}
+          error={emailError || signError}
           onChangeText={text => setFormValue('emailAddress', text)}
           placeholder="Email..."
           value={emailAddress}
@@ -77,7 +77,7 @@ export function SignIn() {
           icon: showPassword ? Icon.EyeOff : Icon.Eye,
           onClick: () => setFormValue('showPassword', !showPassword),
           }}
-          error={passwordError || signInError}
+          error={passwordError || signError}
           onChangeText={text => setFormValue('password', text)}
           placeholder="Password..."
           secureTextEntry={showPassword}

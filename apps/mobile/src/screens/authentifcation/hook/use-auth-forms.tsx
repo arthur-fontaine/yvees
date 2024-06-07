@@ -28,14 +28,19 @@ export function useAuthForm() {
     showPassword: true,
   })
 
-  const refs = useRef<RefObject<TamaguiInput>[]>(Array(6).fill(null).map(() => useRef<TamaguiInput>(null)))
+  const refs = useRef<RefObject<TamaguiInput>[]>(
+    Array(6).fill(undefined).map(() => useRef<TamaguiInput>(null)),
+)
 
-  const setFormValue = useCallback((key: keyof AuthFormState, value: any) => {
+  const setFormValue = useCallback(
+    (key: keyof AuthFormState, value: boolean | string | string[]) => {
     setFormState(prevState => ({
       ...prevState,
       [key]: value,
     }))
-  }, [])
+  },
+[],
+)
 
   const handleCodeChange = useCallback((text: string, index: number) => {
     if (text.length > 1) {
