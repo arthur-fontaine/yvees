@@ -15,6 +15,7 @@ export const tokens = createTokens({
   radius: {
     $true: 12,
     mediumSizedElement: 12,
+    smallSiezdElement: 8,
   },
   size: {
     $true: 10, // TODO: adjust this value
