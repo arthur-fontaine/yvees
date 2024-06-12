@@ -17,7 +17,9 @@
     "agrume": "^2.0.0-beta.5",
     "diabolo": "npm:@jsr/arthur-fontaine__diabolo@^1.4.0",
     "expo": "^51.0.8",
+    "expo-localization": "^15.0.3",
     "expo-status-bar": "~1.12.1",
+    "i18n-js": "^4.4.3",
     "react": "18.2.0",
     "react-native": "0.74.1",
     "ui": "workspace:*"
