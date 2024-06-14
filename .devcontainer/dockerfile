@@ -12,6 +12,7 @@ RUN curl https://pkgx.sh | sh
 # Install packages
 RUN pkgx install \
     bun@1.1 \
-    node
+    node \
+    bore.pub
 
 ENV PATH="~/.bun/bin:${PATH}"

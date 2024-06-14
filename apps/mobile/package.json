@@ -7,16 +7,16 @@
     "dev:build-dry": "mkdir -p node_modules/.prebuild-rn",
     "dev:build-transform": "babel src --out-dir node_modules/.prebuild-rn --extensions .ts,.js,.tsx,.jsx,.cjs,.mjs --watch",
     "dev:expo": "expo start --tunnel",
-    "dev:agrume": "agrume --tunnel --watch",
+    "dev:agrume": "agrume --tunnel bore --watch",
     "dev": "run-p dev:*"
   },
   "dependencies": {
-    "@agrume/server": "^2.0.0-beta.12",
+    "@agrume/server": "^2.0.0-beta.15",
     "@badrap/valita": "^0.3.8",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
     "@tamagui/card": "^1.100.0",
-    "agrume": "^2.0.0-beta.2",
+    "agrume": "^2.0.0-beta.5",
     "diabolo": "npm:@jsr/arthur-fontaine__diabolo@^1.4.0",
     "expo": "^51.0.8",
     "expo-camera": "^15.0.10",
@@ -30,6 +30,6 @@
     "@babel/core": "^7.20.0",
     "@expo/ngrok": "^4.1.3",
     "@types/react": "~18.2.45",
-    "babel-preset-agrume": "2.0.0-beta.3"
+    "babel-preset-agrume": "2.0.0-beta.6"
   }
 }
