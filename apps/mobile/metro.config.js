@@ -45,6 +45,13 @@ config.resolver.resolveRequest = (context, /** @type string */moduleName, platfo
     };
   }
 
+  if (moduleName.startsWith('diabolo')) {
+    return {
+      filePath: require.resolve(moduleName),
+      type: "sourceFile"
+    }
+  }
+
   return context.resolveRequest(context, moduleName, platform)
 }
 

@@ -1,6 +1,18 @@
+import { createRoute } from 'agrume'
+import * as DI from 'diabolo'
 import type { BarcodeScanningResult } from 'expo-camera'
 import { useCameraPermissions } from 'expo-camera'
 import { useCallback, useRef, useState } from 'react'
+
+import { carIdSchema } from '../../../schemas/car-id'
+import { joinSessionService } from '../../../services/join-session-service/join-session-service'
+import { useCarEvents } from '../../../shared/hooks/use-car-events'
+import { serverImpls } from '../../../utils/server-impls'
+
+const joinSession = createRoute(DI.provide(function* (carId: string) {
+  const { joinSession } = yield * DI.requireService(joinSessionService)
+  return joinSession(carId)
+}, serverImpls))
 
 /**
  * A hook to control the scan screen.
@@ -12,15 +24,23 @@ export function useScanController() {
 
   const scanned = useRef(false)
 
+  const { registerCarEventsIterator } = useCarEvents()
+
   const handleBarCodeScanned = useCallback(
-    (scanningResult: BarcodeScanningResult) => {
+    async (scanningResult: BarcodeScanningResult) => {
       if (scanned.current) {
         return
       }
-      scanned.current = true
 
-      // eslint-disable-next-line no-console
-      console.log('ta mere elle me scan', scanningResult) // Do something with the scanning result other than logging it
+      const r = carIdSchema.try(scanningResult.data)
+      if (!r.ok) {
+        return
+      }
+
+      scanned.current = true
+      const carEventsIterator = await joinSession(r.value)
+
+      registerCarEventsIterator(carEventsIterator)
     },
     [],
   )
