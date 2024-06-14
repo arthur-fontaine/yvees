@@ -3,6 +3,7 @@ import { createTokens } from 'tamagui'
 export const tokens = createTokens({
   color: {
     beige: '#FCF0E3',
+    beigeLight: '#FFFBF5',
     black: '#000000',
     brown: '#410000',
     orange: '#E47B0C',

@@ -1,8 +1,9 @@
 import { CameraView } from 'expo-camera'
+import { LinearGradient } from 'expo-linear-gradient'
 import React, { useCallback, useEffect, useRef } from 'react'
 import type { LayoutChangeEvent } from 'react-native'
 import { Animated, Easing, useAnimatedValue, useWindowDimensions } from 'react-native'
-import { getToken } from 'tamagui'
+import { getToken, useTheme } from 'tamagui'
 import { Box, Button, Card, Icon } from 'ui'
 
 import { useScanController } from '../hooks/use-scan-controller'
@@ -26,6 +27,9 @@ export function JoinCard() {
   } = useCardsAnimation({
     isCameraOpen,
   })
+
+  const cardBackgroundColor = useTheme().cardBackgroundColor.val
+  console.log({ cardBackgroundColor })
 
   return (
     <Box>
@@ -68,6 +72,19 @@ export function JoinCard() {
               facing="back"
               onBarcodeScanned={handleBarCodeScanned}
               style={{ flex: 1 }}
+            />
+            <LinearGradient
+              colors={[`${cardBackgroundColor}00`, `${cardBackgroundColor}FF`]}
+              end={{ x: 0, y: 1 }}
+              locations={[0, 0.68]}
+              start={{ x: 0, y: 0 }}
+              style={{
+                bottom: 0,
+                height: 260,
+                left: 0,
+                position: 'absolute',
+                right: 0,
+              }}
             />
             <Box bottom={0} left={0} margin="$card" position="absolute" right={0}>
               <Button

@@ -20,6 +20,7 @@
     "diabolo": "npm:@jsr/arthur-fontaine__diabolo@^1.4.0",
     "expo": "^51.0.8",
     "expo-camera": "^15.0.10",
+    "expo-linear-gradient": "^13.0.2",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
     "react-native": "0.74.1",

@@ -23,7 +23,7 @@ export const Card = withVariants<
 >(
   {
     $defaults: {
-      backgroundColor: '#FFFBF5',
+      backgroundColor: '$cardBackgroundColor',
       borderRadius: '$card',
       flexDirection: 'column',
       padding: '$card',
