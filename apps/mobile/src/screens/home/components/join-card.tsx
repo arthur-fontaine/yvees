@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef } from 'react'
 import type { LayoutChangeEvent } from 'react-native'
 import { Animated, Easing, useAnimatedValue, useWindowDimensions } from 'react-native'
 import { getToken } from 'tamagui'
-import { Box, Button, Card } from 'ui'
+import { Box, Button, Card, Icon } from 'ui'
 
 import { useScanController } from '../hooks/use-scan-controller'
 
@@ -40,6 +40,7 @@ export function JoinCard() {
             onClick: openCamera,
             text: 'Scanner votre QR code',
           }}
+          icon={Icon.QrCode}
           text="Vous vous apprêtez à visiter un musée ? Demandez à l’accueil si ils prennent en charge les Yvees afin de rendre votre visite plus attractive !"
           title="Rejoignez une session"
           variant="default"
