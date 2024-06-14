@@ -7,7 +7,7 @@ import { useCallback, useRef, useState } from 'react'
  */
 export function useScanController() {
   const [isCameraOpen, setIsCameraOpen] = useState(false)
-  const [hasPermissionToUseCamera, requestPermissionToUseCamera]
+  const [, requestPermissionToUseCamera]
     = useCameraPermissions()
 
   const scanned = useRef(false)
@@ -18,25 +18,30 @@ export function useScanController() {
         return
       }
       scanned.current = true
-      console.log('ta mere elle me scan', scanningResult)
+
+      // eslint-disable-next-line no-console
+      console.log('ta mere elle me scan', scanningResult) // Do something with the scanning result other than logging it
     },
     [],
   )
 
   const openCamera = useCallback(() => {
-    setIsCameraOpen(true)
-  }, [])
+    requestPermissionToUseCamera().then((permission) => {
+      if (permission.granted) {
+        setIsCameraOpen(true)
+      }
+    })
+  }, [requestPermissionToUseCamera])
 
-  const allowToScanAgain = useCallback(() => {
+  const closeCamera = useCallback(() => {
     scanned.current = false
+    setIsCameraOpen(false)
   }, [])
 
   return {
-    allowToScanAgain,
+    closeCamera,
     handleBarCodeScanned,
-    hasPermissionToUseCamera: hasPermissionToUseCamera?.granted ?? false,
     isCameraOpen,
     openCamera,
-    requestPermissionToUseCamera,
   }
 }
