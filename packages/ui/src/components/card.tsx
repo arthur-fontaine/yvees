@@ -22,15 +22,9 @@ export const Card = withVariants<
   {
     $defaults: {
       backgroundColor: '#FFFBF5',
-      borderRadius: 28,
-      borderWidth: 0,
-      boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-      cursor: 'pointer',
+      borderRadius: '$card',
       flexDirection: 'column',
-      fontSize: '$button',
-      fontWeight: '$button',
-      margin: 9,
-      padding: 36,
+      padding: '$card',
     },
     default: {
     },
