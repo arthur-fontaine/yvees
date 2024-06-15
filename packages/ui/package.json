@@ -26,8 +26,11 @@
     "dev": "bun run build --watch"
   },
   "dependencies": {
+    "@tamagui/animations-react-native": "^1.100.5",
     "@tamagui/babel-plugin": "^1.99.1",
+    "@tamagui/card": "^1.100.0",
     "@tamagui/lucide-icons": "^1.99.1",
+    "@tamagui/sheet": "^1.100.5",
     "@tamagui/vite-plugin": "^1.99.1",
     "babel-plugin-transform-inline-environment-variables": "^0.4.4",
     "diabolo": "npm:@jsr/arthur-fontaine__diabolo@^1.4.0",
