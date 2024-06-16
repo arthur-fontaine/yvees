@@ -1,34 +1,57 @@
-import { createRoute } from 'agrume'
 import React from 'react'
-import { Button, Icon, Input, ThemeProvider } from 'ui'
+import { ThemeProvider } from 'ui'
 
-const hello = createRoute(async () => {
-  return 'Hello, world!'
-})
+import { Authentification } from './screens/login/authentification'
+import { Sidebar } from './shared/components/sidebar'
+import { useRoute } from './utils/router'
 
 /**
  * App component.
  */
 export function App() {
-  return (
-    <ThemeProvider theme="light">
-      <Button
-        icon={Icon.Heart}
-        onClick={() => hello().then(console.log)}
-        variant="primary"
-      >
-        Click me
-      </Button>
+  const route = useRoute(['login', 'data', 'journey', 'robot'])
 
-      <Input
-        action={{
-          icon: Icon.BrandGoogle,
-          onClick: () => console.log('Search clicked'),
-        }}
-        error="This is an error"
-        icon={Icon.Search}
-        variant="default"
-      />
-    </ThemeProvider>
-  )
+  switch (route?.name) {
+    case 'login': {
+      return (
+        <ThemeProvider theme="light">
+          <Authentification />
+        </ThemeProvider>
+      )
+    }
+    case 'data': {
+      return (
+        <ThemeProvider theme="light">
+          <Sidebar />
+          <div className="pl-36">Data</div>
+        </ThemeProvider>
+      )
+    }
+
+    case 'journey': {
+      return (
+        <ThemeProvider theme="light">
+          <Sidebar />
+          <div className="pl-36">journey</div>
+        </ThemeProvider>
+      )
+    }
+
+    case 'robot': {
+      return (
+        <ThemeProvider theme="light">
+          <Sidebar />
+          <div className="pl-36">robot</div>
+        </ThemeProvider>
+      )
+    }
+
+    default: {
+      return (
+        <ThemeProvider theme="light">
+          <div>Not found</div>
+        </ThemeProvider>
+      )
+    }
+  }
 }
