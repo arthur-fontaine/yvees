@@ -44,7 +44,7 @@
         "explorer.fileNesting.patterns": {
           ".env": "*.env, .env.*, .envrc, env.d.ts",
           ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
-          "package.json": "bun.lockb, eslint*, tsconfig.*, turbo.json, app.json, *.config.js, *.config.ts, bunfig.toml"
+          "package.json": "eslint*, tsconfig.*, turbo.json, app.json, *.config.js, *.config.ts, pnpm-lock.yaml, pnpm-workspace.yaml, .npmrc"
         },
         "terminal.integrated.defaultProfile.osx": "zsh",
         "terminal.integrated.defaultProfile.linux": "zsh",

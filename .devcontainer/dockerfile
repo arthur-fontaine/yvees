@@ -11,7 +11,6 @@ RUN curl https://pkgx.sh | sh
 
 # Install packages
 RUN pkgx install \
-    bun@1.1 \
-    node
-
-ENV PATH="~/.bun/bin:${PATH}"
+    node@20 \
+    pnpm.io@9.4.0 \
+    bore.pub
