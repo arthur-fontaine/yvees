@@ -52,7 +52,8 @@
       },
       "extensions": [
         "dbaeumer.vscode-eslint",
-        "mhutchie.git-graph"
+        "mhutchie.git-graph",
+        "kylpo.vscode-find-in-files-with-selection"
       ]
     }
   }
