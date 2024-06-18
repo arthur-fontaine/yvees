@@ -32,19 +32,6 @@ config.resolver.resolveRequest = (context, /** @type string */moduleName, platfo
     };
   }
 
-  // This is a workaround to prevent `"Invalid hook call"` error when starting the app
-  // There was two React instances imported:
-  //   - "../../node_modules/react-native/node_modules/react/cjs/react.development.js" (18.2.0)
-  //   - "../../node_modules/react/cjs/react.development.js" (18.2.0)
-  // The following code will force the use of the second one. This may be a temporary solution because
-  // the error may be caused by Bun installing React in `node_modules/react-native` instead of using the one in `node_modules/react`.
-  if (moduleName.endsWith("react.development.js")) {
-    return {
-      filePath: path.resolve(workspaceRoot, 'node_modules/react/cjs/react.development.js'),
-      type: "sourceFile"
-    };
-  }
-
   if (moduleName.startsWith('diabolo')) {
     return {
       filePath: require.resolve(moduleName),
