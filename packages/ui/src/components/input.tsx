@@ -23,7 +23,6 @@ interface InputProps {
 /**
  * Input component.
  */
-// eslint-disable-next-line ts/naming-convention
 export const Input = withVariants<
   'default',
   GetProps<typeof TamaguiView>

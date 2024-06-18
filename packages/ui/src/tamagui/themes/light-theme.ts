@@ -2,6 +2,8 @@ import type { Theme } from './theme'
 import { tokens } from '../tokens'
 
 export const lightTheme: Theme = {
+  backgroundColor: tokens.color.beige,
+  cardBackgroundColor: tokens.color.beigeLight,
   defaultSeparatorColor: tokens.color.orangeLight,
   defaultTitleIconColor: tokens.color.orange,
   defaultTitleTextColor: tokens.color.brown,

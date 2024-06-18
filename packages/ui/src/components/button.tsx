@@ -13,7 +13,6 @@ interface ButtonProps {
   onClick?: (() => void) | undefined
 }
 
-// eslint-disable-next-line ts/naming-convention
 export const Button = withVariants<
   'primary' | 'secondary',
   GetProps<typeof TamaguiButton>
@@ -23,7 +22,6 @@ export const Button = withVariants<
       borderRadius: '$mediumSizedElement',
       borderWidth: 0,
       cursor: 'pointer',
-      fontFamily: '$body',
       fontSize: '$button',
       fontWeight: '$button',
       padding: '$normal',

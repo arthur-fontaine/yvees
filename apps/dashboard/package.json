@@ -7,9 +7,9 @@
     "dev": "vite --host"
   },
   "dependencies": {
-    "@agrume/plugin": "2.0.0-beta.9",
+    "@agrume/plugin": "^2.0.2",
     "@tamagui/vite-plugin": "^1.99.1",
-    "agrume": "2.0.0-beta.5",
+    "agrume": "^2.0.0",
     "diabolo": "npm:@jsr/arthur-fontaine__diabolo@^1.4.0",
     "react": "18.2.0",
     "react-dom": "^18.2.0",

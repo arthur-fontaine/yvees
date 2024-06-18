@@ -1,4 +1,7 @@
 {
   "extends": "@tsconfig/strictest/tsconfig.json",
+  "compilerOptions": {
+    "preserveSymlinks": true
+  },
   "exclude": ["*.config.*", "dist"]
 }

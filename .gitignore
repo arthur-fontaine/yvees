@@ -176,3 +176,6 @@ dist
 
 # Turbo
 .turbo
+
+# Pnpm
+.pnpm-store/
