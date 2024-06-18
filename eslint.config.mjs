@@ -1,9 +1,14 @@
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import antfu from '@antfu/eslint-config'
 import perfectionistPlugin from 'eslint-plugin-perfectionist'
 import filenamePlugin from 'eslint-plugin-filename-rules'
 import fpPlugin from 'eslint-plugin-fp'
 import useEncapsulationPlugin from 'eslint-plugin-use-encapsulation'
 import * as regexpPlugin from 'eslint-plugin-regexp'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export default antfu(
   {
@@ -18,6 +23,10 @@ export default antfu(
         'ts/no-import-type-side-effects': 'error',
         'ts/no-use-before-define': 'off',
         'ts/no-namespace': 'off',
+      },
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: ['./tsconfig.json', './apps/*/tsconfig.json', './packages/*/tsconfig.json'],
       },
     },
     stylistic: {
