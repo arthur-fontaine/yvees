@@ -1,5 +1,5 @@
 import type { UnionToIntersection } from './union-to-intersection'
-import type tamaguiConfig from '../tamagui.config'
+import type tamaguiConfig from '../tamagui/tamagui.config'
 
 export type TamaguiConfig = typeof tamaguiConfig
 

@@ -20,7 +20,7 @@ export function getTamaguiConfigPath() {
     process.cwd(),
     path.resolve(
       path.dirname(resolve(`${packageJson.name}/package.json`)),
-      'src/tamagui.config.ts',
+      'src/tamagui/tamagui.config.ts',
     ),
   )
 }

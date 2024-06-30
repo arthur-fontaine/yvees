@@ -3,7 +3,7 @@ import process from 'node:process'
 import { tamaguiExtractPlugin, tamaguiPlugin } from '@tamagui/vite-plugin'
 
 import { getTamaguiConfigPath } from './utils/get-tamagui-config-path'
-import { tamaguiConfig } from '../tamagui.config'
+import { tamaguiConfig } from '../tamagui/tamagui.config'
 
 const tamaguiOptions: Parameters<typeof tamaguiPlugin>[0] = {
   ...tamaguiConfig.themeConfig,
