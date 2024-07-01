@@ -7,7 +7,6 @@ body,
   height: 100vh;
   overflow-y: scroll;
   background-color: #ececec;
-  display: flex;
 }
 
 @layer base {
