@@ -7,7 +7,7 @@ process.env.TAMAGUI_TARGET = 'native'
 /**
  * The UI plugin for Babel.
  */
-export function ui() {
+export function ui(env: 'native' | 'web') {
   return [
     [
       'transform-inline-environment-variables',
@@ -19,7 +19,7 @@ export function ui() {
       '@tamagui/babel-plugin',
       {
         components: ['tamagui', 'ui/components', 'ui/theme'],
-        config: getTamaguiConfigPath(),
+        config: getTamaguiConfigPath(env),
         logTimings: true,
       },
     ],

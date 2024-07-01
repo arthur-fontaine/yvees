@@ -12,6 +12,6 @@ module.exports = function (api) {
   api.cache(true);
   return {
     presets: ['babel-preset-agrume', 'babel-preset-expo'],
-    plugins: [...ui()],
+    plugins: [...ui('native')],
   };
 };

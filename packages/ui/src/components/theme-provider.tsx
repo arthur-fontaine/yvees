@@ -2,7 +2,7 @@ import React from 'react'
 import type { ThemeName } from 'tamagui'
 import { TamaguiProvider, Theme } from 'tamagui'
 
-import { tamaguiConfig } from '../tamagui/tamagui.config'
+import { tamaguiConfig } from '../tamagui/configs/tamagui-web-config'
 
 interface ThemeProviderProps extends React.PropsWithChildren {
   theme?: ThemeName

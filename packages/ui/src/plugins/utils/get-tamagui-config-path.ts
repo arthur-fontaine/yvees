@@ -7,7 +7,7 @@ import packageJson from '../../../package.json'
 /**
  * Get the path to the tamagui config file.
  */
-export function getTamaguiConfigPath() {
+export function getTamaguiConfigPath(env: 'native' | 'web') {
   let resolve
   if (typeof __filename === 'undefined') {
     resolve = createRequire(import.meta.url).resolve
@@ -20,7 +20,7 @@ export function getTamaguiConfigPath() {
     process.cwd(),
     path.resolve(
       path.dirname(resolve(`${packageJson.name}/package.json`)),
-      'src/tamagui/tamagui.config.ts',
+      `src/tamagui/configs/tamagui-${env}-config.ts`,
     ),
   )
 }

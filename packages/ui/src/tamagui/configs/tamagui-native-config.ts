@@ -1,11 +1,11 @@
 import '../types/tamagui.js'
 
 import { createAnimations } from '@tamagui/animations-react-native'
-import type { CreateTamaguiProps } from 'tamagui'
+import { createTamagui } from 'tamagui'
 
 import { sharedTamaguiConfig } from './tamagui-shared-config.js'
 
-export const nativeTamaguiConfig = {
+export const tamaguiConfig = createTamagui({
   ...sharedTamaguiConfig,
   animations: createAnimations({
     fast: {
@@ -23,4 +23,4 @@ export const nativeTamaguiConfig = {
       stiffness: 60,
     },
   }),
-} satisfies CreateTamaguiProps
+})

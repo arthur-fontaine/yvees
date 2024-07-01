@@ -1,10 +1,10 @@
 import '../types/tamagui.js'
 
-import type { CreateTamaguiProps } from 'tamagui'
+import { createTamagui } from 'tamagui'
 
 import { sharedTamaguiConfig } from './tamagui-shared-config.js'
 
-export const webTamaguiConfig = {
+export const tamaguiConfig = createTamagui({
   ...sharedTamaguiConfig,
   // TODO: Add animations
-} satisfies CreateTamaguiProps
+})
