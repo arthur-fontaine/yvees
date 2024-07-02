@@ -19,7 +19,7 @@ export function Sidebar() {
   };
 
   return (
-    <div className="fixed bg-orangeLight h-full w-38 p-2 flex flex-col">
+    <div className="fixed bg-orangeLight h-full w-40 p-2 flex flex-col">
       <div className="pt-12">
         <SidebarButton
           icon={<Icon.BarChart4 color="$orange" size={24} />}

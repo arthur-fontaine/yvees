@@ -5,6 +5,7 @@ import { Authentification } from "./screens/login/authentification";
 import { Sidebar } from "./shared/components/sidebar";
 import { useRoute } from "./utils/router";
 import { useClerk } from "@clerk/clerk-react";
+import { Journey } from "./screens/journey/journey";
 
 /**
  * App component.
@@ -25,7 +26,7 @@ export function App() {
         return (
           <ThemeProvider theme="light">
             <Sidebar />
-            <div className="pl-44">Data</div>
+            <div className="pl-40">Data</div>
           </ThemeProvider>
         );
       }
@@ -34,7 +35,7 @@ export function App() {
         return (
           <ThemeProvider theme="light">
             <Sidebar />
-            <div className="pl-44">journey</div>
+            <div className="pl-40"><Journey/></div>
           </ThemeProvider>
         );
       }
@@ -43,7 +44,7 @@ export function App() {
         return (
           <ThemeProvider theme="light">
             <Sidebar />
-            <div className="pl-44">robot</div>
+            <div className="pl-40">robot</div>
           </ThemeProvider>
         );
       }
