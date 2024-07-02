@@ -26,8 +26,6 @@ export const Card = withVariants<
       borderWidth: 0,
       cursor: 'pointer',
       flexDirection: 'column',
-      fontSize: '$button',
-      fontWeight: '$button',
       margin: 9,
       padding: 36,
     },

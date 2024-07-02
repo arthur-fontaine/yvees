@@ -1,7 +1,7 @@
 import { CameraView } from 'expo-camera'
 import React from 'react'
-import { Button, Card } from 'ui'
-
+import { Button, Card, ThemeProvider, Sheet } from 'ui'
+import { Text } from 'react-native'
 import { useScanController } from './hooks/use-scan-controller'
 import { DefaultLayout } from '../../layouts/default-layout'
 
@@ -21,7 +21,7 @@ export function HomeScreen() {
   if (isCameraOpen && hasPermissionToUseCamera) {
     return (
       <DefaultLayout>
-        <CameraView 
+        <CameraView
           barcodeScannerSettings={{
             barcodeTypes: ['qr', 'pdf417'],
           }}
@@ -42,15 +42,22 @@ export function HomeScreen() {
 
   return (
     <DefaultLayout>
-      <Card
-        action={{
-          onClick: () => {},
-          text: 'Scanner un QR Code',
-        }}
-        text="Vous vous apprêtez à visiter un musée ? Demandez à l’accueil si ils prennent en charge les Yvees afin de rendre votre visite plus attractive !"
-        title="Rejoignez une session"
-        variant="default"
-      />
+      <ThemeProvider>
+        <Card
+          action={{
+            onClick: () => {},
+            text: 'Scanner un QR Code',
+          }}
+          text="Vous vous apprêtez à visiter un musée ? Demandez à l’accueil si ils prennent en charge les Yvees afin de rendre votre visite plus attractive !"
+          title="Rejoignez une session"
+          variant="default"
+        />
+      </ThemeProvider>
+      <Sheet>
+        <Text>
+          Tres beau tableau
+        </Text>
+      </Sheet>
     </DefaultLayout>
   )
 }

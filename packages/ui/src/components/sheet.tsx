@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Sheet as TamaguiSheet } from 'tamagui'
-import { useState, useEffect } from 'react'
-
 
 interface SheetProps {
     children?: string
-    open?: boolean;
+    open?: boolean
 }
 
-export const Sheet = ({ children, open: _open = false }: SheetProps) => {
-
+/**
+ *
+ */
+export function Sheet({ children, open: _open = true }: SheetProps) {
     const [position, setPosition] = useState(0)
     const [open, setOpen] = useState(_open)
     const snapPoints = [85, 50, 25]
@@ -17,20 +17,21 @@ export const Sheet = ({ children, open: _open = false }: SheetProps) => {
     useEffect(() => { setOpen(_open) }, [_open])
 
     return (
-        <>
-            <TamaguiSheet
-                open={open}
-            >
-                <TamaguiSheet.Overlay
-                    unstyled
-                />
+      <>
+        <TamaguiSheet
+          open={open}
+        >
+          <TamaguiSheet.Overlay
+            unstyled
+          />
 
-                <TamaguiSheet.Handle />
-                <TamaguiSheet.Frame
-                    unstyled>
-                    {children}
-                </TamaguiSheet.Frame>
-            </TamaguiSheet>
-        </>
+          <TamaguiSheet.Handle />
+          <TamaguiSheet.Frame
+            unstyled
+          >
+            {children}
+          </TamaguiSheet.Frame>
+        </TamaguiSheet>
+      </>
     )
 }
