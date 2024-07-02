@@ -1,0 +1,11 @@
+{
+  "name": "db",
+  "exports": {
+    ".": "./src/db.ts",
+    "./schema": "./src/schema/schema.ts"
+  },
+  "types": "./src",
+  "dependencies": {
+    "drizzle-orm": "^0.31.2"
+  }
+}
