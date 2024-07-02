@@ -13,9 +13,8 @@ interface ButtonProps {
   onClick?: (() => void) | undefined
 }
 
-// eslint-disable-next-line ts/naming-convention
 export const Button = withVariants<
-  'primary' | 'secondary',
+  'empty' | 'primary' | 'secondary',
   GetProps<typeof TamaguiButton>
 >(
   {
@@ -27,6 +26,12 @@ export const Button = withVariants<
       fontSize: '$button',
       fontWeight: '$button',
       padding: '$normal',
+    },
+    empty: {
+      backgroundColor: 'transparent',
+      hoverStyle: {
+        backgroundColor: 'transparent',
+      },
     },
     primary: {
       backgroundColor: '$primaryButtonBackground',
