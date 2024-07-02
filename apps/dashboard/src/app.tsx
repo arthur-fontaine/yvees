@@ -1,61 +1,60 @@
-import React from 'react'
-import { ThemeProvider } from 'ui'
+import React from "react";
+import { ThemeProvider } from "ui";
 
-import { Authentification } from './screens/login/authentification'
-import { Sidebar } from './shared/components/sidebar'
-import { useRoute } from './utils/router'
+import { Authentification } from "./screens/login/authentification";
+import { Sidebar } from "./shared/components/sidebar";
+import { useRoute } from "./utils/router";
 import { useClerk } from "@clerk/clerk-react";
-
 
 /**
  * App component.
  */
 export function App() {
-  const route = useRoute(['login', 'data', 'journey', 'robot'])
+  const route = useRoute(["login", "data", "journey", "robot"]);
   const { session } = useClerk();
 
-  if(session?.status !== "active") {
+  if (session?.status !== "active") {
     return (
       <ThemeProvider theme="light">
         <Authentification />
       </ThemeProvider>
-    )
-  }else { 
+    );
+  } else {
     switch (route?.name) {
-      case 'data': {
+      case "data": {
         return (
           <ThemeProvider theme="light">
             <Sidebar />
-            <div className="pl-36">Data</div>
+            <div className="pl-44">Data</div>
           </ThemeProvider>
-        )
+        );
       }
 
-      case 'journey': {
+      case "journey": {
         return (
           <ThemeProvider theme="light">
             <Sidebar />
-            <div className="pl-36">journey</div>
+            <div className="pl-44">journey</div>
           </ThemeProvider>
-        )
+        );
       }
 
-      case 'robot': {
+      case "robot": {
         return (
           <ThemeProvider theme="light">
             <Sidebar />
-            <div className="pl-36">robot</div>
+            <div className="pl-44">robot</div>
           </ThemeProvider>
-        )
+        );
       }
 
       default: {
         return (
           <ThemeProvider theme="light">
             <Sidebar />
-            <div className="pl-36">Not found</div>
+            <div className="pl-44">Not found</div>
           </ThemeProvider>
-        )
+        );
       }
     }
   }
