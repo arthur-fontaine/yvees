@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Card } from 'ui';
+import React, { useState } from 'react'
+import { Card } from 'ui'
 // import { createRoute } from 'agrume';
 
-import { DefaultLayout } from '../../layouts/default-layout';
+import { DefaultLayout } from '../../layouts/default-layout'
 
 // const getSessionPage = createRoute(
 //   async () => {},
@@ -11,13 +11,16 @@ import { DefaultLayout } from '../../layouts/default-layout';
 //   }
 // );
 
+/**
+ *
+ */
 export function SessionAuto() {
-  const [displayCard, setDisplayCard] = useState(true);
+  const [displayCard, setDisplayCard] = useState(true)
 
     return (
       <DefaultLayout>
         {displayCard && (
-          <Card 
+          <Card
             action={{
               onClick: () => setDisplayCard(false),
               text: 'Commencer',
@@ -28,5 +31,5 @@ export function SessionAuto() {
           />
         )}
       </DefaultLayout>
-    );
+    )
 }

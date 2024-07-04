@@ -3,19 +3,18 @@ import type { GetProps } from 'tamagui'
 import { Paragraph, Card as TamaguiCard } from 'tamagui'
 
 import { Button } from './button'
+import type { Icon } from './icon/icon'
 import { Title1 } from './typographies/title1'
 import { withVariants } from '../utils/with-variants'
-import type { Icon } from './icon/icon'
-
 
 interface CardProps {
   action?: {
     onClick: () => void
     text: string
   }
+  icon?: typeof Icon[keyof typeof Icon] | undefined
   text?: string | undefined
   title?: string | undefined
-  icon?: typeof Icon[keyof typeof Icon] | undefined
 }
 
 export const Card = withVariants<
@@ -30,8 +29,8 @@ export const Card = withVariants<
       cursor: 'pointer',
       flexDirection: 'column',
       margin: 9,
-      padding: 36,
       overflow: 'hidden',
+      padding: 36,
     },
     default: {
     },

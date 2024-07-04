@@ -6,7 +6,7 @@ import { withVariants } from '../../utils/with-variants'
 import type { Icon } from '../icon/icon'
 
 interface H1Props {
-  children?: string | undefined;
+  children?: string | undefined
   color?: string
   iconColor?: string
   iconLeft?: typeof Icon[keyof typeof Icon] | undefined
@@ -16,7 +16,7 @@ interface H1Props {
 /**
  * Title component.
  */
-// eslint-disable-next-line ts/naming-convention
+
 export const Title1 = withVariants<
   'default',
   GetProps<typeof TamaguiView>
@@ -59,8 +59,8 @@ export const Title1 = withVariants<
           flexDirection="row"
           fontFamily="$title"
           fontSize="$title1"
-          fontfamily={'MontserratAlternates-black'}
           fontWeight={800}
+          fontfamily="MontserratAlternates-black"
           unstyled
         >
           {children}

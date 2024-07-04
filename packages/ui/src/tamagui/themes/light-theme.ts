@@ -2,6 +2,7 @@ import type { Theme } from './theme'
 import { tokens } from '../tokens'
 
 export const lightTheme: Theme = {
+  backgroundColor: tokens.color.beige,
   defaultSeparatorColor: tokens.color.orangeLight,
   defaultTitleIconColor: tokens.color.orange,
   defaultTitleTextColor: tokens.color.brown,
@@ -12,5 +13,4 @@ export const lightTheme: Theme = {
   secondaryButtonBackground: tokens.color.silver,
   secondaryButtonHoverBackground: tokens.color.silverDark,
   secondaryButtonTextColor: tokens.color.black,
-  backgroundColor: tokens.color.beige,
 }

@@ -1,6 +1,7 @@
 import { CameraView } from 'expo-camera'
 import React from 'react'
-import { Button, Card, ThemeProvider, Sheet, Icon } from 'ui'
+import { Button, Card, Icon, Sheet, ThemeProvider } from 'ui'
+
 import { useScanController } from './hooks/use-scan-controller'
 import { DefaultLayout } from '../../layouts/default-layout'
 
@@ -25,7 +26,7 @@ export function HomeScreen() {
             barcodeTypes: ['qr', 'pdf417'],
           }}
           facing="back"
-          onBarcodeScanned={handleBarCodeScanned}  
+          onBarcodeScanned={handleBarCodeScanned}
           style={{ flex: 1 }}
         >
           <Button
@@ -48,13 +49,13 @@ export function HomeScreen() {
             onClick: () => {},
             text: 'Scanner un QR Code',
           }}
+          icon={Icon.QrCode}
           text="Vous vous apprêtez à visiter un musée ? Demandez à l’accueil si ils prennent en charge les Yvees afin de rendre votre visite plus attractive !"
           title="Rejoignez une session"
-          icon={Icon.QrCode}
           variant="default"
         />
       </ThemeProvider>
-      <Sheet title={'Historique'}>
+      <Sheet title="Historique">
       </Sheet>
     </DefaultLayout>
   )

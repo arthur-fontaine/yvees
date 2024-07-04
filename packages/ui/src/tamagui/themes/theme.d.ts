@@ -1,6 +1,7 @@
 import type { Variable } from 'tamagui'
 
 type ThemeKeys =
+  | 'backgroundColor'
   | 'defaultSeparatorColor'
   | 'defaultTitleIconColor'
   | 'defaultTitleTextColor'
@@ -11,5 +12,4 @@ type ThemeKeys =
   | 'secondaryButtonBackground'
   | 'secondaryButtonHoverBackground'
   | 'secondaryButtonTextColor'
-  |  'backgroundColor'
 export type Theme = Record<ThemeKeys, Variable | number | string>
