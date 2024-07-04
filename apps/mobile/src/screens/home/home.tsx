@@ -1,7 +1,6 @@
 import { CameraView } from 'expo-camera'
 import React from 'react'
-import { Button, Card, ThemeProvider, Sheet } from 'ui'
-import { Text } from 'react-native'
+import { Button, Card, ThemeProvider, Sheet, Icon } from 'ui'
 import { useScanController } from './hooks/use-scan-controller'
 import { DefaultLayout } from '../../layouts/default-layout'
 
@@ -43,6 +42,7 @@ export function HomeScreen() {
   return (
     <DefaultLayout>
       <ThemeProvider>
+
         <Card
           action={{
             onClick: () => {},
@@ -50,13 +50,11 @@ export function HomeScreen() {
           }}
           text="Vous vous apprêtez à visiter un musée ? Demandez à l’accueil si ils prennent en charge les Yvees afin de rendre votre visite plus attractive !"
           title="Rejoignez une session"
+          icon={Icon.QrCode}
           variant="default"
         />
       </ThemeProvider>
-      <Sheet>
-        <Text>
-          Tres beau tableau
-        </Text>
+      <Sheet title={'Historique'}>
       </Sheet>
     </DefaultLayout>
   )
