@@ -15,7 +15,7 @@ interface SheetProps {
 export function Sheet({ children, open: _open = true, title }: SheetProps) {
     const [position, setPosition] = useState(0)
     const [open, setOpen] = useState(_open)
-    const snapPoints = [55, 10]
+    const snapPoints = [70, 10]
 
     useEffect(() => { setOpen(_open) }, [_open])
 

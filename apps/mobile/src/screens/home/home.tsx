@@ -55,8 +55,6 @@ export function HomeScreen() {
           variant="default"
         />
       </ThemeProvider>
-      <Sheet title="Historique">
-      </Sheet>
     </DefaultLayout>
   )
 }
