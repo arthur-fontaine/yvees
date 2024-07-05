@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@tamagui/babel-plugin": "^1.99.1",
+    "@tamagui/card": "^1.100.0",
     "@tamagui/helpers-icon": "1.100.6",
     "@tamagui/lucide-icons": "^1.99.1",
     "@tamagui/vite-plugin": "^1.99.1",
