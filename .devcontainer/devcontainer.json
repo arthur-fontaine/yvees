@@ -44,7 +44,7 @@
         "explorer.fileNesting.patterns": {
           ".env": "*.env, .env.*, .envrc, env.d.ts",
           ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
-          "package.json": "eslint*, tsconfig.*, turbo.json, app.json, *.config.js, *.config.ts, pnpm-lock.yaml, pnpm-workspace.yaml, .npmrc"
+          "package.json": "eslint*, tsconfig.*, turbo.json, app.json, app.config.ts, eas.json, *.config.js, *.config.ts, pnpm-lock.yaml, pnpm-workspace.yaml, .npmrc"
         },
         "terminal.integrated.defaultProfile.osx": "fish",
         "terminal.integrated.defaultProfile.linux": "fish",
