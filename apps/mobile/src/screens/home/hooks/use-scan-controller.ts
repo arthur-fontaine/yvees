@@ -7,12 +7,17 @@ import { useCallback, useRef, useState } from 'react'
 import { carIdSchema } from '../../../schemas/car-id'
 import { joinSessionService } from '../../../services/join-session-service/join-session-service'
 import { useCarEvents } from '../../../shared/hooks/use-car-events'
+import { agrumeSseClientForRn } from '../../../utils/agrume-sse-client-for-rn'
 import { serverImpls } from '../../../utils/server-impls'
 
-const joinSession = createRoute(DI.provide(function* (carId: string) {
-  const { joinSession } = yield * DI.requireService(joinSessionService)
-  return joinSession(carId)
-}, serverImpls))
+const joinSessionFn
+  = DI.provide(function* (carId: string) {
+    const { joinSession } = yield * DI.requireService(joinSessionService)
+    return joinSession(carId)
+  }, serverImpls)
+const joinSession = createRoute(joinSessionFn, {
+  getClient: agrumeSseClientForRn<typeof joinSessionFn>,
+})
 
 /**
  * A hook to control the scan screen.

@@ -29,7 +29,6 @@ export function JoinCard() {
   })
 
   const cardBackgroundColor = useTheme().cardBackgroundColor.val
-  console.log({ cardBackgroundColor })
 
   return (
     <Box>
