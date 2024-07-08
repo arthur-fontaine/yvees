@@ -10,7 +10,7 @@ interface ButtonProps {
   backgroundColor?: string
   children?: string
   icon?: typeof Icon[keyof typeof Icon] | undefined
-  onClick?: (() => void) | undefined
+  onClick?: GetProps<typeof TamaguiButton>['onPress']
 }
 
 export const Button = withVariants<

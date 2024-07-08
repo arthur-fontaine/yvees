@@ -1,8 +1,8 @@
-import * as React from "react";
-import { Button, Icon, Input } from "ui";
+import * as React from 'react'
+import { Button, Icon, Input } from 'ui'
 
-import pciture from "../../../../public/picture-login.png"; // Adjust the path as necessary
-import { useSignInForm } from "../hooks/use-sign-in"; // Adjust the path as necessary
+import pciture from '../../../../public/picture-login.png' // Adjust the path as necessary
+import { useSignInForm } from '../hooks/use-sign-in'
 /**
  *  Login screen for the user to sign in.
  */
@@ -14,7 +14,13 @@ export function SignInForm() {
     setFormValue,
     showPassword,
     signError,
-  } = useSignInForm();
+  } = useSignInForm()
+
+  const handlePasswordVisibilityToggle
+    = (event: { preventDefault: () => void }) => {
+      event.preventDefault()
+      setFormValue('showPassword', !showPassword)
+    }
 
   return (
     <div className="flex justify-center items-center h-full">
@@ -34,24 +40,24 @@ export function SignInForm() {
             <div className="flex flex-col gap-4">
               <Input
                 error={emailError || signError}
-                onChangeText={(text) => setFormValue("emailAddress", text)}
+                onChangeText={text => setFormValue('emailAddress', text)}
                 placeholder="E-mail..."
                 variant="outlined"
               />
               <Input
                 action={{
                   icon: showPassword ? Icon.EyeOff : Icon.Eye,
-                  onClick: () => setFormValue("showPassword", !showPassword),
+                  onClick: handlePasswordVisibilityToggle,
                 }}
                 error={passwordError || signError}
-                onChangeText={(text) => setFormValue("password", text)}
+                onChangeText={text => setFormValue('password', text)}
                 placeholder="Mot de passe..."
                 secureTextEntry={showPassword}
                 variant="outlined"
               />
             </div>
             <div className="flex justify-center mt-4 max-h-10 ">
-              <Button onClick={() => "sumbit"} variant="primary">
+              <Button onClick={() => 'sumbit'} variant="primary">
                 Connexion
               </Button>
             </div>
@@ -59,5 +65,5 @@ export function SignInForm() {
         </div>
       </div>
     </div>
-  );
+  )
 }

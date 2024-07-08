@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import type { GetProps } from 'tamagui'
 import { Input as TamaguiInput, View as TamaguiView } from 'tamagui'
 
@@ -10,7 +10,7 @@ import { withVariants } from '../utils/with-variants'
 interface InputProps {
   action?: {
     icon: typeof Icon[keyof typeof Icon]
-    onClick: () => void
+    onClick: GetProps<typeof Button>['onClick']
   }
   error?: false | string
   icon?: typeof Icon[keyof typeof Icon]
@@ -57,6 +57,11 @@ export const Input = withVariants<
   secureTextEntry,
   value,
 }: InputProps) => {
+  const onActionClick = useCallback((event: Parameters<NonNullable<GetProps<typeof Button>['onClick']>>[0]) => {
+    event.preventDefault()
+    action?.onClick?.(event)
+  }, [action])
+
   return (
     <TamaguiView
       {...variant}
@@ -90,7 +95,7 @@ export const Input = withVariants<
       {action && (
         <Button
           icon={action?.icon}
-          onClick={action?.onClick}
+          onClick={onActionClick}
           variant={variantName === 'outlined' ? 'empty' : 'secondary'}
         />
       )}
