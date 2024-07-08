@@ -7,7 +7,8 @@ import {
   TableHeader,
   TableRow,
 } from "../../../shared/components/ui/table"
-import { sayHello } from "../hooks/use-data-board"; 
+import { useFindMuseum } from "../hooks/use-data-board";
+import { useClerk } from "@clerk/clerk-react";
 
 
 const fakeData = [
@@ -16,8 +17,32 @@ const fakeData = [
   { nom: "Voyage C", id: "C003", etapes: 4, tempsMoyen: "3h", status: "Actif" },
 ];
 
+const fakeJourney = {
+  id: 1,
+  museumId: 1,
+  name: 'Test Journey',
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  draft: true,
+  averageVisitDuration: 120,
+  journeySteps: [
+    {
+      id: 1,
+      journeyId: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+  ],
+};
 export function JourneyTable(){
-    sayHello().then(console.log)
+  const session = useClerk()
+  const museumId = session.user?.organizationMemberships[0]?.organization.id
+  // console.log(session.user?.organizationMemberships[0]?.organization.id)
+  if (museumId) {
+    useFindMuseum(museumId)
+    // useInsertJourney({ clerkOrganizationId: museumId, journey: fakeJourney });
+  } 
+
     return (
     <Table>
         <TableHeader>

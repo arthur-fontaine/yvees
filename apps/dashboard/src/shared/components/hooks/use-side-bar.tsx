@@ -1,22 +1,17 @@
 /* eslint-disable ts/naming-convention */
 import { useEffect, useState } from 'react'
+import { useRoute } from '../../../utils/router'
 
 /**
  * Hook to manage the active button in the sidebar.
  */
 export function useSideBar(defaultButton = 'data') {
   const [activeButton, setActiveButton] = useState<string>(defaultButton)
+  const route = useRoute(["login", "data", "journeyhome", "journeycreate", "robot"]);
 
   useEffect(() => {
-    const currentPath = location.pathname
-    const pathMap: { [key: string]: string } = {
-      '/data': 'data',
-      '/journey': 'journey',
-      '/robot': 'robot',
-    }
-    const active = pathMap[currentPath] || 'data'
-    setActiveButton(active)
-  }, [location.pathname])
+    setActiveButton(route?.name || defaultButton)
+  }, [route?.name])
 
   return [activeButton, setActiveButton] as const
 }

@@ -10,11 +10,10 @@ import { useClerk } from "@clerk/clerk-react";
  * Sidebar component.
  */
 export function Sidebar() {
-  const [activeButton, setActiveButton] = useSideBar();
+  const [activeButton] = useSideBar();
   const { signOut } = useClerk();
 
-  const handleButtonClick = (buttonName: "data" | "journey" | "robot") => {
-    setActiveButton(buttonName);
+  const handleButtonClick = (buttonName: "data" | "robot" | "journeyhome") => {
     router.push(buttonName);
   };
 
@@ -35,9 +34,9 @@ export function Sidebar() {
         />
         <SidebarButton
           icon={<Icon.Waypoints color="$orange" size={24} />}
-          isActive={activeButton === "journey"}
+          isActive={activeButton === "journeyhome" || activeButton === "journeycreate"}
           label="Parcours"
-          onClick={() => handleButtonClick("journey")}
+          onClick={() => handleButtonClick("journeyhome")}
         />
       </div>
       <div className="flex-grow"></div>
