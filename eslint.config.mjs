@@ -92,6 +92,7 @@ export default antfu(
         allow: [],
         block: [],
       }],
+      'no-cond-assign': ['off']
     },
   },
   {
