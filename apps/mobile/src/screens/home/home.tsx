@@ -1,6 +1,6 @@
 import { CameraView } from 'expo-camera'
 import React from 'react'
-import { Button, Card, Icon, Sheet, ThemeProvider } from 'ui'
+import { Button, Card, Icon, ThemeProvider, Histories } from 'ui'
 
 import { useScanController } from './hooks/use-scan-controller'
 import { DefaultLayout } from '../../layouts/default-layout'
@@ -40,6 +40,12 @@ export function HomeScreen() {
     )
   }
 
+  const sampleHistories = [
+    { title: 'Visite 1', place: 'Paris', date: '2023-06-01', action: { onClick: () => console.log('Clicked'), text: 'Action 1' } },
+    { title: 'Visite 1', place: 'Paris', date: '2023-06-01', action: { onClick: () => console.log('Clicked'), text: 'Action 1' } },
+    { title: 'Visite 1', place: 'Paris', date: '2023-06-01', action: { onClick: () => console.log('Clicked'), text: 'Action 1' } },
+  ];
+    
   return (
     <DefaultLayout>
       <ThemeProvider>
@@ -55,6 +61,7 @@ export function HomeScreen() {
           variant="default"
         />
       </ThemeProvider>
+      <Histories histories={sampleHistories}/>
     </DefaultLayout>
   )
 }
