@@ -11,8 +11,9 @@ RUN curl https://pkgx.sh | sh
 
 # Install packages
 RUN pkgx install \
-    bun@1.1 \
-    node \
-    bore.pub
+    node@20 \
+    pnpm.io@9.4.0 \
+    bore.pub \
+    fish
 
-ENV PATH="~/.bun/bin:${PATH}"
+ENV fish_greeting ""
