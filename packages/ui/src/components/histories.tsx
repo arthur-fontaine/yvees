@@ -42,10 +42,10 @@ export const Histories = withVariants<
     return (
       <TamaguiListItem {...variant} unstyled>
 
-        <History size="5px"/>
+        <History size="$true"/>
         <Title1 variant="default">History</Title1>
 
-        <YGroup alignSelf="center" bordered width={240} size="5px" separator={<Separator />}>
+        <YGroup alignSelf="center" bordered width={240} size="$true" separator={<Separator />}>
           {histories.map((history, index) => (
             <YGroup.Item key={index}>
               <ListItem
