@@ -1,8 +1,11 @@
-import { createRouter } from '@swan-io/chicane'
+import { createGroup, createRouter } from '@swan-io/chicane'
 
 export const router = createRouter({
   data: '/data',
-  journey: '/journey',
+  ...createGroup("journey", "/journey", {
+    home: '/',
+    create: '/create',
+  }),
   login: '/login',
   robot: '/robot',
 })

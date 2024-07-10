@@ -11,7 +11,7 @@ import { Journey } from "./screens/journey/journey";
  * App component.
  */
 export function App() {
-  const route = useRoute(["login", "data", "journey", "robot"]);
+  const route = useRoute(["login", "data", "journeyhome", "journeycreate", "robot"]);
   const { session } = useClerk();
 
   if (session?.status !== "active") {
@@ -31,7 +31,8 @@ export function App() {
         );
       }
 
-      case "journey": {
+      case "journeyhome":
+      case "journeycreate": {
         return (
           <ThemeProvider theme="light">
             <Sidebar />
