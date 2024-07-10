@@ -3,6 +3,7 @@ import type { GetProps } from 'tamagui'
 import { Paragraph, Card as TamaguiCard } from 'tamagui'
 
 import { Button } from './button'
+import type { Icon } from './icon/icon'
 import { Title1 } from './typographies/title1'
 import { withVariants } from '../utils/with-variants'
 
@@ -11,6 +12,7 @@ interface CardProps {
     onClick: () => void
     text: string
   }
+  icon?: typeof Icon[keyof typeof Icon] | undefined
   text?: string | undefined
   title?: string | undefined
 }
@@ -21,21 +23,22 @@ export const Card = withVariants<
 >(
   {
     $defaults: {
-      backgroundColor: '$$backgroundColor',
-      borderRadius: 28,
+      backgroundColor: '$cardBackgroundColor',
+      borderRadius: '$card',
       borderWidth: 0,
       cursor: 'pointer',
       flexDirection: 'column',
-      fontSize: '$button',
-      fontWeight: '$button',
-      margin: 9,
-      padding: 36,
+      padding: '$card',
     },
     default: {
+      overflow: 'hidden',
     },
   },
 )(
-  ({ variant }, { action, text, title }: CardProps) => {
+  // eslint-disable-next-line ts/naming-convention
+  ({ variant }, { action, icon: Icon, text, title }: CardProps) => {
+    const ICON_SHIFT = 24
+
     return (
       <TamaguiCard
         {...variant}
@@ -52,6 +55,19 @@ export const Card = withVariants<
         </Paragraph>
 
         {action && <Button onClick={action.onClick} variant="primary">{action.text}</Button>}
+
+        {Icon && (
+          <Icon
+            bottom={-ICON_SHIFT}
+            color="$orange"
+            opacity={0.25}
+            position="absolute"
+            right={-ICON_SHIFT}
+            size={192}
+            strokeWidth={2.5}
+            zIndex={-1}
+          />
+        )}
       </TamaguiCard>
     )
   },

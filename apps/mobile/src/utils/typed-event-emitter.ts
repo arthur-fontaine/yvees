@@ -18,6 +18,10 @@ class ReturnedEmitter<Events extends Record<string, unknown>> {
    * Emit an event.
    */
   emit<Event extends keyof Events>(event: Event, args: Events[Event]) {
+    if (event !== '*') {
+      this.emit('*', { args, event } as never)
+    }
+
     if (!this.listeners[event]) {
       return
     }
@@ -28,16 +32,12 @@ class ReturnedEmitter<Events extends Record<string, unknown>> {
         this.off(event, listener.callback as never)
       }
     })
-
-    if (event !== '*') {
-      this.emit('*', { args, event } as never)
-    }
   }
 
   /**
    * Return a stream of events.
    */
-  *iterator<Event extends keyof Events>(
+  async *iterator<Event extends keyof Events>(
     event?: Event,
     signal?: AbortSignal,
   ) {
@@ -60,6 +60,8 @@ class ReturnedEmitter<Events extends Record<string, unknown>> {
           yield queue.shift()!
         }
       }
+
+      await new Promise<void>(resolve => setTimeout(resolve, 0))
     }
   }
 
