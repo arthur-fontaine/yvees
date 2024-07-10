@@ -1,6 +1,5 @@
 import { getTamaguiConfigPath } from './utils/get-tamagui-config-path'
 
-// @ts-expect-error Using dot notation works
 // eslint-disable-next-line node/prefer-global/process
 process.env.TAMAGUI_TARGET = 'native'
 

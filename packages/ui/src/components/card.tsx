@@ -25,6 +25,8 @@ export const Card = withVariants<
     $defaults: {
       backgroundColor: '$cardBackgroundColor',
       borderRadius: '$card',
+      borderWidth: 0,
+      cursor: 'pointer',
       flexDirection: 'column',
       padding: '$card',
     },

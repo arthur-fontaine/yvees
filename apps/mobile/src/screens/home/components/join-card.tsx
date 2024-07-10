@@ -28,7 +28,7 @@ export function JoinCard() {
     isCameraOpen,
   })
 
-  const cardBackgroundColor = useTheme().cardBackgroundColor.val
+  const cardBackgroundColor = useTheme().cardBackgroundColor?.val
 
   return (
     <Box>
