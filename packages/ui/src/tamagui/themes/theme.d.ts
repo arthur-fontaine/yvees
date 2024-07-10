@@ -1,6 +1,8 @@
 import type { Variable } from 'tamagui'
 
 type ThemeKeys =
+  | 'backgroundColor'
+  | 'cardBackgroundColor'
   | 'defaultSeparatorColor'
   | 'defaultTitleIconColor'
   | 'defaultTitleTextColor'

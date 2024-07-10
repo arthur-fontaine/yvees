@@ -24,7 +24,6 @@ interface InputProps {
 /**
  * Input component.
  */
-
 export const Input = withVariants<
   'default',
   GetProps<typeof TamaguiView>
