@@ -10,7 +10,7 @@ import { JourneyCard } from "../components/card-journey";
 export function JourneyList() {
   return (
     <>
-      <div className="bg-white h-screen p-10">
+      <div className="h-screen p-10">
         <div className="flex justify-between my-8">
           <h1 className="text-3xl font-bold">Liste des parcours en cours</h1>
           <Button

@@ -6,7 +6,6 @@ body,
 #root {
   height: 100vh;
   overflow-y: scroll;
-  background-color: #ececec;
 }
 
 @layer base {

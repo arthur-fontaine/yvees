@@ -23,7 +23,7 @@ export function SignInForm() {
     }
 
   return (
-    <div className="flex justify-center items-center h-full">
+    <div className="flex bg-gray-200 justify-center items-center h-full">
       <div className="flex bg-white p-10 rounded-md gap-10">
         <img alt="Logo" className="max-w-md rounded-md" src={pciture} />
         <div className="grid gap-4">

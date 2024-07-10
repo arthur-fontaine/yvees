@@ -2,6 +2,7 @@ import React from "react";
 import { useRoute } from "../../utils/router";
 import { JourneyList } from "./screens/list-journey";
 import { JourneyCreate } from "./screens/create-journey";
+import { ThemeProvider } from "ui";
 
 /**
  * Journey screen.
@@ -11,12 +12,16 @@ export function Journey() {
   switch (route?.name) {
     default: {
       return (
-        <JourneyList/>
+        <ThemeProvider theme="light">
+          <JourneyList/>
+        </ThemeProvider>
       );
     }
     case "journeycreate": {
       return (
+      <ThemeProvider theme="light">
         <JourneyCreate/>
+      </ThemeProvider>
       );
     }
   }
