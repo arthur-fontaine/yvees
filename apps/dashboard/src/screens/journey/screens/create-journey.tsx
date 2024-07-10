@@ -13,6 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from '../../../shared/components/ui/form'
+import { Input } from '../../../shared/components/ui/input'
 import { Textarea } from '../../../shared/components/ui/textarea'
 import { toast } from '../../../shared/components/ui/use-toast'
 
@@ -39,7 +40,9 @@ export function JourneyCreate() {
     toast({
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, undefined, 2)}</code>
+          <code className="text-white">
+            {JSON.stringify(data, undefined, 2)}
+          </code>
         </pre>
       ),
       title: 'You submitted the following values:',
@@ -47,38 +50,46 @@ export function JourneyCreate() {
   }
 
   return (
-    <div className="h-screen p-10">
-      <Form {...form}>
-        <h1 className="text-3xl font-bold">Création d'un parcours :</h1>
-        <form className="w-2/3 space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
-          <FormField
-            control={form.control}
-            name="bio"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Remplissez les différents champs :</FormLabel>
-                <FormControl>
-                  <Textarea
-                    className="resize-none"
-                    placeholder="Tell us a little bit about yourself"
-                    {...field}
-                  />
-
-                </FormControl>
-                <FormDescription>
-                  You can
-                  {' '}
-                  <span>@mention</span>
-                  {' '}
-                  other users and organizations.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit">Submit</Button>
-        </form>
-      </Form>
-    </div>
+    <>
+      <div className="h-screen p-10 ">
+        <h1 className="text-3xl font-bold my-8">Création d'un parcours :</h1>
+        <Form {...form}>
+          <form
+            className="w-2/3 space-y-6"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
+            <FormField
+              control={form.control}
+              name="bio"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Remplissez les différents champs :</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Nom du parcours.."
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormControl>
+                    <Textarea
+                      className="resize-none"
+                      placeholder="Description du parcours.."
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    You can
+                    <span>@mention</span>
+                    other users and organizations.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit">Submit</Button>
+          </form>
+        </Form>
+      </div>
+    </>
   )
 }

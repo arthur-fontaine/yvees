@@ -2,10 +2,11 @@ import type { Museum } from 'db'
 import type { Service } from 'diabolo'
 import { createService } from 'diabolo'
 
-
 export interface MuseumService extends Service<'museum', {
-    findMuseumById: (params: { clerkOrganizationId: string }) => Promise<Museum[] | null>,
-    createMuseum: (params: { museum: Museum }) => Promise<void>
-    }> {}
+  createMuseum: (params: { museum: Museum }) => Promise<void>
+  findMuseumById: (
+    params: { clerkOrganizationId: string }
+  ) => Promise<Museum[] | undefined>
+}> {}
 
 export const museumService = createService<MuseumService>('museum')
