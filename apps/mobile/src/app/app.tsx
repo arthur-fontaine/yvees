@@ -5,6 +5,7 @@ import { ThemeProvider } from 'ui'
 
 import { useInitialLoading } from './hooks/use-initial-loading'
 import { Navigator } from './navigator/navigator'
+import { CarEventsProvider } from '../shared/hooks/use-car-events'
 
 /**
  * Main application component.
@@ -19,7 +20,9 @@ export function App() {
   return (
     <View style={{ flex: 1 }}>
       <ThemeProvider theme="light">
-        <Navigator />
+        <CarEventsProvider>
+          <Navigator />
+        </CarEventsProvider>
       </ThemeProvider>
       <StatusBar style="auto" />
     </View>

@@ -18,25 +18,31 @@
   "main": "src/index.tsx",
   "types": "./src",
   "module:jsx": "src",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build:plugins": "tsup src/plugins/* --dts --format esm,cjs --outDir dist/plugins",
     "build:tamagui": "tamagui-build --skip-types",
-    "build": "bun run build:plugins && bun run build:tamagui",
-    "dev": "bun run build --watch"
+    "build": "run-s build:*",
+    "dev": "run-p \"build:* --watch\""
   },
   "dependencies": {
     "@tamagui/babel-plugin": "^1.99.1",
+    "@tamagui/card": "^1.100.0",
+    "@tamagui/helpers-icon": "1.100.6",
     "@tamagui/lucide-icons": "^1.99.1",
     "@tamagui/vite-plugin": "^1.99.1",
     "babel-plugin-transform-inline-environment-variables": "^0.4.4",
     "diabolo": "npm:@jsr/arthur-fontaine__diabolo@^1.4.0",
     "react": "18.2.0",
+    "react-native-svg": "^15.3.0",
     "tamagui": "^1.99.1"
   },
   "devDependencies": {
     "@tamagui/build": "^1.99.1",
     "@types/react": "^18.3.3",
-    "tsup": "^8.0.2"
+    "tsup": "^8.0.2",
+    "vite": "^5.2.0"
   }
 }

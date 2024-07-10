@@ -25,7 +25,6 @@ export function App() {
           icon: Icon.BrandGoogle,
           onClick: () => console.log('Search clicked'),
         }}
-        error="This is an error"
         icon={Icon.Search}
         variant="default"
       />

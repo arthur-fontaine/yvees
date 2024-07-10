@@ -1,12 +1,20 @@
-export type Language = 'en' | 'es' | 'fr'
+export type Language = 'fr'
 
 export type Translations = Record<
   Language,
   {
-    home: {
-      button: string
-      description: string
+    introductionPopup: {
+      text: string
       title: string
+    }
+    joinCard: {
+      scanQRCode: string
+      title: string
+      welcomeText: string
+    }
+    misc: {
+      close: string
+      start: string
     }
   }
 >

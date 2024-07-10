@@ -4,13 +4,13 @@ import { useCallback, useEffect, useState } from 'react'
 import type { Language } from '../../translations/translations-type'
 import { translate } from '../../utils/translate'
 
-const allowedLanguages: Language[] = ['en', 'es', 'fr']
+const allowedLanguages: Language[] = ['fr']
 
 /**
  *  Translates a key to the current language.
  */
 export function useTranslate() {
-  const [language, setLanguage] = useState<Language>('en') // default to 'en'
+  const [language, setLanguage] = useState<Language>('fr') // default to 'fr'
 
   useEffect(() => {
     const locales = Localization.getLocales()

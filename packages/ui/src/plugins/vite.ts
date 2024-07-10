@@ -1,6 +1,7 @@
 import process from 'node:process'
 
 import { tamaguiExtractPlugin, tamaguiPlugin } from '@tamagui/vite-plugin'
+import type { PluginOption } from 'vite'
 
 import { getTamaguiConfigPath } from './utils/get-tamagui-config-path'
 import { tamaguiConfig } from '../tamagui.config'
@@ -18,8 +19,9 @@ export function ui() {
     tamaguiPlugin(tamaguiOptions),
 
     // optional, adds the optimizing compiler:
-    process.env.NODE_ENV === 'production'
+    // eslint-disable-next-line dot-notation
+    process.env['NODE_ENV'] === 'production'
       ? tamaguiExtractPlugin(tamaguiOptions)
       : undefined,
-  ]
+  ] satisfies PluginOption
 }

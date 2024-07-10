@@ -1,3 +1,5 @@
+/* eslint-disable ts/no-explicit-any */
+
 import { I18n } from 'i18n-js'
 
 import { translations } from '../translations/translations'
@@ -22,8 +24,11 @@ export function translate<K extends TranslationKeys>(
 }
 
 type TranslationKeys<
-  _Translationobject extends Record<string, unknown> = Translations['en'],
+  /* eslint-disable ts/naming-convention */
+  // eslint-disable-next-line style/max-len
+  _TranslationObject extends Record<string, unknown> = Translations[keyof Translations],
   _Prefix extends string = '',
+/* eslint-enable ts/naming-convention */
 > = {
   [Key in keyof _TranslationObject]: Key extends number | string ?
     _TranslationObject[Key] extends Record<string, unknown> ?
@@ -34,8 +39,11 @@ type TranslationKeys<
 
 type TranslationValue<
   Key extends TranslationKeys,
+  /* eslint-disable ts/naming-convention */
   _Key extends string = Key,
-  _TranslationObject extends Record<string, any> = Translations['en'],
+  // eslint-disable-next-line style/max-len
+  _TranslationObject extends Record<string, any> = Translations[keyof Translations],
+/* eslint-enable ts/naming-convention */
 > = _Key extends `${infer Prefix}.${infer Rest}` ?
   TranslationValue<Key, Rest, _TranslationObject[Prefix]>
   : _Key extends keyof _TranslationObject ? _TranslationObject[_Key]
