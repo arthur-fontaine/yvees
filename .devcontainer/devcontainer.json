@@ -52,7 +52,8 @@
       },
       "extensions": [
         "dbaeumer.vscode-eslint",
-        "mhutchie.git-graph"
+        "mhutchie.git-graph",
+        "yy0931.vscode-sqlite3-editor"
       ]
     }
   }
