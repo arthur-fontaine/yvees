@@ -2,6 +2,8 @@ import React, { useCallback, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { Box, Card } from 'ui'
 
+import { useTranslate } from '../../../shared/hooks/use-translate'
+
 /**
  * The introduction popup component.
  */
@@ -12,6 +14,8 @@ export function IntroductionPopup() {
     screenHeight,
     screenWidth,
   } = useCardController()
+
+  const translate = useTranslate()
 
   return (
     cardDisplayed && (
@@ -27,10 +31,10 @@ export function IntroductionPopup() {
         <Card
           action={{
             onClick: closeCard,
-            text: 'Commencer',
+            text: translate('misc.start'),
           }}
-          text="Yvees est votre guide personnel pour cette visite ! Pilotez-le, trouvez les QR Codes situés en-dessous des oeuvres du musée, et scannez-les avec la caméra de votre Yvees. Des informations complémentaires apparaîtront sur votre téléphone."
-          title="Pilotez votre Yvees"
+          text={translate('introductionPopup.text')}
+          title={translate('introductionPopup.title')}
           variant="default"
         />
       </Box>

@@ -6,6 +6,7 @@ import { Animated, Easing, useAnimatedValue, useWindowDimensions } from 'react-n
 import { getToken, useTheme } from 'tamagui'
 import { Box, Button, Card, Icon } from 'ui'
 
+import { useTranslate } from '../../../shared/hooks/use-translate'
 import { useScanController } from '../hooks/use-scan-controller'
 
 /**
@@ -28,6 +29,8 @@ export function JoinCard() {
     isCameraOpen,
   })
 
+  const translate = useTranslate()
+
   const cardBackgroundColor = useTheme().cardBackgroundColor?.val
 
   return (
@@ -41,11 +44,11 @@ export function JoinCard() {
         <Card
           action={{
             onClick: openCamera,
-            text: 'Scanner votre QR code',
+            text: translate('joinCard.scanQRCode'),
           }}
           icon={Icon.QrCode}
-          text="Vous vous apprêtez à visiter un musée ? Demandez à l’accueil si ils prennent en charge les Yvees afin de rendre votre visite plus attractive !"
-          title="Rejoignez une session"
+          text={translate('joinCard.welcomeText')}
+          title={translate('joinCard.title')}
           variant="default"
         />
       </Animated.View>
@@ -90,7 +93,7 @@ export function JoinCard() {
                 onClick={closeCamera}
                 variant="primary"
               >
-                Fermer
+                {translate('misc.close')}
               </Button>
             </Box>
           </Box>
