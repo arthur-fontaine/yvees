@@ -1,8 +1,9 @@
-import React from "react";
-import { Button } from "../../../shared/components/ui/button";
-import { Icon } from "ui";
-import { router } from "../../../utils/router";
-import { JourneyCard } from "../components/card-journey";
+import React from 'react'
+import { Icon } from 'ui'
+
+import { Button } from '../../../shared/components/ui/button'
+import { router } from '../../../utils/router'
+import { JourneyCard } from '../components/card-journey'
 
 /**
  * Journey List screen.
@@ -14,8 +15,8 @@ export function JourneyList() {
         <div className="flex justify-between my-8">
           <h1 className="text-3xl font-bold">Liste des parcours en cours</h1>
           <Button
-            className={`gap-2 text-white hover:bg-white hover:text-orange hover:outline`}
-              onClick={() => router.push("journeycreate")}
+            className="gap-2 text-white hover:bg-white hover:text-orange hover:outline"
+            onClick={() => router.push('journeycreate')}
             variant="default"
           >
             Créer un parcours
@@ -25,5 +26,5 @@ export function JourneyList() {
         <JourneyCard />
       </div>
     </>
-  );
+  )
 }

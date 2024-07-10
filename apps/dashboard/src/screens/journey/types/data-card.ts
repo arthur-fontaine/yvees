@@ -1,18 +1,18 @@
 export interface JourneyStepSerialized {
-  id: number;
-  journeyId: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: string
+  id: number
+  journeyId: number
+  updatedAt: string
 }
 
 export interface JourneySerialized {
-  id: number;
-  museumId: number;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  updatedAt: string;
-  draft: boolean;
-  averageVisitDuration: number;
-  journeySteps: JourneyStepSerialized[];
+  averageVisitDuration: number
+  createdAt: string
+  description: null | string
+  draft: boolean
+  id: number
+  journeySteps: JourneyStepSerialized[]
+  museumId: number
+  name: string
+  updatedAt: string
 }
