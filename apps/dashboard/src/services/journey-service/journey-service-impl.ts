@@ -8,11 +8,10 @@ import type { Journey, JourneyStep } from 'db'
 
 export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
 
-  findJourneysStepsByMuseumId: async ({ clerkOrganizationId }) => {
+  findJourneysByMuseumId: async ({ clerkOrganizationId }) => {
     const [museum] = await db.query.museums.findMany({
       where: (museum, { eq }) => eq(museum.clerkOrganizationId, clerkOrganizationId),
     })
-    console.info("museum", museum)
     const museumId = museum?.id
   
     if (museumId === undefined) {
@@ -48,7 +47,6 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
         journeysMap.get(id)!.journeySteps.push(journeyStepData);
       }
     }
-
     return Array.from(journeysMap.values());
   },
   

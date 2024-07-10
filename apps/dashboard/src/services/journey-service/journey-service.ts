@@ -5,7 +5,7 @@ import { createService } from 'diabolo'
 
 export interface JourneyService extends Service<'journey', {
   findJourneysByMuseumId: (params: { clerkOrganizationId: string }) => Promise<
-    (({ averageVisitDuration: number, journeySteps: JourneyStep[] } & Journey)[] | null)
+    ({ averageVisitDuration: number, journeySteps: JourneyStep[] } & Journey)[]
   >,
   createJourneyByMuseumId: (params: { clerkOrganizationId: string, journey: Journey }) => Promise<void>
 }> { }
