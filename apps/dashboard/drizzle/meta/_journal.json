@@ -8,6 +8,13 @@
       "when": 1720529734998,
       "tag": "0000_tan_moondragon",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1720617592634,
+      "tag": "0001_tranquil_supernaut",
+      "breakpoints": true
     }
   ]
 }

@@ -11,6 +11,7 @@ export const journeys = sqliteTable('journeys', withTimestamps({
   id: integer('id').notNull().primaryKey(),
   museumId: integer('museum_id').notNull(),
   name: text('name').notNull(),
+  description: text('description'),
 }))
 
 export const journeysRelations = relations(journeys, ({ many, one }) => ({
