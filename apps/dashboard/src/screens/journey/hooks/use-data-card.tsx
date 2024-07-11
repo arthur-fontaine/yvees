@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 
 import { journeyService } from '../../../services/journey-service/journey-service'
 import { serverImpls } from '../../../utils/server-impls'
-// import { Journey } from 'db'
 import type { JourneySerialized } from '../types/data-card'
 
 export const getJourney = createRoute(
@@ -13,6 +12,7 @@ export const getJourney = createRoute(
     if (!clerkOrganizationId) {
       return []
     }
+    console.log('yolo')
     const { findJourneysByMuseumId } = yield * DI.requireService(journeyService)
     const journeys = await findJourneysByMuseumId({ clerkOrganizationId })
     return journeys?.map((journey) => {
@@ -31,14 +31,6 @@ export const getJourney = createRoute(
     }) ?? []
   }, serverImpls),
 )
-
-// const insertJourney = createRoute(
-//   DI.provide(async function* ({ clerkOrganizationId, journey }: { clerkOrganizationId: string, journey: Journey }) {
-//     const { createJourneyByMuseumId } = yield* DI.requireService(journeyService);
-//     await createJourneyByMuseumId({ clerkOrganizationId, journey });
-//     return { success: true };
-//   }, serverImpls)
-// );
 
 /**
  *  Hook to get the data for the journey card.
