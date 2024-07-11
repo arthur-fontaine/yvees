@@ -1,8 +1,8 @@
 import * as Localization from 'expo-localization'
 import { useCallback, useEffect, useState } from 'react'
 
+import { translate } from '../../shared/utils/translate'
 import type { Language } from '../../translations/translations-type'
-import { translate } from '../../utils/translate'
 
 const allowedLanguages: Language[] = ['fr']
 

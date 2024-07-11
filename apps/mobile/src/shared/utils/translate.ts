@@ -2,8 +2,8 @@
 
 import { I18n } from 'i18n-js'
 
-import { translations } from '../translations/translations'
-import type { Translations } from '../translations/translations-type'
+import { translations } from '../../translations/translations'
+import type { Translations } from '../../translations/translations-type'
 
 const i18n = new I18n(translations, {
   enableFallback: true,

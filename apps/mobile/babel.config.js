@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { ui } = require('ui/babel-rn');
 const { state } = require('@agrume/internals');
 

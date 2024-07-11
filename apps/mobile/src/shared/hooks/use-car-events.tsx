@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 
-import type { carEvent } from '../../events/car-event'
+import type { carEvent } from '../events/car-event'
 import type { GeneratorReturn } from '../../types/generator-return'
 
 type CarEventsIterator = AsyncGenerator<GeneratorReturn<ReturnType<typeof carEvent['iterator']>>>
