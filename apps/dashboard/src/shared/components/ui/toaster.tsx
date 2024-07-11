@@ -1,4 +1,5 @@
-import React from "react"
+import React from 'react'
+
 import {
   Toast,
   ToastClose,
@@ -6,15 +7,18 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from "./toast"
-import { useToast } from "./use-toast"
+} from './toast'
+import { useToast } from './use-toast'
 
+/**
+ * Toaster component.
+ */
 export function Toaster() {
   const { toasts } = useToast()
 
   return (
     <ToastProvider>
-      {toasts.map(function ({ id, title, description, action, ...props }) {
+      {toasts.map(({ action, description, id, title, ...props }) => {
         return (
           <Toast key={id} {...props}>
             <div className="grid gap-1">

@@ -17,7 +17,6 @@ export function JourneyList() {
           <Button
             className="gap-2 text-white hover:bg-white hover:text-orange hover:outline"
             onClick={() => router.push('journeycreate')}
-            variant="default"
           >
             Créer un parcours
             <Icon.Plus color="currentColor" size={24}></Icon.Plus>
