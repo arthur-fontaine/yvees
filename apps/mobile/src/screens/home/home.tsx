@@ -41,9 +41,13 @@ export function HomeScreen() {
   }
 
   const sampleHistories = [
-    { action: { onClick: () => console.log('Clicked'), text: 'Action 1' }, date: '2023-06-01', place: 'Paris', title: 'Visite 1' },
-    { action: { onClick: () => console.log('Clicked'), text: 'Action 1' }, date: '2023-06-01', place: 'Paris', title: 'Visite 1' },
-    { action: { onClick: () => console.log('Clicked'), text: 'Action 1' }, date: '2023-06-01', place: 'Paris', title: 'Visite 1' },
+    { action: { onClick: () => console.log('Clicked'), text: 'Action 1' }, date: 'Visité le 14 février 2024', place: 'Musée Grévin', title: 'Visite 1' },
+    { action: { onClick: () => console.log('Clicked'), text: 'Action 1' }, date: 'Visité le 14 février 2024', place: 'Musée Grévin', title: 'Visite 1' },
+    { action: { onClick: () => console.log('Clicked'), text: 'Action 1' }, date: 'Visité le 14 février 2024', place: 'Musée Grévin', title: 'Visite 1' },
+    { action: { onClick: () => console.log('Clicked'), text: 'Action 1' }, date: 'Visité le 14 février 2024', place: 'Musée Grévin', title: 'Visite 1' },
+    { action: { onClick: () => console.log('Clicked'), text: 'Action 1' }, date: 'Visité le 14 février 2024', place: 'Musée Grévin', title: 'Visite 1' },
+    { action: { onClick: () => console.log('Clicked'), text: 'Action 1' }, date: 'Visité le 14 février 2024', place: 'Musée Grévin', title: 'Visite 1' },
+    { action: { onClick: () => console.log('Clicked'), text: 'Action 1' }, date: 'Visité le 14 février 2024', place: 'Musée Grévin', title: 'Visite 1' },
   ]
 
   return (

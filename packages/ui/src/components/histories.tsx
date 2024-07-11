@@ -1,10 +1,11 @@
 import React from 'react';
 import type { GetProps } from 'tamagui';
-import { ListItem, Separator, YGroup } from 'tamagui';
+import { ListItem, YGroup, ScrollView, Paragraph } from 'tamagui';
 import { ChevronRight, History, Image } from '@tamagui/lucide-icons';
 import { ListItem as TamaguiListItem } from 'tamagui';
 import { Title1 } from './typographies/title1';
 import { withVariants } from '../utils/with-variants';
+import { View} from 'react-native';
 
 interface ItemProps {
   place?: string | undefined;
@@ -28,37 +29,40 @@ export const Histories = withVariants<
     $defaults: {
       backgroundColor: '$white',
       borderRadius: 28,
-      borderWidth: 0,
       cursor: 'pointer',
       flexDirection: 'column',
-      margin: 9,
-      overflow: 'hidden',
-      padding: 36,
+      padding: 32,
     },
     default: {},
   },
 )(
   ({ variant }, { histories }: HistoryProps) => {
     return (
-      <TamaguiListItem {...variant} unstyled>
+      <TamaguiListItem {...variant}>
 
-        <History size="$true"/>
-        <Title1 variant="default">History</Title1>
+        <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 8, alignSelf: 'flex-start'}}>
+          <History variant="primary" size="$4" color="orange" />
+          <Title1 variant="default">Historique</Title1>
+        </View>
 
-        <YGroup alignSelf="center" bordered width={240} size="$true" separator={<Separator />}>
-          {histories.map((history, index) => (
-            <YGroup.Item key={index}>
-              <ListItem
-                hoverTheme
-                pressTheme
-                title={history.place}
-                subTitle={history.date}
-                icon={Image}
-                iconAfter={ChevronRight}
-              />
-            </YGroup.Item>
-          ))}
-        </YGroup>
+        <ScrollView
+          maxHeight={350}
+          style={{ overflow: 'scroll', width: '110%' }}>
+            
+          <YGroup>
+            {histories.map((history, index) => (
+              <YGroup.Item key={index}>
+                <ListItem
+                  title={<Paragraph fontWeight="bold" >{history.place}</Paragraph>}
+                  subTitle={<Paragraph>{history.date}</Paragraph>}
+                  icon={<Image size="$5" color='orange' />}
+                  iconAfter={<ChevronRight color='orange'/>}
+                />
+              </YGroup.Item>
+            ))}
+          </YGroup>
+
+        </ScrollView>
       </TamaguiListItem>
     );
   }

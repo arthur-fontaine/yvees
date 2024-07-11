@@ -31,6 +31,8 @@ export const Card = withVariants<
       margin: 9,
       overflow: 'hidden',
       padding: 36,
+      marginVertical: 40,
+      marginHorizontal: 20,
     },
     default: {
     },
