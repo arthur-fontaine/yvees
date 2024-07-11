@@ -1,10 +1,11 @@
 import { useSignUp } from '@clerk/clerk-expo'
 import React from 'react'
 import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
-import { Button, Icon, Input, OtpInput, Title1 } from 'ui'
+import { Box, Button, Icon, Input, OtpInput, Title1 } from 'ui'
 
-import { useAuthForm } from '../hook/use-auth-forms'
-import { useErrorHandling } from '../hook/use-error-handle'
+import { useTranslate } from '../../../shared/hooks/use-translate'
+import { useAuthForm } from '../hooks/use-auth-forms'
+import { useErrorHandling } from '../hooks/use-error-handle'
 
 /**
  *  Sign up component.
@@ -25,7 +26,7 @@ export function SignUp() {
     showPassword,
   } = useAuthForm()
 
-    const {
+  const {
     confirmPasswordError,
     emailError,
     handleSignUpError,
@@ -38,7 +39,7 @@ export function SignUp() {
     validatePassword,
   } = useErrorHandling()
 
-  // const [errorMessages, setErrorMessages] = React.useState<string[]>()
+  const translate = useTranslate()
 
   // start the sign up process.
   const onSignUpPress = async () => {
@@ -59,7 +60,7 @@ export function SignUp() {
       await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
       setFormValue('pendingVerification', true)
     }
- catch (err: any) {
+    catch {
       handleSignUpError()
     }
   }
@@ -77,7 +78,7 @@ export function SignUp() {
       })
       await setActive({ session: completeSignUp.createdSessionId })
     }
- catch (err: any) {
+    catch (err) {
       console.error(JSON.stringify(err, undefined, 2))
     }
   }
@@ -86,56 +87,59 @@ export function SignUp() {
     <View>
       {!pendingVerification && (
         <View style={styles.container}>
-          <View marginBottom={24}>
+
+          <Box marginBottom={24}>
             <Title1 iconLeft={Icon.LogIn} variant="default">
-              Inscrivez-vous
+              {translate('authentication.signUp.title')}
             </Title1>
-          </View>
+          </Box>
+
           <Input
             onChangeText={text => setFormValue('firstName', text)}
-            placeholder="First Name..."
+            placeholder={`${translate('misc.firstName')}...`}
             value={firstName}
             variant="default"
           />
-          <View>
-            <Input
-              autoCapitalize="none"
-              error={emailError || signError}
-              onChangeText={text => setFormValue('emailAddress', text)}
-              placeholder="Email... "
-              value={emailAddress}
-              variant="default"
-            />
-          </View>
-          <View>
-            <Input
-              action={{
-                icon: showPassword ? Icon.EyeOff : Icon.Eye,
-                onClick: () => setFormValue('showPassword', !showPassword),
-              }}
-              error={passwordError || signError}
-              onChangeText={text => setFormValue('password', text)}
-              placeholder="Password... "
-              secureTextEntry={showPassword}
-              value={password}
-              variant="default"
-            />
-          </View>
-          <View>
-            <Input
-              action={{
-                icon: showConfPassword ? Icon.EyeOff : Icon.Eye,
-                onClick: () => setFormValue('showConfPassword', !showConfPassword),
-              }}
-              error={confirmPasswordError || signError}
-              onChangeText={text => setFormValue('confirmPassword', text)}
-              placeholder="Confirm password... "
-              secureTextEntry={showConfPassword}
-              value={confirmPassword}
-              variant="default"
-            />
-          </View>
-          <Button onClick={onSignUpPress} variant="primary">Inscription</Button>
+
+          <Input
+            autoCapitalize="none"
+            error={emailError || signError}
+            onChangeText={text => setFormValue('emailAddress', text)}
+            placeholder={`${translate('misc.email')}...`}
+            value={emailAddress}
+            variant="default"
+          />
+
+          <Input
+            action={{
+              icon: showPassword ? Icon.EyeOff : Icon.Eye,
+              onClick: () => setFormValue('showPassword', !showPassword),
+            }}
+            error={passwordError || signError}
+            onChangeText={text => setFormValue('password', text)}
+            placeholder={`${translate('misc.password')}...`}
+            secureTextEntry={showPassword}
+            value={password}
+            variant="default"
+          />
+
+          <Input
+            action={{
+              icon: showConfPassword ? Icon.EyeOff : Icon.Eye,
+              onClick: () => setFormValue('showConfPassword', !showConfPassword),
+            }}
+            error={confirmPasswordError || signError}
+            onChangeText={text => setFormValue('confirmPassword', text)}
+            placeholder={`${translate('authentication.signUp.confirmPassword')}...`}
+            secureTextEntry={showConfPassword}
+            value={confirmPassword}
+            variant="default"
+          />
+
+          <Button onClick={onSignUpPress} variant="primary">
+            {translate('misc.signUp')}
+          </Button>
+
         </View>
       )}
       {pendingVerification && (

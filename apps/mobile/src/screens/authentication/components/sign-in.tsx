@@ -1,17 +1,18 @@
 import { useSignIn } from '@clerk/clerk-expo'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Button, Icon, Input, Title1 } from 'ui'
+import { Box, Button, Icon, Input, Title1 } from 'ui'
 
-import { useAuthForm } from '../hook/use-auth-forms'
-import { useErrorHandling } from '../hook/use-error-handle'
+import { useTranslate } from '../../../shared/hooks/use-translate'
+import { useAuthForm } from '../hooks/use-auth-forms'
+import { useErrorHandling } from '../hooks/use-error-handle'
 
 /**
  * Sign in component.
  */
 export function SignIn() {
   const { isLoaded, setActive, signIn } = useSignIn()
-    const {
+  const {
     emailAddress,
     password,
     setFormValue,
@@ -26,6 +27,8 @@ export function SignIn() {
     validateEmail,
     validatePassword,
   } = useErrorHandling()
+
+  const translate = useTranslate()
 
   const onSignInPress = async () => {
     if (!isLoaded) {
@@ -47,52 +50,49 @@ export function SignIn() {
       // This indicates the user is signed in
       await setActive({ session: completeSignIn.createdSessionId })
     }
- catch (err) {
+    catch (err) {
       handleSignInError()
     }
   }
 
   return (
     <View style={styles.container}>
-      <View marginBottom={24}>
+      <Box marginBottom={24}>
         <Title1 iconLeft={Icon.LogIn} variant="default">
-          Connectez-vous
+          {translate('authentication.logIn.title')}
         </Title1>
-      </View>
-      <View>
-        <Input
-          autoCapitalize="none"
-          error={emailError || signError}
-          onChangeText={text => setFormValue('emailAddress', text)}
-          placeholder="Email..."
-          value={emailAddress}
-          variant="default"
-        >
-        </Input>
-      </View>
+      </Box>
 
-      <View>
-        <Input
-          action={{
+      <Input
+        autoCapitalize="none"
+        error={emailError || signError}
+        onChangeText={text => setFormValue('emailAddress', text)}
+        placeholder={`${translate('misc.email')}...`}
+        value={emailAddress}
+        variant="default"
+      />
+
+      <Input
+        action={{
           icon: showPassword ? Icon.EyeOff : Icon.Eye,
           onClick: () => setFormValue('showPassword', !showPassword),
-          }}
-          error={passwordError || signError}
-          onChangeText={text => setFormValue('password', text)}
-          placeholder="Password..."
-          secureTextEntry={showPassword}
-          value={password}
-          variant="default"
-        >
-        </Input>
-      </View>
+        }}
+        error={passwordError || signError}
+        onChangeText={text => setFormValue('password', text)}
+        placeholder={`${translate('misc.password')}...`}
+        secureTextEntry={showPassword}
+        value={password}
+        variant="default"
+      />
+
       <Button
-        icon={Icon.Heart}
+        icon={Icon.LogIn}
         onClick={onSignInPress}
         variant="primary"
       >
-        Sign in
+        {translate('misc.logIn')}
       </Button>
+
     </View>
   )
 }

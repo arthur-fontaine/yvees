@@ -4,11 +4,11 @@ import type { BarcodeScanningResult } from 'expo-camera'
 import { useCameraPermissions } from 'expo-camera'
 import { useCallback, useRef, useState } from 'react'
 
-import { carIdSchema } from '../../../schemas/car-id'
-import { joinSessionService } from '../../../services/join-session-service/join-session-service'
 import { useCarEvents } from '../../../shared/hooks/use-car-events'
-import { agrumeSseClientForRn } from '../../../utils/agrume-sse-client-for-rn'
-import { serverImpls } from '../../../utils/server-impls'
+import { carIdSchema } from '../../../shared/schemas/car-id'
+import { joinSessionService } from '../../../shared/services/join-session-service/join-session-service'
+import { agrumeSseClientForRn } from '../../../shared/utils/agrume-sse-client-for-rn'
+import { serverImpls } from '../../../shared/utils/server-impls'
 
 const joinSessionFn
   = DI.provide(function* (carId: string) {
