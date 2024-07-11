@@ -14,12 +14,12 @@ import type { JourneySerialized } from '../types/data-card'
     return <p>Loading...</p>
   }
 
-  if (!journey || journey.length === 0) {
+  if (journey === undefined || journey.length === 0) {
     return <p>No journeys available.</p> // Show a message if there are no journeys
   }
   return (
     <div className="grid grid-cols-4 gap-4">
-      {journey.map((data: JourneySerialized) => (
+      {journey.length > 0 && journey.map((data: JourneySerialized) => (
         <Card className="hover:bg-orangeLight" key={data.id} onClick={() => (console.log('route for journey'))}>
           <CardHeader>
             <CardTitle className="flex justify-between text-1xl mb-4">
