@@ -34,6 +34,9 @@ const insertJourney = createRoute(
     },
     serverImpls,
   ),
+  {
+    path: '/insert-journey',
+  },
 )
 
 /**

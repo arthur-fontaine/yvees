@@ -30,6 +30,9 @@ export const getJourney = createRoute(
       }
     }) ?? []
   }, serverImpls),
+  {
+    path: '/get-journey',
+  },
 )
 
 /**
