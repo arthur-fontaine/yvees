@@ -11,7 +11,13 @@ import { useRoute } from './utils/router'
  * App component.
  */
 export function App() {
-  const route = useRoute(['login', 'data', 'journeyhome', 'journeycreate', 'robot'])
+  const route = useRoute([
+    'login',
+    'data',
+    'journeyhome',
+    'journeycreate',
+    'robot',
+  ])
   const { session } = useClerk()
 
   if (session?.status !== 'active') {
@@ -37,7 +43,9 @@ export function App() {
         return (
           <ThemeProvider theme="light">
             <Sidebar />
-            <div className="pl-40"><Journey /></div>
+            <div className="pl-40">
+              <Journey />
+            </div>
           </ThemeProvider>
         )
       }

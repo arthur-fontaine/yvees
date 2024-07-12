@@ -9,7 +9,7 @@
     "migrate": "drizzle-kit push"
   },
   "dependencies": {
-    "@agrume/plugin": "2.0.3",
+    "@agrume/plugin": "^2.0.3",
     "@clerk/backend": "^1.3.0",
     "@clerk/clerk-react": "^5.2.3",
     "@hookform/resolvers": "^3.9.0",
