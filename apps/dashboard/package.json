@@ -24,6 +24,7 @@
     "clsx": "^2.1.1",
     "db": "workspace:*",
     "diabolo": "npm:@jsr/arthur-fontaine__diabolo@^1.4.0",
+    "dotenv": "^16.4.5",
     "drizzle-kit": "^0.22.8",
     "drizzle-orm": "^0.31.2",
     "react": "18.2.0",
