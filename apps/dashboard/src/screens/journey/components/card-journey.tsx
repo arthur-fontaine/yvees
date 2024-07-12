@@ -2,14 +2,14 @@ import React from 'react'
 import { Icon } from 'ui'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../shared/components/ui/card'
-import { useDataBoard } from '../hooks/use-data-card'
+import { useDataCard } from '../hooks/use-data-card'
 import type { JourneySerialized } from '../types/data-card'
 
  /**
   *   Journey Card component.
   */
  export function JourneyCard() {
-  const { journey, loading } = useDataBoard()
+  const { journey, loading } = useDataCard()
   if (loading) {
     return <p>Loading...</p>
   }
@@ -20,7 +20,7 @@ import type { JourneySerialized } from '../types/data-card'
   return (
     <div className="grid grid-cols-4 gap-4">
       {journey.length > 0 && journey.map((data: JourneySerialized) => (
-        <Card className="hover:bg-orangeLight" key={data.id} onClick={() => (console.log('route for journey'))}>
+        <Card className="hover:bg-orangeLight" key={data.id} onClick={() => (('Route for journey'))}>
           <CardHeader>
             <CardTitle className="flex justify-between text-1xl mb-4">
               {data.name}

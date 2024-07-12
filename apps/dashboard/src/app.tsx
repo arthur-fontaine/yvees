@@ -3,7 +3,7 @@ import React from 'react'
 import { ThemeProvider } from 'ui'
 
 import { Journey } from './screens/journey/journey'
-import { Authentification } from './screens/login/authentification'
+import { Authentication } from './screens/login/authentication'
 import { Sidebar } from './shared/components/sidebar'
 import { useRoute } from './utils/router'
 
@@ -23,7 +23,7 @@ export function App() {
   if (session?.status !== 'active') {
     return (
       <ThemeProvider theme="light">
-        <Authentification />
+        <Authentication />
       </ThemeProvider>
     )
   }

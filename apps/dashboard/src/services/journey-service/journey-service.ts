@@ -2,15 +2,11 @@ import type { Journey, JourneyStep } from 'db'
 import type { Service } from 'diabolo'
 import { createService } from 'diabolo'
 
-interface JourneyTest {
-  description: string
-  draft: boolean
-  name: string
-}
+import type { JourneyForm } from '../../screens/journey/types/create-journey'
 
 export interface JourneyService extends Service<'journey', {
   createJourneyByMuseumId: (
-    params: { clerkOrganizationId: string, journey: JourneyTest }
+    params: { clerkOrganizationId: string, journey: JourneyForm }
   ) => Promise<void>
   findJourneysByMuseumId: (params: { clerkOrganizationId: string }) => Promise<
     ({ averageVisitDuration: number, journeySteps: JourneyStep[] } & Journey)[]

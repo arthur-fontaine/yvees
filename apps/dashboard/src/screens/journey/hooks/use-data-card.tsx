@@ -12,7 +12,6 @@ export const getJourney = createRoute(
     if (!clerkOrganizationId) {
       return []
     }
-    console.log('yolo')
     const { findJourneysByMuseumId } = yield * DI.requireService(journeyService)
     const journeys = await findJourneysByMuseumId({ clerkOrganizationId })
     return journeys?.map((journey) => {
@@ -38,7 +37,7 @@ export const getJourney = createRoute(
 /**
  *  Hook to get the data for the journey card.
  */
-export function useDataBoard() {
+export function useDataCard() {
   const session = useClerk()
   const clerkOrganizationId
    = session.user?.organizationMemberships[0]?.organization.id
@@ -46,7 +45,7 @@ export function useDataBoard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getJourney(clerkOrganizationId).then((journey) => {
+    getJourney(clerkOrganizationId).then((journey: JourneySerialized[]) => {
       setJourney(journey)
       setLoading(false)
     })

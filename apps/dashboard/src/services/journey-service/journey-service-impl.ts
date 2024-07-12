@@ -9,7 +9,6 @@ import { db } from '../../utils/db'
 export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
 
   createJourneyByMuseumId: async ({ clerkOrganizationId, journey }) => {
-    console.info('Creating journey', journey, clerkOrganizationId)
     const [museum] = await db.query.museums.findMany({
       where: (museum, { eq }) => eq(
         museum.clerkOrganizationId,
@@ -23,7 +22,6 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
     }
 
     if (museumId !== undefined) {
-      console.info('Creating journey 2', journey, museumId)
       await db.insert(journeys).values({
         ...journey,
         museumId,
@@ -32,7 +30,6 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
   },
 
   findJourneysByMuseumId: async ({ clerkOrganizationId }) => {
-    console.info("pourquoi la vie ?")
     const [museum] = await db.query.museums.findMany({
       where: (museum, { eq }) => eq(
         museum.clerkOrganizationId,

@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import type { Journey } from 'db'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -17,7 +16,9 @@ import {
 import { Input } from '../../../shared/components/ui/input'
 import { Textarea } from '../../../shared/components/ui/textarea'
 import { toast } from '../../../shared/components/ui/use-toast'
+import { router } from '../../../utils/router'
 import { useInsertJourney } from '../hooks/use-create-journey'
+import type { JourneyForm } from '../types/create-journey'
 
 const formSchema = z.object({
   description: z
@@ -53,14 +54,10 @@ export function JourneyCreate() {
   const { error, insertNewJourney, loading } = useInsertJourney()
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    // const currentTimestamp = Math.floor(Date.now() / 1000)
-
-    const journeyData: Journey = {
-      // createdAt: currentTimestamp,
+    const journeyData: JourneyForm = {
       description: data.description,
       draft: true,
       name: data.name,
-      // updatedAt: currentTimestamp,
     }
 
     try {
@@ -145,7 +142,10 @@ export function JourneyCreate() {
             </Button>
             <Button
               className="bg-red-600 hover:bg-white hover:text-red-600 hover:outline"
-              onClick={() => form.reset()}
+              onClick={() => {
+                form.reset()
+                router.push('journeyhome')
+              }}
               type="reset"
             >
               Annuler

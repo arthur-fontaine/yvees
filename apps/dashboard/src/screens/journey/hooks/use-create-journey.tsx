@@ -2,19 +2,11 @@ import { useClerk } from '@clerk/clerk-react'
 import { createRoute } from 'agrume'
 import type { Journey } from 'db'
 import * as DI from 'diabolo'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { journeyService } from '../../../services/journey-service/journey-service'
 import { serverImpls } from '../../../utils/server-impls'
-// import type { JourneySerialized } from '../types/data-card'
-
-interface JourneyTest {
-  // createAt: number
-  description: string
-  draft: boolean
-  name: string
-  // updatedAt: number
-}
+import type { JourneyForm } from '../types/create-journey'
 
 const insertJourney = createRoute(
   DI.provide(
@@ -23,9 +15,8 @@ const insertJourney = createRoute(
       journey,
     }: {
       clerkOrganizationId: string
-      journey: JourneyTest
+      journey: JourneyForm
     }) {
-      console.info(yield * DI.requireService(journeyService), (yield * DI.requireService(journeyService)).createJourneyByMuseumId.toString(), (yield * DI.requireService(journeyService)).findJourneysByMuseumId.toString(), 'Wtf ?')
       const { createJourneyByMuseumId } = yield * DI.requireService(
         journeyService,
       )
@@ -49,7 +40,7 @@ export function useInsertJourney() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | undefined>(undefined)
 
-  const insertNewJourney = async (journey: Journey): Promise<void> => {
+  const insertNewJourney = async (journey: JourneyForm): Promise<void> => {
     if (!clerkOrganizationId) {
       setError('No organization ID found')
       return
