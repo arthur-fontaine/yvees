@@ -53,6 +53,7 @@
       "extensions": [
         "dbaeumer.vscode-eslint",
         "mhutchie.git-graph",
+        "yy0931.vscode-sqlite3-editor",
         "kylpo.vscode-find-in-files-with-selection"
       ]
     }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import type { GetProps } from 'tamagui'
 import { Input as TamaguiInput, View as TamaguiView } from 'tamagui'
 
@@ -10,7 +10,7 @@ import { withVariants } from '../utils/with-variants'
 interface InputProps {
   action?: {
     icon: typeof Icon[keyof typeof Icon]
-    onClick: () => void
+    onClick: GetProps<typeof Button>['onClick']
   }
   autoCapitalize?: 'characters' | 'none' | 'sentences' | 'words'
   error?: false | string
@@ -25,23 +25,29 @@ interface InputProps {
  * Input component.
  */
 export const Input = withVariants<
-  'default',
+  'default' | 'outlined',
   GetProps<typeof TamaguiView>
 >(
   {
     $defaults: {
       alignItems: 'center',
-      backgroundColor: '#EDEDED',
-      borderRadius: '$mediumSizedElement',
       borderWidth: 0,
       display: 'flex',
       flexDirection: 'row',
       minHeight: 48,
       paddingHorizontal: '$normal',
     },
-    default: {},
+    default: {
+      backgroundColor: '#EDEDED',
+      borderRadius: '$mediumSizedElement',
+    },
+    outlined: {
+      borderColor: '#EDEDED',
+      borderRadius: '$smallSiezdElement',
+      borderWidth: 1,
+    },
   },
-)(({ variant }, {
+)(({ variant, variantName }, {
   action,
   autoCapitalize,
   error,
@@ -52,6 +58,11 @@ export const Input = withVariants<
   secureTextEntry,
   value,
 }: InputProps) => {
+  const onActionClick = useCallback((event: Parameters<NonNullable<GetProps<typeof Button>['onClick']>>[0]) => {
+    event.preventDefault()
+    action?.onClick?.(event)
+  }, [action])
+
   return (
     <TamaguiView
       {...variant}
@@ -77,17 +88,19 @@ export const Input = withVariants<
         onChangeText={onChangeText}
         outlineWidth={0}
         placeholder={placeholder}
+        placeholderTextColor="#9B9B9B"
         secureTextEntry={secureTextEntry}
         unstyled
       >
         {value}
       </TamaguiInput>
-      <Button
-        icon={action?.icon}
-        onClick={action?.onClick}
-        variant="secondary"
-      />
-
+      {action && (
+        <Button
+          icon={action?.icon}
+          onClick={onActionClick}
+          variant={variantName === 'outlined' ? 'empty' : 'secondary'}
+        />
+      )}
       {error && (
         <TamaguiView bottom={-16} left={0} position="absolute">
           <Caption color="$error">

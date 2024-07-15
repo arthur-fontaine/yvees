@@ -10,11 +10,11 @@ interface ButtonProps {
   backgroundColor?: string
   children?: string
   icon?: typeof Icon[keyof typeof Icon] | undefined
-  onClick?: (() => void) | undefined
+  onClick?: GetProps<typeof TamaguiButton>['onPress']
 }
 
 export const Button = withVariants<
-  'primary' | 'secondary',
+  'empty' | 'primary' | 'secondary',
   GetProps<typeof TamaguiButton>
 >(
   {
@@ -25,6 +25,12 @@ export const Button = withVariants<
       fontSize: '$button',
       fontWeight: '$button',
       padding: '$normal',
+    },
+    empty: {
+      backgroundColor: 'transparent',
+      hoverStyle: {
+        backgroundColor: 'transparent',
+      },
     },
     primary: {
       backgroundColor: '$primaryButtonBackground',
