@@ -15,6 +15,7 @@ interface InputProps {
   autoCapitalize?: 'characters' | 'none' | 'sentences' | 'words'
   error?: false | string
   icon?: typeof Icon[keyof typeof Icon]
+  inputMd?: boolean
   onChangeText?: (e: string) => void
   placeholder?: string
   secureTextEntry?: boolean
@@ -42,7 +43,7 @@ export const Input = withVariants<
       borderRadius: '$mediumSizedElement',
     },
     outlined: {
-      borderColor: '#EDEDED',
+      borderColor: '#E2E8F0',
       borderRadius: '$smallSiezdElement',
       borderWidth: 1,
     },
@@ -53,6 +54,7 @@ export const Input = withVariants<
   error,
   // eslint-disable-next-line ts/naming-convention
   icon: Icon,
+  inputMd,
   onChangeText,
   placeholder,
   secureTextEntry,
@@ -82,13 +84,13 @@ export const Input = withVariants<
         autoCapitalize={autoCapitalize}
         flex={1}
         fontFamily="$body"
-        fontSize="$button"
-        fontWeight="$button"
+        fontSize={inputMd ? '$inputMd' : '$button'}
+        fontWeight={inputMd ? '$inputMd' : '$button'}
         lineHeight="$button"
         onChangeText={onChangeText}
         outlineWidth={0}
         placeholder={placeholder}
-        placeholderTextColor="#9B9B9B"
+        placeholderTextColor="#64748B"
         secureTextEntry={secureTextEntry}
         unstyled
       >

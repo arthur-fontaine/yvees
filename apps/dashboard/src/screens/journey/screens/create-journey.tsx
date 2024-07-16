@@ -1,9 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { Button, Input } from 'ui'
 import { z } from 'zod'
 
-import { Button } from '../../../shared/components/ui/button'
 import {
   Form,
   FormControl,
@@ -13,7 +13,6 @@ import {
   FormLabel,
   FormMessage,
 } from '../../../shared/components/ui/form'
-import { Input } from '../../../shared/components/ui/input'
 import { Textarea } from '../../../shared/components/ui/textarea'
 import { toast } from '../../../shared/components/ui/use-toast'
 import { router } from '../../../utils/router'
@@ -103,7 +102,12 @@ export function JourneyCreate() {
               <FormItem>
                 <FormLabel>Nom du parcours :</FormLabel>
                 <FormControl>
-                  <Input placeholder="Nom du parcours.." {...field} />
+                  <Input
+                    inputMd
+                    onChangeText={field.onChange}
+                    placeholder="Nom du parcours.."
+                    variant="outlined"
+                  />
                 </FormControl>
                 <FormMessage />
                 <FormDescription>
@@ -132,21 +136,26 @@ export function JourneyCreate() {
               </FormItem>
             )}
           />
-          <div className="flex justify-between">
+          <div className="flex justify-between h-10">
             <Button
-              className="hover:bg-white hover:text-orange hover:outline"
-              disabled={loading}
-              type="submit"
+              buttonMd
+              onClick={form.handleSubmit(async (data) => {
+                await onSubmit(data)
+                if (!error) {
+                  router.push('journeyhome')
+                }
+              })}
+              variant="primary"
             >
               {loading ? 'Création en cours...' : 'Créer'}
             </Button>
             <Button
-              className="bg-red-600 hover:bg-white hover:text-red-600 hover:outline"
+              buttonMd
               onClick={() => {
                 form.reset()
                 router.push('journeyhome')
               }}
-              type="reset"
+              variant="cancel"
             >
               Annuler
             </Button>

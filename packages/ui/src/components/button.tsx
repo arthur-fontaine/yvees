@@ -8,13 +8,14 @@ import { withVariants } from '../utils/with-variants'
 
 interface ButtonProps {
   backgroundColor?: string
+  buttonMd?: boolean
   children?: string
   icon?: typeof Icon[keyof typeof Icon] | undefined
   onClick?: GetProps<typeof TamaguiButton>['onPress']
 }
 
 export const Button = withVariants<
-  'empty' | 'primary' | 'secondary',
+  'cancel' | 'empty' | 'primary' | 'secondary',
   GetProps<typeof TamaguiButton>
 >(
   {
@@ -22,9 +23,14 @@ export const Button = withVariants<
       borderRadius: '$mediumSizedElement',
       borderWidth: 0,
       cursor: 'pointer',
-      fontSize: '$button',
-      fontWeight: '$button',
       padding: '$normal',
+    },
+    cancel: {
+      backgroundColor: '$cancelButtonBackground',
+      color: '$cancelButtonTextColor',
+      hoverStyle: {
+        backgroundColor: '$cancelButtonHoverBackground',
+      },
     },
     empty: {
       backgroundColor: 'transparent',
@@ -48,7 +54,13 @@ export const Button = withVariants<
     },
   },
 )(
-  ({ variant }, { backgroundColor, children, icon, onClick }: ButtonProps) => {
+  ({ variant }, {
+    backgroundColor,
+    buttonMd,
+    children,
+    icon,
+    onClick,
+  }: ButtonProps) => {
     const variantStyles = { ...variant }
     if (backgroundColor) {
       variantStyles.backgroundColor = backgroundColor
@@ -58,6 +70,8 @@ export const Button = withVariants<
         alignItems="center"
         display="flex"
         flexDirection="row"
+        fontSize={buttonMd ? '$buttonMd' : '$button'}
+        fontWeight={buttonMd ? '$buttonMd' : '$button'}
         icon={icon && withProps(icon, { size: 16, strokeWidth: 3 })}
         justifyContent="center"
         onPress={onClick}

@@ -40,6 +40,7 @@ export function SignInForm() {
             <div className="flex flex-col gap-4">
               <Input
                 error={emailError || signError}
+                inputMd
                 onChangeText={text => setFormValue('emailAddress', text)}
                 placeholder="E-mail..."
                 variant="outlined"
@@ -50,6 +51,7 @@ export function SignInForm() {
                   onClick: handlePasswordVisibilityToggle,
                 }}
                 error={passwordError || signError}
+                inputMd
                 onChangeText={text => setFormValue('password', text)}
                 placeholder="Mot de passe..."
                 secureTextEntry={showPassword}
@@ -57,7 +59,7 @@ export function SignInForm() {
               />
             </div>
             <div className="flex justify-center mt-4 max-h-10 ">
-              <Button onClick={() => 'sumbit'} variant="primary">
+              <Button buttonMd onClick={() => 'sumbit'} variant="primary">
                 Connexion
               </Button>
             </div>
