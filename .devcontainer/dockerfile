@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/vscode/devcontainers/base:bullseye
+FROM --platform=linux/amd64 mcr.microsoft.com/vscode/devcontainers/base:bullseye
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -12,8 +12,38 @@ RUN curl https://pkgx.sh | sh
 # Install packages
 RUN pkgx install \
     node@20 \
+    java \
     pnpm.io@9.4.0 \
     bore.pub \
+    unzip \
     fish
+
+# Install Android SDK
+RUN export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
+ENV ANDROID_SDK_ROOT=/home/vscode/Library/Android/sdk
+ENV ANDROID_HOME=/home/vscode/Library/Android/sdk
+RUN mkdir -p $ANDROID_HOME
+RUN ln -s $ANDROID_HOME $ANDROID_HOME/sdk
+RUN curl -o $ANDROID_HOME/sdk-tools-linux.zip https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip
+RUN unzip $ANDROID_HOME/sdk-tools-linux.zip -d $ANDROID_HOME
+RUN rm $ANDROID_HOME/sdk-tools-linux.zip
+RUN java -version
+RUN mkdir $ANDROID_HOME/licenses && \
+    echo 8933bad161af4178b1185d1a37fbf41ea5269c55 > $ANDROID_HOME/licenses/android-sdk-license && \
+    echo d56f5187479451eabf01fb78af6dfcb131a6481e >> $ANDROID_HOME/licenses/android-sdk-license && \
+    echo 24333f8a63b6825ea9c5514f83c2829b004d1fee >> $ANDROID_HOME/licenses/android-sdk-license && \
+    echo 84831b9409646a918e30573bab4c9c91346d8abd > $ANDROID_HOME/licenses/android-sdk-preview-license \
+    echo 504667f4c0de7af1a06de9f4b1727b84351f2910 > $ANDROID_HOME/licenses/android-sdk-preview-license \
+    echo 33b6a2b64607f11b759f320ef9dff4ae5c47d97a > $ANDROID_HOME/licenses/google-gdk-license \
+    echo d975f751698a77b662f1254ddbeed3901e976f5a > $ANDROID_HOME/licenses/intel-android-extra-license \
+    echo 601085b94cd77f0b54ff86406957099ebe79c4d6 > $ANDROID_HOME/licenses/android-googletv-license \
+    echo 859f317696f67ef3d7f30a50a5560e7834b43903 > $ANDROID_HOME/licenses/android-sdk-arm-dbt-license
+RUN $ANDROID_HOME/cmdline-tools/bin/sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "platforms;android-34" "build-tools;34.0.0" "emulator"
+RUN $ANDROID_HOME/cmdline-tools/bin/sdkmanager --sdk_root=$ANDROID_HOME "system-images;android-34;google_apis;arm64-v8a"
+RUN apt-get install -y libx11-6 libpulse0 libpng16-16 libnss3 libdrm2 libxi6 libxkbfile1
+
+# Create AVD
+USER vscode
+RUN echo "no" | $ANDROID_HOME/cmdline-tools/bin/avdmanager create avd -n dev -k "system-images;android-34;google_apis;arm64-v8a" --force
 
 ENV fish_greeting ""
