@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  babel-plugin-agrume@2.1.2:
+    hash: fajpwpztetrmu3owfurnilagjq
+    path: patches/babel-plugin-agrume@2.1.2.patch
+
 importers:
 
   .:
@@ -16049,7 +16054,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  babel-plugin-agrume@2.1.2(putout@36.4.2(typescript@5.5.4)):
+  babel-plugin-agrume@2.1.2(patch_hash=fajpwpztetrmu3owfurnilagjq)(putout@36.4.2(typescript@5.5.4)):
     dependencies:
       '@agrume/core': 2.0.0
       '@agrume/internals': 2.0.0
@@ -16126,7 +16131,7 @@ snapshots:
       '@babel/plugin-transform-react-jsx': 7.25.2(@babel/core@7.25.2)
       '@babel/plugin-transform-typescript': 7.25.2(@babel/core@7.25.2)
       '@types/babel__core': 7.20.5
-      babel-plugin-agrume: 2.1.2(putout@36.4.2(typescript@5.5.4))
+      babel-plugin-agrume: 2.1.2(patch_hash=fajpwpztetrmu3owfurnilagjq)(putout@36.4.2(typescript@5.5.4))
       babel-plugin-syntax-hermes-parser: 0.20.1
     transitivePeerDependencies:
       - putout
