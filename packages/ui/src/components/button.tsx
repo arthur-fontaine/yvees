@@ -22,7 +22,6 @@ export const Button = withVariants<
       borderRadius: '$mediumSizedElement',
       borderWidth: 0,
       cursor: 'pointer',
-      fontFamily: '$body',
       fontSize: '$button',
       fontWeight: '$button',
       padding: '$normal',

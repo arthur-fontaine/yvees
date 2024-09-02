@@ -30,7 +30,8 @@ container and open a new VS Code window inside it.
 
 I think we can consider that this project relies on 3 main things:
 
-- [Bun](https://bun.dev/) for the runtime and package manager.
+- [Pnpm](https://pnpm.io/) for package manager.
+- [Node.js](https://nodejs.org/) for the runtime.
 - [TypeScript](https://www.typescriptlang.org/) for the language.
 - [Turborepo](https://turbo.build/repo) for managing the monorepo.
 
@@ -51,19 +52,19 @@ This project is using [ESLint](https://eslint.org/).
 To lint the project, run the following command:
 
 ```bash
-bun lint
+pnpm lint
 ```
 
 To fix the linting issues, run the following command:
 
 ```bash
-bun lint --fix
+pnpm lint --fix
 ```
 
 You can also see all the rules by running the following command:
 
 ```bash
-bunx @eslint/config-inspector
+pnpm eslint --inspect-config
 ```
 
 ## Development
@@ -71,7 +72,7 @@ bunx @eslint/config-inspector
 To start to develop, just run the following command:
 
 ```bash
-bun dev
+pnpm dev
 ```
 
 It will start the development script for each package/app.
