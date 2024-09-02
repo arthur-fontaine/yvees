@@ -1,4 +1,4 @@
-import { createTokens } from 'tamagui'
+import { createTokens } from '@tamagui/core'
 
 export const tokens = createTokens({
   color: {
@@ -10,6 +10,7 @@ export const tokens = createTokens({
     orangeDark: '#D16C0A',
     orangeLight: '#F4C898',
     red: '#FF0000',
+    redDark: '#D0021B',
     silver: '#EDEDED',
     silverDark: '#D6D6D6',
     white: '#FFFFFF',

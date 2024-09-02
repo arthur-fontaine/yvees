@@ -1,0 +1,26 @@
+{
+  "name": "db",
+  "exports": {
+    ".": {
+      "types": "./dist/db.d.ts",
+      "import": "./dist/db.mjs",
+      "require": "./dist/db.js"
+    },
+    "./schema": {
+      "types": "./dist/schema/schema.d.ts",
+      "import": "./dist/schema/schema.mjs",
+      "require": "./dist/schema/schema.js"
+    }
+  },
+  "types": "./src",
+  "scripts": {
+    "build": "tsup src/db.ts src/schema/schema.ts --dts --format esm,cjs --outDir dist",
+    "dev": "pnpm build --watch"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.31.2"
+  },
+  "devDependencies": {
+    "tsup": "^8.1.0"
+  }
+}

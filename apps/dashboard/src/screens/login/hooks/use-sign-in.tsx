@@ -1,6 +1,8 @@
 import { useSignIn } from '@clerk/clerk-react'
 import { useState } from 'react'
 
+import { router } from '../../../utils/router'
+
 interface AuthFormState {
   emailAddress: string
   password: string
@@ -39,12 +41,12 @@ export function useSignInForm() {
 
     const emailRegex = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/
     if (!emailRegex.test(formState.emailAddress)) {
-      setEmailError('Invalid email format')
+      setEmailError('Format de courriel invalide')
       return
     }
 
     if (formState.password.length < 8) {
-        setPasswordError('Password must be at least 8 characters long.')
+        setPasswordError('Le mot de passe doit contenir au moins 8 caractères.')
         return
     }
 
@@ -55,15 +57,16 @@ export function useSignInForm() {
       })
       if (signInAttempt.status === 'complete') {
         await setActive({ session: signInAttempt.createdSessionId })
+        router.push('data')
       }
  else {
         console.error(JSON.stringify(signInAttempt, undefined, 2))
-        setSignError('Sign-in failed. Please try again.')
+        setSignError('Échec de la connexion. Veuillez réessayer.')
       }
     }
  catch (err) {
       console.error(JSON.stringify(err, undefined, 2))
-      setSignError('Sign-in failed. Please try again.')
+      setSignError('Échec de la connexion. Veuillez réessayer.')
     }
   }
 

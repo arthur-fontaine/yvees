@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import type { GetProps } from 'tamagui'
 import { Input as TamaguiInput, View as TamaguiView } from 'tamagui'
 
@@ -10,11 +10,12 @@ import { withVariants } from '../utils/with-variants'
 interface InputProps {
   action?: {
     icon: typeof Icon[keyof typeof Icon]
-    onClick: () => void
+    onClick: GetProps<typeof Button>['onClick']
   }
   autoCapitalize?: 'characters' | 'none' | 'sentences' | 'words'
   error?: false | string
   icon?: typeof Icon[keyof typeof Icon]
+  inputMd?: boolean
   onChangeText?: (e: string) => void
   placeholder?: string
   secureTextEntry?: boolean
@@ -42,7 +43,7 @@ export const Input = withVariants<
       borderRadius: '$mediumSizedElement',
     },
     outlined: {
-      borderColor: '#EDEDED',
+      borderColor: '#E2E8F0',
       borderRadius: '$smallSiezdElement',
       borderWidth: 1,
     },
@@ -53,11 +54,17 @@ export const Input = withVariants<
   error,
   // eslint-disable-next-line ts/naming-convention
   icon: Icon,
+  inputMd,
   onChangeText,
   placeholder,
   secureTextEntry,
   value,
 }: InputProps) => {
+  const onActionClick = useCallback((event: Parameters<NonNullable<GetProps<typeof Button>['onClick']>>[0]) => {
+    event.preventDefault()
+    action?.onClick?.(event)
+  }, [action])
+
   return (
     <TamaguiView
       {...variant}
@@ -75,24 +82,24 @@ export const Input = withVariants<
       )}
       <TamaguiInput
         autoCapitalize={autoCapitalize}
+        defaultValue={value}
         flex={1}
         fontFamily="$body"
-        fontSize="$button"
-        fontWeight="$button"
+        fontSize={inputMd ? '$inputMd' : '$button'}
+        fontWeight={inputMd ? '$inputMd' : '$button'}
         lineHeight="$button"
         onChangeText={onChangeText}
         outlineWidth={0}
         placeholder={placeholder}
-        placeholderTextColor="#9B9B9B"
+        placeholderTextColor="#64748B"
         secureTextEntry={secureTextEntry}
         unstyled
       >
-        {value}
       </TamaguiInput>
       {action && (
         <Button
           icon={action?.icon}
-          onClick={action?.onClick}
+          onClick={onActionClick}
           variant={variantName === 'outlined' ? 'empty' : 'secondary'}
         />
       )}

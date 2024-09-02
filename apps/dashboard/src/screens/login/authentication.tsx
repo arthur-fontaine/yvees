@@ -4,9 +4,9 @@ import React from 'react'
 import { SignInForm } from './components/sign-in'
 
 /**
- * Authentification component.
+ * Authentication screen.
  */
-export function Authentification() {
+export function Authentication() {
   return (
     <>
       <SignedOut>

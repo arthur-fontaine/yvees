@@ -1,15 +1,14 @@
-'use client'
-
 import * as React from 'react'
 import { Button, Icon, Input } from 'ui'
 
 import pciture from '../../../../public/picture-login.png' // Adjust the path as necessary
-import { useSignInForm } from '../hook/use-sign-in' // Adjust the path as necessary
+import { useSignInForm } from '../hooks/use-sign-in'
+
 /**
  *  Login screen for the user to sign in.
  */
 export function SignInForm() {
-    const {
+  const {
     emailError,
     handleSubmit,
     passwordError,
@@ -18,8 +17,14 @@ export function SignInForm() {
     signError,
   } = useSignInForm()
 
+  const handlePasswordVisibilityToggle
+    = (event: { preventDefault: () => void }) => {
+      event.preventDefault()
+      setFormValue('showPassword', !showPassword)
+    }
+
   return (
-    <div className="flex justify-center items-center h-full">
+    <div className="flex bg-gray-200 justify-center items-center h-full">
       <div className="flex bg-white p-10 rounded-md gap-10">
         <img alt="Logo" className="max-w-md rounded-md" src={pciture} />
         <div className="grid gap-4">
@@ -28,30 +33,36 @@ export function SignInForm() {
               Bienvenue sur
               <span className="text-orange"> Yvees</span>
             </h1>
-            <p className="font-medium">Gestion des données et des yvees dans votre musée..</p>
+            <p className="font-medium">
+              Gestion des données et des yvees dans votre musée..
+            </p>
           </div>
           <form className="items-center grids-cols-6" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-4">
               <Input
                 error={emailError || signError}
+                inputMd
                 onChangeText={text => setFormValue('emailAddress', text)}
-                placeholder="Email..."
+                placeholder="E-mail..."
                 variant="outlined"
               />
               <Input
                 action={{
-            icon: showPassword ? Icon.EyeOff : Icon.Eye,
-            onClick: () => setFormValue('showPassword', !showPassword),
+                  icon: showPassword ? Icon.EyeOff : Icon.Eye,
+                  onClick: handlePasswordVisibilityToggle,
                 }}
                 error={passwordError || signError}
+                inputMd
                 onChangeText={text => setFormValue('password', text)}
-                placeholder="Password..."
+                placeholder="Mot de passe..."
                 secureTextEntry={showPassword}
                 variant="outlined"
               />
             </div>
             <div className="flex justify-center mt-4 max-h-10 ">
-              <Button onClick={() => 'sumbit'} variant="primary">Connexion</Button>
+              <Button buttonMd onClick={() => 'sumbit'} variant="primary">
+                Connexion
+              </Button>
             </div>
           </form>
         </div>
