@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client'
 import { App } from './app'
 import './global.css'
 
-const PUBLISHABLE_KEY = 'pk_test_cXVpZXQtbW9zcXVpdG8tMjEuY2xlcmsuYWNjb3VudHMuZGV2JA'
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PK
 
 if (!PUBLISHABLE_KEY) {
   throw new Error('Missing Publishable Key')
