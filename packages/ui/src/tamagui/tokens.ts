@@ -18,6 +18,7 @@ export const tokens = createTokens({
     $true: 12,
     card: 28,
     mediumSizedElement: 12,
+    smallSiezdElement: 8,
   },
   size: {
     $true: 10, // TODO: adjust this value

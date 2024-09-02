@@ -14,7 +14,7 @@ interface ButtonProps {
 }
 
 export const Button = withVariants<
-  'primary' | 'secondary',
+  'empty' | 'primary' | 'secondary',
   GetProps<typeof TamaguiButton>
 >(
   {
@@ -25,6 +25,12 @@ export const Button = withVariants<
       fontSize: '$button',
       fontWeight: '$button',
       padding: '$normal',
+    },
+    empty: {
+      backgroundColor: 'transparent',
+      hoverStyle: {
+        backgroundColor: 'transparent',
+      },
     },
     primary: {
       backgroundColor: '$primaryButtonBackground',

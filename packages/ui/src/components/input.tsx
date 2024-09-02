@@ -25,23 +25,29 @@ interface InputProps {
  * Input component.
  */
 export const Input = withVariants<
-  'default',
+  'default' | 'outlined',
   GetProps<typeof TamaguiView>
 >(
   {
     $defaults: {
       alignItems: 'center',
-      backgroundColor: '#EDEDED',
-      borderRadius: '$mediumSizedElement',
       borderWidth: 0,
       display: 'flex',
       flexDirection: 'row',
       minHeight: 48,
       paddingHorizontal: '$normal',
     },
-    default: {},
+    default: {
+      backgroundColor: '#EDEDED',
+      borderRadius: '$mediumSizedElement',
+    },
+    outlined: {
+      borderColor: '#EDEDED',
+      borderRadius: '$smallSiezdElement',
+      borderWidth: 1,
+    },
   },
-)(({ variant }, {
+)(({ variant, variantName }, {
   action,
   autoCapitalize,
   error,
@@ -77,17 +83,19 @@ export const Input = withVariants<
         onChangeText={onChangeText}
         outlineWidth={0}
         placeholder={placeholder}
+        placeholderTextColor="#9B9B9B"
         secureTextEntry={secureTextEntry}
         unstyled
       >
         {value}
       </TamaguiInput>
-      <Button
-        icon={action?.icon}
-        onClick={action?.onClick}
-        variant="secondary"
-      />
-
+      {action && (
+        <Button
+          icon={action?.icon}
+          onClick={action?.onClick}
+          variant={variantName === 'outlined' ? 'empty' : 'secondary'}
+        />
+      )}
       {error && (
         <TamaguiView bottom={-16} left={0} position="absolute">
           <Caption color="$error">
