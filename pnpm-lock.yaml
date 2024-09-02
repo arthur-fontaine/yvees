@@ -52,7 +52,7 @@ importers:
         specifier: ^4.1.5
         version: 4.1.5
       turbo:
-        specifier: ^2.0.4
+        specifier: ^2.1.1
         version: 2.1.1
       typescript:
         specifier: ^5.4.5
