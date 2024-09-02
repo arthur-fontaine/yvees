@@ -82,6 +82,7 @@ export const Input = withVariants<
       )}
       <TamaguiInput
         autoCapitalize={autoCapitalize}
+        defaultValue={value}
         flex={1}
         fontFamily="$body"
         fontSize={inputMd ? '$inputMd' : '$button'}
@@ -94,7 +95,6 @@ export const Input = withVariants<
         secureTextEntry={secureTextEntry}
         unstyled
       >
-        {value}
       </TamaguiInput>
       {action && (
         <Button

@@ -1,6 +1,5 @@
 import { useClerk } from '@clerk/clerk-react'
 import { createRoute } from 'agrume'
-import type { Journey } from 'db'
 import * as DI from 'diabolo'
 import { useState } from 'react'
 
