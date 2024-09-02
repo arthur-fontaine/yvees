@@ -9,7 +9,6 @@ import type { JourneySerialized } from '../types/data-card'
 
 export const getJourney = createRoute(
   DI.provide(async function* (clerkOrganizationId: string | undefined) {
-    console.log('clerkOrganizationId', clerkOrganizationId)
     if (!clerkOrganizationId) {
       return []
     }
