@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { Button, Icon, Input } from 'ui'
 
-import pciture from '../../../../public/picture-login.png'
+import pciture from '../../../../public/picture-login.png' // Adjust the path as necessary
 import { useSignInForm } from '../hooks/use-sign-in'
+
 /**
  *  Login screen for the user to sign in.
  */
