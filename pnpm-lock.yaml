@@ -8,6 +8,9 @@ patchedDependencies:
   babel-plugin-agrume@2.1.2:
     hash: fajpwpztetrmu3owfurnilagjq
     path: patches/babel-plugin-agrume@2.1.2.patch
+  drizzle-orm@0.31.4:
+    hash: 6xmmh5ovpilloinxfktglsyyha
+    path: patches/drizzle-orm@0.31.4.patch
 
 importers:
 
@@ -118,7 +121,7 @@ importers:
         version: 0.22.8
       drizzle-orm:
         specifier: ^0.31.2
-        version: 0.31.4(@types/better-sqlite3@7.6.11)(@types/react@18.3.5)(better-sqlite3@11.2.1)(react@18.2.0)
+        version: 0.31.4(patch_hash=6xmmh5ovpilloinxfktglsyyha)(@types/better-sqlite3@7.6.11)(@types/react@18.3.5)(better-sqlite3@11.2.1)(react@18.2.0)
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -270,7 +273,7 @@ importers:
     dependencies:
       drizzle-orm:
         specifier: ^0.31.2
-        version: 0.31.4(@types/better-sqlite3@7.6.11)(@types/react@18.3.5)(better-sqlite3@11.2.1)(react@18.2.0)
+        version: 0.31.4(patch_hash=6xmmh5ovpilloinxfktglsyyha)(@types/better-sqlite3@7.6.11)(@types/react@18.3.5)(better-sqlite3@11.2.1)(react@18.2.0)
     devDependencies:
       tsup:
         specifier: ^8.1.0
@@ -13036,6 +13039,8 @@ snapshots:
       putout: 36.4.2(typescript@5.5.4)
       try-catch: 3.0.1
       try-to-catch: 3.0.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@putout/engine-parser@10.8.0':
     dependencies:
@@ -13056,6 +13061,8 @@ snapshots:
       picomatch: 4.0.2
       putout: 36.4.2(typescript@5.5.4)
       try-to-catch: 3.0.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@putout/engine-reporter@2.0.0(putout@36.4.2(typescript@5.5.4))':
     dependencies:
@@ -13066,6 +13073,8 @@ snapshots:
       putout: 36.4.2(typescript@5.5.4)
       try-catch: 3.0.1
       try-to-catch: 3.0.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@putout/engine-runner@21.1.0(putout@36.4.2(typescript@5.5.4))':
     dependencies:
@@ -16896,7 +16905,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.31.4(@types/better-sqlite3@7.6.11)(@types/react@18.3.5)(better-sqlite3@11.2.1)(react@18.2.0):
+  drizzle-orm@0.31.4(patch_hash=6xmmh5ovpilloinxfktglsyyha)(@types/better-sqlite3@7.6.11)(@types/react@18.3.5)(better-sqlite3@11.2.1)(react@18.2.0):
     optionalDependencies:
       '@types/better-sqlite3': 7.6.11
       '@types/react': 18.3.5
