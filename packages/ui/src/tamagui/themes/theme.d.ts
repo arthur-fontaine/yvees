@@ -2,6 +2,10 @@ import type { Variable } from 'tamagui'
 
 type ThemeKeys =
   | 'backgroundColor'
+  | 'cancelButtonBackground'
+  | 'cancelButtonHoverBackground'
+  | 'cancelButtonTextColor'
+  | 'cardBackgroundColor'
   | 'defaultSeparatorColor'
   | 'defaultTitleIconColor'
   | 'defaultTitleTextColor'

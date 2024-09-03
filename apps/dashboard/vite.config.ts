@@ -6,7 +6,12 @@ import agrume from '@agrume/plugin/vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    agrume(),
+    agrume({
+      logger: {
+        error: console.error,
+        info: console.info,
+      }
+    }),
     react(),
     ui(),
   ],

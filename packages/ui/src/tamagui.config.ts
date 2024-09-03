@@ -1,6 +1,6 @@
 import './types/tamagui.d.ts'
 
-import { createTamagui } from 'tamagui'
+import { createTamagui } from '@tamagui/core'
 
 import { montserratFont } from './tamagui/fonts/montserrat-font'
 import { montserratAlternatesFont } from './tamagui/fonts/montserrat-alternates-font'

@@ -7,6 +7,12 @@
     "dev": "turbo run dev",
     "build": "turbo run build"
   },
+  "dependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss-cli": "^11.0.0",
+    "shadcn-ui": "^0.8.0",
+    "tailwindcss": "^3.4.4"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^2.19.0",
     "@tsconfig/strictest": "^2.0.5",
@@ -18,7 +24,13 @@
     "eslint-plugin-regexp": "^2.6.0",
     "eslint-plugin-use-encapsulation": "^1.1.0",
     "npm-run-all": "^4.1.5",
-    "turbo": "^2.0.4",
+    "turbo": "^2.1.1",
     "typescript": "^5.4.5"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "babel-plugin-agrume@2.1.2": "patches/babel-plugin-agrume@2.1.2.patch",
+      "drizzle-orm@0.31.4": "patches/drizzle-orm@0.31.4.patch"
+    }
   }
 }

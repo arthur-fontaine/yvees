@@ -1,6 +1,6 @@
 /* eslint-disable ts/naming-convention */
 
-import { createFont, isWeb } from 'tamagui'
+import { createFont, isWeb } from '@tamagui/core'
 
 export const montserratFont = createFont({
   face: {
@@ -25,10 +25,14 @@ export const montserratFont = createFont({
   size: {
     body: 16,
     button: 16,
+    buttonMd: 16,
     caption: 12,
+    inputMd: 14,
   },
   weight: {
     button: '600',
+    buttonMd: '400',
     caption: '400',
+    inputMd: '400',
   },
 })

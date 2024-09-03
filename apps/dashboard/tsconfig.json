@@ -3,7 +3,10 @@
   "compilerOptions": {
     "jsx": "react",
     "module": "ESNext",
-    "moduleResolution": "Bundler"
+    "moduleResolution": "Bundler",
+    "target": "ES2022"
   },
-  "exclude": ["dist"]
+  "exclude": [
+    "dist"
+  ]
 }
