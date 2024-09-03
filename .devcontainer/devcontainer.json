@@ -6,7 +6,7 @@
     "vscode": {
       "settings": {
         "eslint.enable": true,
-        "eslint.experimental.useFlatConfig": true,
+        "eslint.useFlatConfig": true,
         "eslint.workingDirectories": [
           {
             "mode": "auto"
@@ -46,13 +46,14 @@
           ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
           "package.json": "eslint*, tsconfig.*, turbo.json, app.json, *.config.js, *.config.ts, pnpm-lock.yaml, pnpm-workspace.yaml, .npmrc"
         },
-        "terminal.integrated.defaultProfile.osx": "zsh",
-        "terminal.integrated.defaultProfile.linux": "zsh",
-        "terminal.integrated.defaultProfile.windows": "zsh"
+        "terminal.integrated.defaultProfile.osx": "fish",
+        "terminal.integrated.defaultProfile.linux": "fish",
+        "terminal.integrated.defaultProfile.windows": "fish"
       },
       "extensions": [
         "dbaeumer.vscode-eslint",
-        "mhutchie.git-graph"
+        "mhutchie.git-graph",
+        "kylpo.vscode-find-in-files-with-selection"
       ]
     }
   }

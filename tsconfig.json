@@ -1,7 +1,11 @@
 {
   "extends": "@tsconfig/strictest/tsconfig.json",
   "compilerOptions": {
+    "noPropertyAccessFromIndexSignature": false,
     "preserveSymlinks": true
   },
-  "exclude": ["*.config.*", "dist"]
+  "exclude": [
+    "*.config.*",
+    "dist"
+  ]
 }

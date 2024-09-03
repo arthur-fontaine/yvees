@@ -16,7 +16,6 @@ interface H1Props {
 /**
  * Title component.
  */
-
 export const Title1 = withVariants<
   'default',
   GetProps<typeof TamaguiView>

@@ -12,6 +12,7 @@ interface InputProps {
     icon: typeof Icon[keyof typeof Icon]
     onClick: () => void
   }
+  autoCapitalize?: 'characters' | 'none' | 'sentences' | 'words'
   error?: false | string
   icon?: typeof Icon[keyof typeof Icon]
   onChangeText?: (e: string) => void
@@ -23,7 +24,6 @@ interface InputProps {
 /**
  * Input component.
  */
-
 export const Input = withVariants<
   'default',
   GetProps<typeof TamaguiView>
@@ -36,12 +36,14 @@ export const Input = withVariants<
       borderWidth: 0,
       display: 'flex',
       flexDirection: 'row',
+      minHeight: 48,
       paddingHorizontal: '$normal',
     },
     default: {},
   },
 )(({ variant }, {
   action,
+  autoCapitalize,
   error,
   // eslint-disable-next-line ts/naming-convention
   icon: Icon,
@@ -66,6 +68,7 @@ export const Input = withVariants<
         </TamaguiView>
       )}
       <TamaguiInput
+        autoCapitalize={autoCapitalize}
         flex={1}
         fontFamily="$body"
         fontSize="$button"

@@ -7,11 +7,11 @@ import { carIdSchema } from '../../schemas/car-id'
 export const joinSessionServiceImpl
   = DI.lazyCreateServiceImpl<JoinSessionService>(
     () => ({
-      *joinSession(uri: string) {
+      async *joinSession(uri: string) {
         const carIdFromUri = carIdSchema.parse(uri)
 
         let event
-        while (event = carEvent.iterator().next().value) {
+        while (event = (await carEvent.iterator().next()).value) {
           if (event.args.carId === carIdFromUri) {
             yield event
           }

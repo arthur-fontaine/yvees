@@ -15,6 +15,7 @@ export const tokens = createTokens({
   },
   radius: {
     $true: 12,
+    card: 28,
     mediumSizedElement: 12,
   },
   size: {
@@ -22,7 +23,11 @@ export const tokens = createTokens({
   },
   space: {
     $true: 16,
+    card: 36,
+    large: 24,
     normal: 16,
+    small: 8,
+    xsmall: 4,
   },
   zIndex: {
     $true: 10, // TODO: adjust this value

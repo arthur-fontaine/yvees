@@ -1,9 +1,8 @@
-import { CameraView } from 'expo-camera'
 import React from 'react'
 import { Button, Card, Histories, Icon, ThemeProvider } from 'ui'
 
-import { useScanController } from './hooks/use-scan-controller'
-import { DefaultLayout } from '../../layouts/default-layout'
+import { JoinCard } from './components/join-card'
+import { DefaultLayout } from '../../shared/layouts/default-layout'
 
 /**
  * The home screen of the application.

@@ -23,18 +23,15 @@ export const Card = withVariants<
 >(
   {
     $defaults: {
-      backgroundColor: '$white',
-      borderRadius: 28,
+      backgroundColor: '$cardBackgroundColor',
+      borderRadius: '$card',
       borderWidth: 0,
       cursor: 'pointer',
       flexDirection: 'column',
-      margin: 9,
-      overflow: 'hidden',
-      padding: 36,
-      marginVertical: 40,
-      marginHorizontal: 20,
+      padding: '$card',
     },
     default: {
+      overflow: 'hidden',
     },
   },
 )(
