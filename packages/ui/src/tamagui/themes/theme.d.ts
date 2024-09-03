@@ -1,4 +1,4 @@
-import type { Variable } from 'tamagui'
+import type { Variable } from '@tamagui/core'
 
 type ThemeKeys =
   | 'backgroundColor'

@@ -1,12 +1,14 @@
 import { relations } from 'drizzle-orm'
-import { integer, sqliteTable } from 'drizzle-orm/sqlite-core'
+import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 import { journeys } from './journeys'
 import { withTimestamps } from './utils/with-timestamps'
 
 export const journeySteps = sqliteTable('journey_steps', withTimestamps({
+  description: text('description'),
   id: integer('id').notNull().primaryKey(),
   journeyId: integer('journey_id').notNull(),
+  name: text('name').notNull(),
 }))
 
 export const journeyStepsRelations = relations(journeySteps, ({ one }) => ({

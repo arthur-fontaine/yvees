@@ -14,9 +14,10 @@ export function App() {
   const route = useRoute([
     'login',
     'data',
-    'journeyhome',
+    'journeylist',
     'journeycreate',
     'robot',
+    'journeyhome',
   ])
   const { session } = useClerk()
 
@@ -37,8 +38,8 @@ export function App() {
           </ThemeProvider>
         )
       }
-
       case 'journeyhome':
+      case 'journeylist':
       case 'journeycreate': {
         return (
           <ThemeProvider theme="light">

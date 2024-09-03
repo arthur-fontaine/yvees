@@ -8,6 +8,10 @@ export interface JourneyService extends Service<'journey', {
   createJourneyByMuseumId: (
     params: { clerkOrganizationId: string, journey: JourneyForm }
   ) => Promise<void>
+  findJourneyById: (params: { journeyId: string }) => Promise<
+    ({ averageVisitDuration: number, journeySteps: JourneyStep[] }
+    & Journey) | undefined
+  >
   findJourneysByMuseumId: (params: { clerkOrganizationId: string }) => Promise<
     ({ averageVisitDuration: number, journeySteps: JourneyStep[] } & Journey)[]
   >

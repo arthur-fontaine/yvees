@@ -142,7 +142,7 @@ export function JourneyCreate() {
               onClick={form.handleSubmit(async (data) => {
                 await onSubmit(data)
                 if (!error) {
-                  router.push('journeyhome')
+                  router.push('journeylist')
                 }
               })}
               variant="primary"
@@ -153,7 +153,7 @@ export function JourneyCreate() {
               buttonMd
               onClick={() => {
                 form.reset()
-                router.push('journeyhome')
+                router.push('journeylist')
               }}
               variant="cancel"
             >

@@ -29,6 +29,50 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
     }
   },
 
+  findJourneyById: async ({ journeyId }) => {
+    const journeyData = await db
+      .select({
+        ...getTableColumns(db.tables.journeys),
+        averageVisitDuration: sql<number>`AVG(${db.tables.visits.endedAt} - ${db.tables.visits.createdAt}) OVER (PARTITION BY ${db.tables.journeys.id})`,
+        journeyStepData: db.tables.journeySteps,
+        journeyStepId: db.tables.journeySteps.id,
+      })
+      .from(db.tables.journeys)
+      .leftJoin(db.tables.journeySteps, eq(
+        db.tables.journeys.id,
+        db.tables.journeySteps.journeyId,
+      ))
+      .leftJoin(db.tables.visits, eq(
+        db.tables.journeys.id,
+        db.tables.visits.journeyId,
+      ))
+      .where(eq(db.tables.journeys.id, Number(journeyId)))
+
+    // Create a map to store journey details and its steps
+    const journeysMap = new Map<number, {
+      averageVisitDuration: number
+      journeySteps: JourneyStep[]
+    } & Journey>()
+
+    for (const row of journeyData) {
+      const { id, journeyStepData, journeyStepId, ...journeyInfo } = row
+
+      if (!journeysMap.has(id)) {
+        journeysMap.set(id, {
+          id,
+          ...journeyInfo,
+          journeySteps: [],
+        })
+      }
+
+      if (journeyStepData) {
+        journeysMap.get(id)!.journeySteps.push(journeyStepData)
+      }
+    }
+
+    return Array.from(journeysMap.values())[0] || undefined
+  },
+
   findJourneysByMuseumId: async ({ clerkOrganizationId }) => {
     const [museum] = await db.query.museums.findMany({
       where: (museum, { eq }) => eq(

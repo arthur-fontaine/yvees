@@ -2,6 +2,7 @@ import React from 'react'
 import { Icon } from 'ui'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../shared/components/ui/card'
+import { router } from '../../../utils/router'
 import { useDataCard } from '../hooks/use-data-card'
 import type { JourneySerialized } from '../types/data-card'
 
@@ -20,7 +21,7 @@ import type { JourneySerialized } from '../types/data-card'
   return (
     <div className="grid grid-cols-4 gap-4">
       {journey.length > 0 && journey.map((data: JourneySerialized) => (
-        <Card className="hover:bg-orangeLight" key={data.id} onClick={() => (('Route for journey'))}>
+        <Card className="hover:bg-orangeLight" key={data.id} onClick={() => { router.push('journeyhome', { journeyId: data.id.toString() }) }}>
           <CardHeader>
             <CardTitle className="flex justify-between text-1xl mb-4">
               {data.name}
