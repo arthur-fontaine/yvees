@@ -18,7 +18,7 @@ export function JourneyList() {
               buttonMd
               icon={Icon.Plus}
               onClick={() => {
-                router.push('journeycreate')
+                router.push('journeycreateJourney')
               }}
               variant="primary"
             >

@@ -3,10 +3,13 @@ import type { Service } from 'diabolo'
 import { createService } from 'diabolo'
 
 import type { JourneyForm } from '../../screens/journey/types/create-journey'
+import type { JourneyStepForm } from '../../screens/journey/types/create-journey-step'
 
 export interface JourneyService extends Service<'journey', {
   createJourneyByMuseumId: (
     params: { clerkOrganizationId: string, journey: JourneyForm }
+  ) => Promise<void>
+  createJourneyStepByJourneyId: (params: { journeyStep: JourneyStepForm }
   ) => Promise<void>
   findJourneyById: (params: { journeyId: string }) => Promise<
     ({ averageVisitDuration: number, journeySteps: JourneyStep[] }

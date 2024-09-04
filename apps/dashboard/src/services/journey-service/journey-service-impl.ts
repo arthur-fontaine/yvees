@@ -1,5 +1,5 @@
 import type { Journey, JourneyStep } from 'db'
-import { journeys } from 'db/schema'
+import { journeySteps, journeys } from 'db/schema'
 import { lazyCreateServiceImpl } from 'diabolo'
 import { eq, getTableColumns, sql } from 'drizzle-orm'
 
@@ -7,25 +7,66 @@ import type { JourneyService } from './journey-service'
 import { db } from '../../utils/db'
 
 export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
-
   createJourneyByMuseumId: async ({ clerkOrganizationId, journey }) => {
     const [museum] = await db.query.museums.findMany({
-      where: (museum, { eq }) => eq(
-        museum.clerkOrganizationId,
-        clerkOrganizationId,
-      ),
+      where: (museum, { eq }) =>
+        eq(museum.clerkOrganizationId, clerkOrganizationId),
     })
+
     const museumId = museum?.id
 
     if (museumId === undefined) {
       console.error('Museum not found')
+      return
     }
 
-    if (museumId !== undefined) {
-      await db.insert(journeys).values({
+    const [createdJourney] = await db
+      .insert(journeys)
+      .values({
         ...journey,
         museumId,
-      }).returning()
+      })
+      .returning()
+
+    if (!createdJourney) {
+      console.error('Failed to create journey')
+      return
+    }
+    await db
+      .insert(journeySteps)
+      .values({
+        description: 'C\'est le début de ton voyage.',
+        journeyId: createdJourney.id,
+        name: 'Début',
+      })
+      .returning()
+
+    await db
+      .insert(journeySteps)
+      .values({
+        description: 'C\'est la fin de ton voyage.',
+        journeyId: createdJourney.id,
+        name: 'Fin',
+      })
+      .returning()
+  },
+
+  createJourneyStepByJourneyId: async ({ journeyStep }) => {
+    const journey = await db.query.journeys.findFirst({
+      where: (journeys, { eq }) => eq(journeys.id, journeyStep.journeyId),
+    })
+
+    if (!journey) {
+      console.error('Journey not found')
+    }
+
+    if (journey !== undefined) {
+      await db
+        .insert(journeySteps)
+        .values({
+          ...journeyStep,
+        })
+        .returning()
     }
   },
 
@@ -38,21 +79,23 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
         journeyStepId: db.tables.journeySteps.id,
       })
       .from(db.tables.journeys)
-      .leftJoin(db.tables.journeySteps, eq(
-        db.tables.journeys.id,
-        db.tables.journeySteps.journeyId,
-      ))
-      .leftJoin(db.tables.visits, eq(
-        db.tables.journeys.id,
-        db.tables.visits.journeyId,
-      ))
+      .leftJoin(
+        db.tables.journeySteps,
+        eq(db.tables.journeys.id, db.tables.journeySteps.journeyId),
+      )
+      .leftJoin(
+        db.tables.visits,
+        eq(db.tables.journeys.id, db.tables.visits.journeyId),
+      )
       .where(eq(db.tables.journeys.id, Number(journeyId)))
 
-    // Create a map to store journey details and its steps
-    const journeysMap = new Map<number, {
-      averageVisitDuration: number
-      journeySteps: JourneyStep[]
-    } & Journey>()
+    const journeysMap = new Map<
+      number,
+      {
+        averageVisitDuration: number
+        journeySteps: JourneyStep[]
+      } & Journey
+    >()
 
     for (const row of journeyData) {
       const { id, journeyStepData, journeyStepId, ...journeyInfo } = row
@@ -75,10 +118,8 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
 
   findJourneysByMuseumId: async ({ clerkOrganizationId }) => {
     const [museum] = await db.query.museums.findMany({
-      where: (museum, { eq }) => eq(
-        museum.clerkOrganizationId,
-        clerkOrganizationId,
-      ),
+      where: (museum, { eq }) =>
+        eq(museum.clerkOrganizationId, clerkOrganizationId),
     })
     const museumId = museum?.id
 
@@ -94,20 +135,23 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
         journeyStepId: db.tables.journeySteps.id,
       })
       .from(db.tables.journeys)
-      .leftJoin(db.tables.journeySteps, eq(
-        db.tables.journeys.id,
-        db.tables.journeySteps.journeyId,
-      ))
-      .leftJoin(db.tables.visits, eq(
-        db.tables.journeys.id,
-        db.tables.visits.journeyId,
-      ))
+      .leftJoin(
+        db.tables.journeySteps,
+        eq(db.tables.journeys.id, db.tables.journeySteps.journeyId),
+      )
+      .leftJoin(
+        db.tables.visits,
+        eq(db.tables.journeys.id, db.tables.visits.journeyId),
+      )
       .where(eq(db.tables.journeys.museumId, museumId))
 
-    const journeysMap = new Map<number, {
-      averageVisitDuration: number
-      journeySteps: JourneyStep[]
-    } & Journey>()
+    const journeysMap = new Map<
+      number,
+      {
+        averageVisitDuration: number
+        journeySteps: JourneyStep[]
+      } & Journey
+    >()
 
     for (const row of journeyData) {
       const { id, journeyStepData, journeyStepId, ...journeyInfo } = row

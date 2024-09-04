@@ -9,78 +9,77 @@ import {
   TableHeader,
   TableRow,
 } from '../../../shared/components/ui/table'
-// TODO:  Add router create step
-// import { router } from '../../../utils/router'
+import { router } from '../../../utils/router'
 import { useJourneyData } from '../hooks/use-home-journey'
 
 /**
  * Journey Home screen.
  */
 export function JourneyHome({ journeyId }: { journeyId: string }) {
-    const { journey, loading } = useJourneyData(journeyId)
-    if (loading) {
-      return <p>Loading...</p>
-    }
-    if (journey === undefined) {
-      return <p>No journey available.</p>
-    }
-
-    return (
+  const { journey, loading } = useJourneyData(journeyId)
+  if (loading) {
+    return <p>Loading...</p>
+  }
+  if (journey === undefined) {
+    return <p>No journey available.</p>
+  }
+  return (
       <div className="h-screen p-10">
-        <h1 className="text-3xl font-bold my-8">
-          Parcours :
-          {' '}
-          { journey.name }
-        </h1>
-        <div className="mb-8">
-          <h2 className="text-xl mb-2">Description :</h2>
-          <p className="text-sm text-muted-foreground max-w-3xl">
-            { journey.description }
-          </p>
-        </div>
-        <div className="flex justify-between my-4 items-center">
-          <h2 className="text-xl">Liste des étapes :</h2>
-          <div className="flex h-10">
-            <Button
-              buttonMd
-              icon={Icon.Plus}
-              onClick={() => {
-                // router.push('')
-              }}
-              variant="primary"
-            >
-              Créer une étape
-            </Button>
+          <div className="flex justify-between my-4 items-center">
+              <h1 className="text-3xl font-bold my-8">
+                  Parcours :
+                  {journey.name}
+              </h1>
+              <h3>
+                  {new Date(journey.createdAt).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric',
+      })}
+              </h3>
           </div>
-        </div>
-        {/* TODO: Delete fake data for real */}
-        <Table className="border">
-          <TableHeader>
-            <TableRow>
-              <TableHead>Nom</TableHead>
-              <TableHead>QR Code</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Numéro</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>New York</TableCell>
-              <TableCell>800</TableCell>
-              <TableCell>On Time</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Los Angeles</TableCell>
-              <TableCell>4000</TableCell>
-              <TableCell>Delayed</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Chicago</TableCell>
-              <TableCell>1200</TableCell>
-              <TableCell>On Time</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+          <div className="mb-8">
+              <h2 className="text-xl mb-2">Description :</h2>
+              <p className="text-sm text-muted-foreground max-w-3xl">
+                  {journey.description}
+              </p>
+          </div>
+          <div className="flex justify-between my-4 items-center">
+              <h2 className="text-xl">Liste des étapes :</h2>
+              <div className="flex h-10">
+                  <Button
+                    buttonMd
+                    icon={Icon.Plus}
+                    onClick={() => {
+              router.push('journeycreateJourneyStep', { journeyId })
+            }}
+                    variant="primary"
+                  >
+                      Créer une étape
+                  </Button>
+              </div>
+          </div>
+          <Table className="border">
+              <TableHeader>
+                  <TableRow>
+                      <TableHead>Nom</TableHead>
+                      <TableHead>QR Code</TableHead>
+                      <TableHead>Date de création</TableHead>
+                  </TableRow>
+              </TableHeader>
+              <TableBody>
+                  {journey.journeySteps.map(step => (
+                      <TableRow key={step.id}>
+                          <TableCell>{step.name}</TableCell>
+                          <TableCell>{step.id}</TableCell>
+                          <TableCell>
+                              {new Date(step.createdAt).toLocaleDateString('en-US', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+              })}
+                          </TableCell>
+                      </TableRow>
+          ))}
+              </TableBody>
+          </Table>
       </div>
-    )
+  )
 }

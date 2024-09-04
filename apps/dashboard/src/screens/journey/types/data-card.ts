@@ -3,6 +3,8 @@ export interface JourneyStepSerialized {
   id: number
   journeyId: number
   updatedAt: string
+  name: string
+  description: null | string
 }
 
 export interface JourneySerialized {

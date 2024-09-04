@@ -15,7 +15,8 @@ export function App() {
     'login',
     'data',
     'journeylist',
-    'journeycreate',
+    'journeycreateJourney',
+    'journeycreateJourneyStep',
     'robot',
     'journeyhome',
   ])
@@ -40,7 +41,8 @@ export function App() {
       }
       case 'journeyhome':
       case 'journeylist':
-      case 'journeycreate': {
+      case 'journeycreateJourney': 
+      case 'journeycreateJourneyStep': {
         return (
           <ThemeProvider theme="light">
             <Sidebar />
