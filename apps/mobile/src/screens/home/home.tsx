@@ -1,13 +1,16 @@
 import React from 'react'
+import { useClerk } from '@clerk/clerk-expo';
 import { Button, Card, Histories, Icon, ThemeProvider } from 'ui'
-
-import { JoinCard } from './components/join-card'
-import { DefaultLayout } from '../../shared/layouts/default-layout'
+import { DefaultLayout } from '../../shared/layouts/default-layout';
+import { View } from 'react-native';
+import { useScanController } from './hooks/use-scan-controller'
 
 /**
  * The home screen of the application.
  */
 export function HomeScreen() {
+  const { signOut } = useClerk();
+
   const {
     allowToScanAgain,
     handleBarCodeScanned,
@@ -51,11 +54,14 @@ export function HomeScreen() {
 
   return (
     <DefaultLayout>
-      <ThemeProvider>
+      <View style={{ alignItems: 'flex-end', marginVertical: 10 }}>
+        <Button variant='primary' onClick={() => signOut()} >Log Out</Button>
+      </View>
 
+      <ThemeProvider>
         <Card
           action={{
-            onClick: () => {},
+            onClick: () => { },
             text: 'Scanner un QR Code',
           }}
           icon={Icon.QrCode}
