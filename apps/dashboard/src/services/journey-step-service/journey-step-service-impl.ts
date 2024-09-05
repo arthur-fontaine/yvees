@@ -1,19 +1,19 @@
-import { journeySteps } from "db/schema";
-import { lazyCreateServiceImpl } from "diabolo";
-import { eq } from "drizzle-orm";
+import { journeySteps } from 'db/schema'
+import { lazyCreateServiceImpl } from 'diabolo'
+import { eq } from 'drizzle-orm'
 
-import type { JourneyStepService } from "./journey-step-service";
-import { db } from "../../utils/db";
+import type { JourneyStepService } from './journey-step-service'
+import { db } from '../../utils/db'
 
 export const journeyStepServiceImpl = lazyCreateServiceImpl<JourneyStepService>(
   () => ({
     createJourneyStepByJourneyId: async ({ journeyStep }) => {
       const journey = await db.query.journeys.findFirst({
         where: (journeys, { eq }) => eq(journeys.id, journeyStep.journeyId),
-      });
+      })
 
       if (!journey) {
-        console.error("Journey not found");
+        console.error('Journey not found')
       }
 
       if (journey !== undefined) {
@@ -22,7 +22,7 @@ export const journeyStepServiceImpl = lazyCreateServiceImpl<JourneyStepService>(
           .values({
             ...journeyStep,
           })
-          .returning();
+          .returning()
       }
     },
 
@@ -30,16 +30,16 @@ export const journeyStepServiceImpl = lazyCreateServiceImpl<JourneyStepService>(
       const journeyStep = await db.query.journeySteps.findFirst({
         where: (journeySteps, { eq }) =>
           eq(journeySteps.id, Number.parseInt(journeyStepId)),
-      });
+      })
 
       if (!journeyStep) {
-        console.error("Journey step not found");
-        return;
+        console.error('Journey step not found')
+        return
       }
 
       await db
         .delete(journeySteps)
-        .where(eq(journeySteps.id, Number.parseInt(journeyStepId)));
+        .where(eq(journeySteps.id, Number.parseInt(journeyStepId)))
     },
-  })
-);
+  }),
+)
