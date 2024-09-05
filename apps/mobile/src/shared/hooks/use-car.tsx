@@ -1,13 +1,22 @@
+import { createRoute } from 'agrume'
+import * as DI from 'diabolo'
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { useQuery } from 'react-query'
 
-import type { carEvent } from '../events/car-event'
 import type { GeneratorReturn } from '../../types/generator-return'
+import type { carEvent } from '../events/car-event'
+import type { CarId } from '../schemas/car-id'
+import { serverImpls } from '../utils/server-impls'
+import { CarService } from '../services/car-service/car-service'
+
 
 type CarEventsIterator = AsyncGenerator<GeneratorReturn<ReturnType<typeof carEvent['iterator']>>>
 
 interface CarEventsContextValue {
   carEventsIterator?: CarEventsIterator | undefined
+  carId: CarId | undefined
   registerCarEventsIterator: (iterator: CarEventsIterator) => void
+  setCarId: (carId: CarId) => void
 }
 
 // eslint-disable-next-line ts/naming-convention
@@ -18,14 +27,19 @@ const CarEventsContext
  * A provider to provide car events.
  */
 export function CarEventsProvider({ children }: React.PropsWithChildren) {
+  /* eslint-disable use-encapsulation/prefer-custom-hooks */
   const [carEventsIterator, setCarEventsIterator]
-    // eslint-disable-next-line use-encapsulation/prefer-custom-hooks
     = useState<CarEventsIterator>()
+
+  const [carId, setCarId] = useState<CarId>()
+  /* eslint-enable use-encapsulation/prefer-custom-hooks */
 
   return (
     <CarEventsContext.Provider value={{
       carEventsIterator,
+      carId,
       registerCarEventsIterator: setCarEventsIterator,
+      setCarId,
     }}
     >
       {children}
@@ -33,14 +47,25 @@ export function CarEventsProvider({ children }: React.PropsWithChildren) {
   )
 }
 
+const getCarInfos = createRoute(DI.provide(function* (carIdString: CarId) {
+  const { getCarInfos } = yield * DI.requireService(CarService)
+
+  const yveesCarPrefix = 'yvees-car-'
+  
+  ;`${yveesCarPrefix}1` satisfies CarId
+  const carId = Number(carIdString.replace(yveesCarPrefix, ''))
+
+  return getCarInfos(carId)
+}, serverImpls))
+
 /**
  * A hook to subscribe to car events.
  */
-export function useCarEvents() {
+export function useCar() {
   const context = useContext(CarEventsContext)
 
   if (!context) {
-    console.error('useCarEvents must be used within a CarEventsProvider')
+    console.error('useCar must be used within a CarEventsProvider')
   }
 
   type Listener = (event: GeneratorReturn<ReturnType<typeof carEvent['iterator']>>) => void
@@ -68,8 +93,26 @@ export function useCarEvents() {
     runListeners()
   }, [runListeners])
 
+  const registerCar = useCallback(({ carEventsIterator, carId }: {
+    carEventsIterator: CarEventsIterator
+    carId: CarId
+  }) => {
+    context.setCarId(carId)
+    context.registerCarEventsIterator(carEventsIterator)
+  }, [context])
+
+  const { data: carInfos } = useQuery(
+    ['carInfos', context.carId],
+    () => getCarInfos(context.carId!),
+    {
+      enabled: !!context.carId,
+    },
+  )
+
   return {
+    carId: context.carId,
     onCarEvent,
-    registerCarEventsIterator: context.registerCarEventsIterator,
+    registerCar,
+    carInfos,
   }
 }
