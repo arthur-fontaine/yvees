@@ -29,7 +29,7 @@ export const journeyStepServiceImpl = lazyCreateServiceImpl<JourneyStepService>(
     deleteJourneyStepsByJourneyStepId: async ({ journeyStepId }) => {
       const journeyStep = await db.query.journeySteps.findFirst({
         where: (journeySteps, { eq }) =>
-          eq(journeySteps.id, Number.parseInt(journeyStepId)),
+          eq(journeySteps.id, journeyStepId),
       })
 
       if (!journeyStep) {
@@ -39,7 +39,7 @@ export const journeyStepServiceImpl = lazyCreateServiceImpl<JourneyStepService>(
 
       await db
         .delete(journeySteps)
-        .where(eq(journeySteps.id, Number.parseInt(journeyStepId)))
+        .where(eq(journeySteps.id, journeyStepId))
     },
   }),
 )

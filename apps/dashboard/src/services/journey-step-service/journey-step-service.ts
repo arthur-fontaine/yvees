@@ -1,20 +1,20 @@
-import type { Service } from "diabolo";
-import { createService } from "diabolo";
+import type { Service } from 'diabolo'
+import { createService } from 'diabolo'
 
-import type { JourneyStepForm } from "../../screens/journey/types/create-journey-step";
+import type { JourneyStepForm } from '../../screens/journey/types/create-journey-step'
 
 export interface JourneyStepService
   extends Service<
-    "journeyStep",
+    'journeyStep',
     {
       createJourneyStepByJourneyId: (params: {
-        journeyStep: JourneyStepForm;
-      }) => Promise<void>;
+        journeyStep: JourneyStepForm
+      }) => Promise<void>
       deleteJourneyStepsByJourneyStepId: (params: {
-        journeyStepId: string;
-      }) => Promise<void>;
+        journeyStepId: number
+      }) => Promise<void>
     }
   > {}
 
-export const journeyStepService =
-  createService<JourneyStepService>("journeyStep");
+export const journeyStepService
+  = createService<JourneyStepService>('journeyStep')

@@ -10,13 +10,13 @@ import {
   TableRow,
 } from '../../../shared/components/ui/table'
 import { router } from '../../../utils/router'
-import { useJourneyData } from '../hooks/use-home-journey'
+import { deleteJourney, useJourneyData } from '../hooks/use-home-journey'
 
 /**
  * Journey Home screen.
  */
 export function JourneyHome({ journeyId }: { journeyId: string }) {
-  const { journey, loading } = useJourneyData(journeyId)
+  const { journey, loading, refetch } = useJourneyData(journeyId)
 
   if (loading) {
     return <p>Loading...</p>
@@ -25,7 +25,17 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
     return <p>No journey available.</p>
   }
 
- const sortedSteps = [...journey.journeySteps].sort((a, b) => {
+  const handleDeleteStep = async (journeyStepId: number) => {
+    try {
+      await deleteJourney(journeyStepId)
+      refetch()
+    }
+   catch (error) {
+      console.error('Failed to delete step:', error)
+    }
+  }
+
+  const sortedSteps = [...journey.journeySteps].sort((a, b) => {
     if (a.start) {
         return -1
     }
@@ -79,24 +89,41 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
                       <TableHead>Nom</TableHead>
                       <TableHead>QR Code</TableHead>
                       <TableHead>Date de création</TableHead>
+                      <TableHead className="text-right">Action</TableHead>
                   </TableRow>
               </TableHeader>
               <TableBody>
-                  {sortedSteps.length > 0 && sortedSteps.map(
-                    step => (
-                        <TableRow key={step.id}>
-                            <TableCell>{step.name}</TableCell>
-                            <TableCell>{step.id}</TableCell>
-                            <TableCell>
-                                {new Date(step.createdAt).toLocaleDateString('en-US', {
-                          day: '2-digit',
-                          month: '2-digit',
-                          year: 'numeric',
-                        })}
-                            </TableCell>
-                        </TableRow>
-                  ),
-                )}
+                  {sortedSteps.length > 0 ? (
+            sortedSteps.map(step => (
+                <TableRow key={step.id}>
+                    <TableCell>{step.name}</TableCell>
+                    <TableCell>{step.id}</TableCell>
+                    <TableCell>
+                        {new Date(step.createdAt).toLocaleDateString('en-US', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                  })}
+                    </TableCell>
+                    <TableCell className="float-right">
+                        <Button
+                          disabled={step.end || step.start}
+                          icon={Icon.Trash}
+                          onClick={() => handleDeleteStep(step.id)}
+                          variant="cancel"
+                        >
+                            Delete
+                        </Button>
+                    </TableCell>
+                </TableRow>
+            ))
+          ) : (
+              <TableRow>
+                  <TableCell colSpan={3}>
+                      Erreur lors du chargement. Contacter le support
+                  </TableCell>
+              </TableRow>
+          )}
               </TableBody>
           </Table>
       </div>

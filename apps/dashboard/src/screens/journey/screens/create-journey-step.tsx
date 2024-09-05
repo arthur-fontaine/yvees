@@ -65,7 +65,7 @@ export function JourneyStepCreate({ journeyId }: { journeyId: string }) {
     try {
       await insertNewJourneyStep(journeyStepData)
       toast({
-        description: 'Le parcours a été créé avec succès !',
+        description: 'L\'étape a été créé avec succès !',
         duration: 3500,
         title: 'Parcours',
       })
@@ -73,7 +73,7 @@ export function JourneyStepCreate({ journeyId }: { journeyId: string }) {
     }
  catch (err) {
       toast({
-        description: 'Échec de la création du parcours.',
+        description: 'Échec de la création de l\'étape.',
         duration: 3500,
         title: 'Erreur',
       })
