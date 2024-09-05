@@ -79,7 +79,7 @@ export const Button = withVariants<
           flexDirection="row"
           fontSize={buttonMd ? '$buttonMd' : '$button'}
           fontWeight={buttonMd ? '$buttonMd' : '$button'}
-          icon={icon && withProps(icon, { size: 16, strokeWidth: 3 })}
+          icon={(icon && withProps(icon, { size: 16, strokeWidth: 3 }))!}
           justifyContent="center"
           onPress={onClick}
           unstyled
