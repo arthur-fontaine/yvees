@@ -1,0 +1,26 @@
+diff --git a/column.cjs b/column.cjs
+index 02dc7e5c5940e2ce702b335a225081063de4ee02..afdb505e6cd25899b90a67ad4ff8ac2fc6076122 100644
+--- a/column.cjs
++++ b/column.cjs
+@@ -43,7 +43,7 @@ class Column {
+   name;
+   primary;
+   notNull;
+-  default;
++  // default;
+   defaultFn;
+   onUpdateFn;
+   hasDefault;
+diff --git a/column.js b/column.js
+index a87bc9b5e1a8309ee46c21c0621d8376f00b6ae8..f2886e961195f18af0fe7479f4fb7f156e812ab1 100644
+--- a/column.js
++++ b/column.js
+@@ -20,7 +20,7 @@ class Column {
+   name;
+   primary;
+   notNull;
+-  default;
++  // default;
+   defaultFn;
+   onUpdateFn;
+   hasDefault;

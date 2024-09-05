@@ -11,6 +11,9 @@ export interface CarService extends DI.Service<
       joystickPosition: { x: number, y: number }
     ) => Promise<void>
     sendCommand: (carId: string, command: CarCommand) => Promise<void>
+    getCarInfos: (carId: number) => Promise<{
+      ip: string
+    }>
   }
 > { }
 

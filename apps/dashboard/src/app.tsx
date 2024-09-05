@@ -1,33 +1,72 @@
-import { createRoute } from 'agrume'
+import { useClerk } from '@clerk/clerk-react'
 import React from 'react'
-import { Button, Icon, Input, ThemeProvider } from 'ui'
+import { ThemeProvider } from 'ui'
 
-const hello = createRoute(async () => {
-  return 'Hello, world!'
-})
+import { Journey } from './screens/journey/journey'
+import { Authentication } from './screens/login/authentication'
+import { Sidebar } from './shared/components/sidebar'
+import { useRoute } from './utils/router'
 
 /**
  * App component.
  */
 export function App() {
-  return (
-    <ThemeProvider theme="light">
-      <Button
-        icon={Icon.Heart}
-        onClick={() => hello().then(console.log)}
-        variant="primary"
-      >
-        Click me
-      </Button>
+  const route = useRoute([
+    'login',
+    'data',
+    'journeyhome',
+    'journeycreate',
+    'robot',
+  ])
+  const { session } = useClerk()
 
-      <Input
-        action={{
-          icon: Icon.BrandGoogle,
-          onClick: () => console.log('Search clicked'),
-        }}
-        icon={Icon.Search}
-        variant="default"
-      />
-    </ThemeProvider>
-  )
+  if (session?.status !== 'active') {
+    return (
+      <ThemeProvider theme="light">
+        <Authentication />
+      </ThemeProvider>
+    )
+  }
+ else {
+    switch (route?.name) {
+      case 'data': {
+        return (
+          <ThemeProvider theme="light">
+            <Sidebar />
+            <div className="pl-40">Data</div>
+          </ThemeProvider>
+        )
+      }
+
+      case 'journeyhome':
+      case 'journeycreate': {
+        return (
+          <ThemeProvider theme="light">
+            <Sidebar />
+            <div className="pl-40">
+              <Journey />
+            </div>
+          </ThemeProvider>
+        )
+      }
+
+      case 'robot': {
+        return (
+          <ThemeProvider theme="light">
+            <Sidebar />
+            <div className="pl-40">robot</div>
+          </ThemeProvider>
+        )
+      }
+
+      default: {
+        return (
+          <ThemeProvider theme="light">
+            <Sidebar />
+            <div className="pl-44">Not found</div>
+          </ThemeProvider>
+        )
+      }
+    }
+  }
 }

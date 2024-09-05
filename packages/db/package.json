@@ -1,0 +1,37 @@
+{
+  "name": "db",
+  "exports": {
+    ".": {
+      "types": "./dist/db.d.ts",
+      "import": "./dist/db.mjs",
+      "require": "./dist/db.js"
+    },
+    "./schema": {
+      "types": "./dist/schema/schema.d.ts",
+      "import": "./dist/schema/schema.mjs",
+      "require": "./dist/schema/schema.js"
+    },
+    "./runtime/server": {
+      "types": "./dist/runtimes/server.d.ts",
+      "import": "./dist/runtimes/server.mjs",
+      "require": "./dist/runtimes/server.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "types": "./src",
+  "scripts": {
+    "build": "tsup src/db.ts src/schema/schema.ts src/runtimes/* --dts --format esm,cjs --outDir dist",
+    "dev": "pnpm build --watch",
+    "generate-migrations": "drizzle-kit generate",
+    "migrate": "drizzle-kit push"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.1.1",
+    "drizzle-kit": "^0.22.8",
+    "drizzle-orm": "^0.31.2",
+    "file-uri-to-path": "^2.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.1.0"
+  }
+}
