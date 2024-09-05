@@ -1,6 +1,8 @@
 export interface JourneyStepForm {
   description: null | string
   draft: boolean
-  name: string
+  end: boolean
   journeyId: number
+  name: string
+  start: boolean
 }

@@ -2,7 +2,7 @@ import { createRoute } from 'agrume'
 import * as DI from 'diabolo'
 import { useState } from 'react'
 
-import { journeyService } from '../../../services/journey-service/journey-service'
+import { journeyStepService } from '../../../services/journey-step-service/journey-step-service'
 import { serverImpls } from '../../../utils/server-impls'
 import type { JourneyStepForm } from '../types/create-journey-step'
 
@@ -14,7 +14,7 @@ const insertJourneyStep = createRoute(
       journeyStep: JourneyStepForm
     }) {
       const { createJourneyStepByJourneyId } = yield * DI.requireService(
-        journeyService,
+        journeyStepService,
       )
       await createJourneyStepByJourneyId({ journeyStep })
       return { success: true }
@@ -33,7 +33,8 @@ export function useInsertJourneyStep() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | undefined>(undefined)
 
-  const insertNewJourneyStep = async (journeyStep: JourneyStepForm): Promise<void> => {
+  const insertNewJourneyStep = async (journeyStep: JourneyStepForm):
+  Promise<void> => {
     setLoading(true)
     setError(undefined)
 

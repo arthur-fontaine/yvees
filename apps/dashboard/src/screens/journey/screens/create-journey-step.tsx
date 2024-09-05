@@ -56,8 +56,10 @@ export function JourneyStepCreate({ journeyId }: { journeyId: string }) {
     const journeyStepData: JourneyStepForm = {
       description: data.description,
       draft: true,
-      name: data.name,
+      end: false,
       journeyId: Number(journeyId),
+      name: data.name,
+      start: false,
     }
 
     try {
@@ -79,88 +81,89 @@ export function JourneyStepCreate({ journeyId }: { journeyId: string }) {
   }
 
   return (
-    <div className="h-screen p-10">
-      <h1 className="text-3xl font-bold my-8">Création d'une étape :</h1>
-      <div>
-        <p className="text-sm text-muted-foreground max-w-3xl">
-          Vous êtes entrain de créer une nouvelle étape. Après avoir rempli les
-          différents champs, vous pourrez accéder à la page de cette étape, 
-        </p>
-      </div>
-      <h2 className="text-xl mt-8">Remplissez les différents champs :</h2>
-      <Form {...form}>
-        <form
-          className="w-2/3 space-y-6 my-4"
-          onSubmit={form.handleSubmit(onSubmit)}
-        >
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Nom de l'étape :</FormLabel>
-                <FormControl>
-                  <Input
-                    inputMd
-                    onChangeText={field.onChange}
-                    placeholder="Nom de l'étape.."
-                    variant="outlined"
-                  />
-                </FormControl>
-                <FormMessage />
-                <FormDescription>
-                  Le début d'une nouvelle étape pour ton voyage..
-                </FormDescription>
-              </FormItem>
+      <div className="h-screen p-10">
+          <h1 className="text-3xl font-bold my-8">Création d'une étape :</h1>
+          <div>
+              <p className="text-sm text-muted-foreground max-w-3xl">
+                  Vous êtes entrain de créer une nouvelle étape. Après avoir
+                  rempli les différents champs, vous pourrez accéder à la
+                  page de cette étape.
+              </p>
+          </div>
+          <h2 className="text-xl mt-8">Remplissez les différents champs :</h2>
+          <Form {...form}>
+              <form
+                className="w-2/3 space-y-6 my-4"
+                onSubmit={form.handleSubmit(onSubmit)}
+              >
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Nom de l'étape :</FormLabel>
+                            <FormControl>
+                                <Input
+                                  inputMd
+                                  onChangeText={field.onChange}
+                                  placeholder="Nom de l'étape.."
+                                  variant="outlined"
+                                />
+                            </FormControl>
+                            <FormMessage />
+                            <FormDescription>
+                                Le début d'une nouvelle étape pour ton voyage..
+                            </FormDescription>
+                        </FormItem>
             )}
-          />
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="mt-20">Description de l'étape :</FormLabel>
-                <FormControl>
-                  <Textarea
-                    className="resize-none"
-                    placeholder="Description de l'étape.."
-                    {...field}
                   />
-                </FormControl>
-                <FormMessage />
-                <FormDescription>
-                  Détails supplémentaires sur l'étape..
-                </FormDescription>
-              </FormItem>
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel className="mt-20">Description de l'étape :</FormLabel>
+                            <FormControl>
+                                <Textarea
+                                  className="resize-none"
+                                  placeholder="Description de l'étape.."
+                                  {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                            <FormDescription>
+                                Détails supplémentaires sur l'étape..
+                            </FormDescription>
+                        </FormItem>
             )}
-          />
-          <div className="flex justify-between h-10">
-            <Button
-              buttonMd
-              onClick={form.handleSubmit(async (data) => {
+                  />
+                  <div className="flex justify-between h-10">
+                      <Button
+                        buttonMd
+                        onClick={form.handleSubmit(async (data) => {
                 await onSubmit(data)
                 if (!error) {
-                  router.push('journeyhome', { journeyId: journeyId })
+                  router.push('journeyhome', { journeyId })
                 }
               })}
-              variant="primary"
-            >
-              {loading ? 'Création en cours...' : 'Créer'}
-            </Button>
-            <Button
-              buttonMd
-              onClick={() => {
+                        variant="primary"
+                      >
+                          {loading ? 'Création en cours...' : 'Créer'}
+                      </Button>
+                      <Button
+                        buttonMd
+                        onClick={() => {
                 form.reset()
-                router.push('journeylist')
+                router.push('journeyhome', { journeyId })
               }}
-              variant="cancel"
-            >
-              Annuler
-            </Button>
-          </div>
-          {error && <p className="text-red-600">{error}</p>}
-        </form>
-      </Form>
-    </div>
+                        variant="cancel"
+                      >
+                          Annuler
+                      </Button>
+                  </div>
+                  {error && <p className="text-red-600">{error}</p>}
+              </form>
+          </Form>
+      </div>
   )
 }

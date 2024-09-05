@@ -15,6 +15,20 @@
       "when": 1725366600064,
       "tag": "0001_magenta_black_bolt",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1725528394913,
+      "tag": "0002_free_captain_stacy",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1725534735847,
+      "tag": "0003_handy_red_wolf",
+      "breakpoints": true
     }
   ]
 }

@@ -36,8 +36,10 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
       .insert(journeySteps)
       .values({
         description: 'C\'est le début de ton voyage.',
+        end: false,
         journeyId: createdJourney.id,
         name: 'Début',
+        start: true,
       })
       .returning()
 
@@ -45,29 +47,12 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
       .insert(journeySteps)
       .values({
         description: 'C\'est la fin de ton voyage.',
+        end: true,
         journeyId: createdJourney.id,
         name: 'Fin',
+        start: false,
       })
       .returning()
-  },
-
-  createJourneyStepByJourneyId: async ({ journeyStep }) => {
-    const journey = await db.query.journeys.findFirst({
-      where: (journeys, { eq }) => eq(journeys.id, journeyStep.journeyId),
-    })
-
-    if (!journey) {
-      console.error('Journey not found')
-    }
-
-    if (journey !== undefined) {
-      await db
-        .insert(journeySteps)
-        .values({
-          ...journeyStep,
-        })
-        .returning()
-    }
   },
 
   findJourneyById: async ({ journeyId }) => {

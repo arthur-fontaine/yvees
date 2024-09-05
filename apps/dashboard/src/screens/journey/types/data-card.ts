@@ -1,10 +1,12 @@
 export interface JourneyStepSerialized {
   createdAt: string
+  description: null | string
+  end: boolean
   id: number
   journeyId: number
-  updatedAt: string
   name: string
-  description: null | string
+  start: boolean
+  updatedAt: string
 }
 
 export interface JourneySerialized {

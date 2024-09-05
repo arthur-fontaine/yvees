@@ -17,12 +17,29 @@ import { useJourneyData } from '../hooks/use-home-journey'
  */
 export function JourneyHome({ journeyId }: { journeyId: string }) {
   const { journey, loading } = useJourneyData(journeyId)
+
   if (loading) {
     return <p>Loading...</p>
   }
   if (journey === undefined) {
     return <p>No journey available.</p>
   }
+
+ const sortedSteps = [...journey.journeySteps].sort((a, b) => {
+    if (a.start) {
+        return -1
+    }
+    if (b.start) {
+        return 1
+    }
+    if (a.end) {
+        return 1
+    }
+    if (b.end) {
+        return -1
+    }
+    return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime() // Sort the rest by creation date
+  })
   return (
       <div className="h-screen p-10">
           <div className="flex justify-between my-4 items-center">
@@ -65,19 +82,21 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
                   </TableRow>
               </TableHeader>
               <TableBody>
-                  {journey.journeySteps.map(step => (
-                      <TableRow key={step.id}>
-                          <TableCell>{step.name}</TableCell>
-                          <TableCell>{step.id}</TableCell>
-                          <TableCell>
-                              {new Date(step.createdAt).toLocaleDateString('en-US', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-              })}
-                          </TableCell>
-                      </TableRow>
-          ))}
+                  {sortedSteps.length > 0 && sortedSteps.map(
+                    step => (
+                        <TableRow key={step.id}>
+                            <TableCell>{step.name}</TableCell>
+                            <TableCell>{step.id}</TableCell>
+                            <TableCell>
+                                {new Date(step.createdAt).toLocaleDateString('en-US', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric',
+                        })}
+                            </TableCell>
+                        </TableRow>
+                  ),
+                )}
               </TableBody>
           </Table>
       </div>

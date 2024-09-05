@@ -6,9 +6,11 @@ import { withTimestamps } from './utils/with-timestamps'
 
 export const journeySteps = sqliteTable('journey_steps', withTimestamps({
   description: text('description'),
+  end: integer('end', { mode: 'boolean' }).notNull(),
   id: integer('id').notNull().primaryKey(),
   journeyId: integer('journey_id').notNull(),
   name: text('name').notNull(),
+  start: integer('start', { mode: 'boolean' }).notNull(),
 }))
 
 export const journeyStepsRelations = relations(journeySteps, ({ one }) => ({
