@@ -37,3 +37,11 @@ CREATE TABLE `visits` (
 	`created_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
 	`updated_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL
 );
+--> statement-breakpoint
+CREATE TABLE `car` (
+	`battery` integer NOT NULL,
+	`id` integer PRIMARY KEY NOT NULL,
+	`ip` text NOT NULL,
+	`journey_id` integer,
+	`museum_id` integer NOT NULL
+);

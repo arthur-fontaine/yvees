@@ -1,8 +1,8 @@
+import { db } from 'db/runtime/server'
 import { museums } from 'db/schema'
 import { lazyCreateServiceImpl } from 'diabolo'
 
 import type { MuseumService } from './museum-service'
-import { db } from '../../utils/db'
 
 export const museumServiceImpl = lazyCreateServiceImpl<MuseumService>(() => ({
 
