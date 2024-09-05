@@ -1,5 +1,5 @@
-/* eslint-disable ts/naming-convention */
 import { useEffect, useState } from 'react'
+
 import { useRoute } from '../../../utils/router'
 
 /**
@@ -7,7 +7,7 @@ import { useRoute } from '../../../utils/router'
  */
 export function useSideBar(defaultButton = 'data') {
   const [activeButton, setActiveButton] = useState<string>(defaultButton)
-  const route = useRoute(["login", "data", "journeyhome", "journeycreate", "robot"]);
+  const route = useRoute(['login', 'data', 'journeyhome', 'journeycreate', 'robothome', 'robotconfigure'])
 
   useEffect(() => {
     setActiveButton(route?.name || defaultButton)
