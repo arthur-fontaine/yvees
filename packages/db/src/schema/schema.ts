@@ -1,6 +1,6 @@
+export * from './cars'
 export * from './journey-steps'
 export * from './journeys'
 export * from './museums'
 export * from './users'
 export * from './visits'
-export * from './cars'

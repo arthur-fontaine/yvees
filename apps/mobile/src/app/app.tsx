@@ -22,20 +22,20 @@ export function App() {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <ThemeProvider theme="light">
-        <GestureHandlerRootView>
-          <ClerkProvider
-            publishableKey={config.clerk.publishableKey}
-            tokenCache={tokenCache}
-          >
-            <CarEventsProvider>
-              <Navigator />
-            </CarEventsProvider>
-          </ClerkProvider>
-        </GestureHandlerRootView>
-      </ThemeProvider>
-      <StatusBar style="auto" />
-    </View>
+      <View style={{ flex: 1 }}>
+          <ThemeProvider theme="light">
+              <GestureHandlerRootView>
+                  <ClerkProvider
+                    publishableKey={config.clerk.publishableKey}
+                    tokenCache={tokenCache}
+                  >
+                      <CarEventsProvider>
+                          <Navigator />
+                      </CarEventsProvider>
+                  </ClerkProvider>
+              </GestureHandlerRootView>
+          </ThemeProvider>
+          <StatusBar style="auto" />
+      </View>
   )
 }

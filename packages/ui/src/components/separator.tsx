@@ -10,6 +10,6 @@ interface SeparatorProps {
  */
 export function Separator({ color }: SeparatorProps) {
   return (
-    <TamaguiView backgroundColor={color || '$defaultSeparatorColor'} flex={1} height={1} />
+      <TamaguiView backgroundColor={color || '$defaultSeparatorColor'} flex={1} height={1} />
   )
 }

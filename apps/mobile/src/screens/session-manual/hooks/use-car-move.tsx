@@ -2,11 +2,11 @@ import { createRoute } from 'agrume'
 import * as DI from 'diabolo'
 import { useCallback } from 'react'
 
-import { carIdToNumber, type CarId } from '../../../shared/schemas/car-id'
+import { useCar } from '../../../shared/hooks/use-car'
+import { type CarId, carIdToNumber } from '../../../shared/schemas/car-id'
 import { carService } from '../../../shared/services/car-service/car-service'
 import { serverImpls } from '../../../shared/utils/server-impls'
 import type { Coordinates } from '../../../types/coordinates'
-import { useCar } from '../../../shared/hooks/use-car'
 
 const moveCar = createRoute(DI.provide(async function* (
   { carId, coordinates }: { carId: CarId, coordinates: Coordinates },

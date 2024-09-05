@@ -43,87 +43,87 @@ export function Joystick(props: JoystickProps) {
 
   // eslint-disable-next-line use-encapsulation/prefer-custom-hooks
   const frame = useMemo(() => (
-    <>
-      <Box
-        backgroundColor="#E9D8CC"
-        borderColor={`${brownColor}1E`}
-        borderRadius={radius}
-        borderWidth={1}
-        height={2 * radius - 8}
-        left={4}
-        pointerEvents="none"
-        position="absolute"
-        top={4}
-        width={2 * radius - 8}
-      />
-      <Box
-        bottom={0}
-        left={0}
-        opacity={0.5}
-        position="absolute"
-        right={0}
-        top={0}
-      >
-        <Icon.ChevronDown
-          color="#956C66"
-          size={24}
-          style={{
+      <>
+          <Box
+            backgroundColor="#E9D8CC"
+            borderColor={`${brownColor}1E`}
+            borderRadius={radius}
+            borderWidth={1}
+            height={2 * radius - 8}
+            left={4}
+            pointerEvents="none"
+            position="absolute"
+            top={4}
+            width={2 * radius - 8}
+          />
+          <Box
+            bottom={0}
+            left={0}
+            opacity={0.5}
+            position="absolute"
+            right={0}
+            top={0}
+          >
+              <Icon.ChevronDown
+                color="#956C66"
+                size={24}
+                style={{
             bottom: 12,
             left: radius - 12,
             position: 'absolute',
           }}
-        />
-        <Icon.ChevronLeft
-          color="#956C66"
-          size={24}
-          style={{
+              />
+              <Icon.ChevronLeft
+                color="#956C66"
+                size={24}
+                style={{
             left: 12,
             position: 'absolute',
             top: radius - 12,
           }}
-        />
-        <Icon.ChevronRight
-          color="#956C66"
-          size={24}
-          style={{
+              />
+              <Icon.ChevronRight
+                color="#956C66"
+                size={24}
+                style={{
             position: 'absolute',
             right: 12,
             top: radius - 12,
           }}
-        />
-        <Icon.ChevronUp
-          color="#956C66"
-          size={24}
-          style={{
+              />
+              <Icon.ChevronUp
+                color="#956C66"
+                size={24}
+                style={{
             left: radius - 12,
             position: 'absolute',
             top: 12,
           }}
-        />
-      </Box>
-    </>
+              />
+          </Box>
+      </>
   ), [brownColor, radius])
 
   // eslint-disable-next-line use-encapsulation/prefer-custom-hooks
   const nippleBackground = useMemo(() => (
-    <>
-      <LinearGradient
-        colors={[silverColor, silverDarkColor]}
-        end={[-1, -1]}
-        start={[1, 1]}
-        style={{
+      <>
+          <LinearGradient
+            colors={[silverColor, silverDarkColor]}
+            end={[-1, -1]}
+            start={[1, 1]}
+            style={{
           borderRadius: nippleRadius,
           height: 2 * nippleRadius,
           position: 'absolute',
           width: 2 * nippleRadius,
           zIndex: 1,
         }}
-      />
-      <LinearGradient
-        colors={[silverDarkColor, silverColor]}
-        end={[-1, -1]}
-        start={[1, 1]}
-        style={{
+          />
+          <LinearGradient
+            colors={[silverDarkColor, silverColor]}
+            end={[-1, -1]}
+            start={[1, 1]}
+            style={{
           borderRadius: nippleRadius,
           height: 2 * nippleRadius - 32,
           left: 16,
@@ -132,32 +132,32 @@ export function Joystick(props: JoystickProps) {
           width: 2 * nippleRadius - 32,
           zIndex: 2,
         }}
-      />
-    </>
+          />
+      </>
   ), [nippleRadius, silverColor, silverDarkColor])
 
   return (
-    <GestureDetector gesture={panGesture}>
-      <Box
-        backgroundColor={`${brownColor}14`}
-        borderRadius={radius}
-        height={2 * radius}
-        transform={[{ rotateX: '180deg' }]}
-        width={2 * radius}
-      >
-        {frame}
-        <Box
-          borderRadius={nippleRadius}
-          height={2 * nippleRadius}
-          pointerEvents="none"
-          position="absolute"
-          transform={[{ translateX: x }, { translateY: y }]}
-          width={2 * nippleRadius}
-        >
-          {nippleBackground}
-        </Box>
-      </Box>
-    </GestureDetector>
+      <GestureDetector gesture={panGesture}>
+          <Box
+            backgroundColor={`${brownColor}14`}
+            borderRadius={radius}
+            height={2 * radius}
+            transform={[{ rotateX: '180deg' }]}
+            width={2 * radius}
+          >
+              {frame}
+              <Box
+                borderRadius={nippleRadius}
+                height={2 * nippleRadius}
+                pointerEvents="none"
+                position="absolute"
+                transform={[{ translateX: x }, { translateY: y }]}
+                width={2 * nippleRadius}
+              >
+                  {nippleBackground}
+              </Box>
+          </Box>
+      </GestureDetector>
   )
 }
 

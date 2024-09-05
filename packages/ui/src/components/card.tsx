@@ -40,35 +40,35 @@ export const Card = withVariants<
     const ICON_SHIFT = 24
 
     return (
-      <TamaguiCard
-        {...variant}
-        unstyled
-      >
-        <Title1 variant="default">{title}</Title1>
-        <Paragraph
-          fontFamily="$body"
-          fontSize="$body"
-          paddingBottom={24}
-          paddingTop={8}
+        <TamaguiCard
+          {...variant}
+          unstyled
         >
-          {text}
-        </Paragraph>
+            <Title1 variant="default">{title}</Title1>
+            <Paragraph
+              fontFamily="$body"
+              fontSize="$body"
+              paddingBottom={24}
+              paddingTop={8}
+            >
+                {text}
+            </Paragraph>
 
-        {action && <Button onClick={action.onClick} variant="primary">{action.text}</Button>}
+            {action && <Button onClick={action.onClick} variant="primary">{action.text}</Button>}
 
-        {Icon && (
-          <Icon
-            bottom={-ICON_SHIFT}
-            color="$orange"
-            opacity={0.25}
-            position="absolute"
-            right={-ICON_SHIFT}
-            size={192}
-            strokeWidth={2.5}
-            zIndex={-1}
-          />
+            {Icon && (
+            <Icon
+              bottom={-ICON_SHIFT}
+              color="$orange"
+              opacity={0.25}
+              position="absolute"
+              right={-ICON_SHIFT}
+              size={192}
+              strokeWidth={2.5}
+              zIndex={-1}
+            />
         )}
-      </TamaguiCard>
+        </TamaguiCard>
     )
   },
 )

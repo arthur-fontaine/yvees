@@ -1,10 +1,14 @@
-import { WebView } from "react-native-webview"
-import { useCar } from "../hooks/use-car"
-import React from "react"
+import React from 'react'
+import { WebView } from 'react-native-webview'
+
+import { useCar } from '../hooks/use-car'
 
 const IMG_PORT = 7000
 
-export const CarCamera = () => {
+/**
+ * A component that displays the camera feed of the connected car.
+ */
+export function CarCamera() {
   const { carInfos } = useCar()
 
   if (carInfos?.ip === undefined) {
@@ -12,11 +16,10 @@ export const CarCamera = () => {
   }
 
   return (
-    <WebView
-      scalesPageToFit
-      javaScriptEnabled
-      style={{ flex: 1, width: '100%', height: '100%' }}
-      source={{
+      <WebView
+        javaScriptEnabled
+        scalesPageToFit
+        source={{
         html: /* html */`
           <img
             src="http://${carInfos.ip}:${IMG_PORT}"
@@ -24,6 +27,7 @@ export const CarCamera = () => {
           />
         `,
       }}
-    />
+        style={{ flex: 1, height: '100%', width: '100%' }}
+      />
   )
 }

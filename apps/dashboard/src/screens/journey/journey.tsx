@@ -13,16 +13,16 @@ export function Journey() {
   switch (route?.name) {
     case 'journeycreate': {
       return (
-        <ThemeProvider theme="light">
-          <JourneyCreate />
-        </ThemeProvider>
+          <ThemeProvider theme="light">
+              <JourneyCreate />
+          </ThemeProvider>
       )
     }
     default: {
       return (
-        <ThemeProvider theme="light">
-          <JourneyList />
-        </ThemeProvider>
+          <ThemeProvider theme="light">
+              <JourneyList />
+          </ThemeProvider>
       )
     }
   }

@@ -15,16 +15,16 @@ export function SessionManualScreen() {
   const { width } = useWindowDimensions()
 
   return (
-    <DefaultLayout>
-      <Box alignItems="center" flex={1} justifyContent="center">
-        <Joystick
-          nippleFactor={0.5}
-          onMove={payload => moveCar(payload.position)}
-          onMoveEnd={payload => moveCar(payload.position)}
-          onMoveStart={payload => moveCar(payload.position)}
-          radius={width / 4}
-        />
-      </Box>
-    </DefaultLayout>
+      <DefaultLayout>
+          <Box alignItems="center" flex={1} justifyContent="center">
+              <Joystick
+                nippleFactor={0.5}
+                onMove={payload => moveCar(payload.position)}
+                onMoveEnd={payload => moveCar(payload.position)}
+                onMoveStart={payload => moveCar(payload.position)}
+                radius={width / 4}
+              />
+          </Box>
+      </DefaultLayout>
   )
 }

@@ -5,9 +5,9 @@ import { useQuery } from 'react-query'
 
 import type { GeneratorReturn } from '../../types/generator-return'
 import type { carEvent } from '../events/car-event'
-import { carIdToNumber, type CarId } from '../schemas/car-id'
-import { serverImpls } from '../utils/server-impls'
+import { type CarId, carIdToNumber } from '../schemas/car-id'
 import { carService } from '../services/car-service/car-service'
+import { serverImpls } from '../utils/server-impls'
 
 type CarEventsIterator = AsyncGenerator<GeneratorReturn<ReturnType<typeof carEvent['iterator']>>>
 
@@ -34,15 +34,15 @@ export function CarEventsProvider({ children }: React.PropsWithChildren) {
   /* eslint-enable use-encapsulation/prefer-custom-hooks */
 
   return (
-    <CarEventsContext.Provider value={{
+      <CarEventsContext.Provider value={{
       carEventsIterator,
       carId,
       registerCarEventsIterator: setCarEventsIterator,
       setCarId,
     }}
-    >
-      {children}
-    </CarEventsContext.Provider>
+      >
+          {children}
+      </CarEventsContext.Provider>
   )
 }
 
@@ -104,8 +104,8 @@ export function useCar() {
 
   return {
     carId: context.carId,
+    carInfos,
     onCarEvent,
     registerCar,
-    carInfos,
   }
 }

@@ -17,41 +17,41 @@ export function AuthenticationScreen() {
   const translate = useTranslate()
 
   return (
-    <DefaultLayout withPadding={false}>
-      <Box
-        backgroundColor="$cardBackgroundColor"
-        borderRadius="$card"
-        display="flex"
-        flexDirection="column"
-        gap="$large"
-        justifyContent="space-between"
-        marginTop="auto"
-        paddingBottom={80}
-        paddingHorizontal="$card"
-        paddingTop="$card"
-      >
-        {isFormSignUp ? <SignUp /> : <SignIn />}
-
-        <View style={{ alignItems: 'center', flexDirection: 'row' }}>
-          <Separator />
-          <View>
-            <Text style={{ color: '#F4C898', textAlign: 'center', width: 50 }}>OU</Text>
-          </View>
-          <Separator />
-        </View>
-
-        <Box gap="$large">
-          <Button
-            onClick={toggleForm}
-            variant="secondary"
+      <DefaultLayout withPadding={false}>
+          <Box
+            backgroundColor="$cardBackgroundColor"
+            borderRadius="$card"
+            display="flex"
+            flexDirection="column"
+            gap="$large"
+            justifyContent="space-between"
+            marginTop="auto"
+            paddingBottom={80}
+            paddingHorizontal="$card"
+            paddingTop="$card"
           >
-            {isFormSignUp ? translate('authentication.logIn.title') : translate('authentication.signUp.title')}
-          </Button>
-          <SignInWithOAuth />
-        </Box>
+              {isFormSignUp ? <SignUp /> : <SignIn />}
 
-      </Box>
-    </DefaultLayout>
+              <View style={{ alignItems: 'center', flexDirection: 'row' }}>
+                  <Separator />
+                  <View>
+                      <Text style={{ color: '#F4C898', textAlign: 'center', width: 50 }}>OU</Text>
+                  </View>
+                  <Separator />
+              </View>
+
+              <Box gap="$large">
+                  <Button
+                    onClick={toggleForm}
+                    variant="secondary"
+                  >
+                      {isFormSignUp ? translate('authentication.logIn.title') : translate('authentication.signUp.title')}
+                  </Button>
+                  <SignInWithOAuth />
+              </Box>
+
+          </Box>
+      </DefaultLayout>
   )
 }
 

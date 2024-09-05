@@ -22,49 +22,49 @@ export function App() {
 
   if (session?.status !== 'active') {
     return (
-      <ThemeProvider theme="light">
-        <Authentication />
-      </ThemeProvider>
+        <ThemeProvider theme="light">
+            <Authentication />
+        </ThemeProvider>
     )
   }
  else {
     switch (route?.name) {
       case 'data': {
         return (
-          <ThemeProvider theme="light">
-            <Sidebar />
-            <div className="pl-40">Data</div>
-          </ThemeProvider>
+            <ThemeProvider theme="light">
+                <Sidebar />
+                <div className="pl-40">Data</div>
+            </ThemeProvider>
         )
       }
 
       case 'journeyhome':
       case 'journeycreate': {
         return (
-          <ThemeProvider theme="light">
-            <Sidebar />
-            <div className="pl-40">
-              <Journey />
-            </div>
-          </ThemeProvider>
+            <ThemeProvider theme="light">
+                <Sidebar />
+                <div className="pl-40">
+                    <Journey />
+                </div>
+            </ThemeProvider>
         )
       }
 
       case 'robot': {
         return (
-          <ThemeProvider theme="light">
-            <Sidebar />
-            <div className="pl-40">robot</div>
-          </ThemeProvider>
+            <ThemeProvider theme="light">
+                <Sidebar />
+                <div className="pl-40">robot</div>
+            </ThemeProvider>
         )
       }
 
       default: {
         return (
-          <ThemeProvider theme="light">
-            <Sidebar />
-            <div className="pl-44">Not found</div>
-          </ThemeProvider>
+            <ThemeProvider theme="light">
+                <Sidebar />
+                <div className="pl-44">Not found</div>
+            </ThemeProvider>
         )
       }
     }

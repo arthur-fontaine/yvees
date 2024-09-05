@@ -8,6 +8,19 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
     const websockets = new Map<number, WebSocket>()
 
     const carService: CarService['value'] = {
+      async getCarInfos(carId) {
+        const car = await db.query.cars.findFirst({
+          columns: {
+            ip: true,
+          },
+          where: (car, { eq }) => eq(car.id, carId),
+        })
+        if (car === undefined) {
+          // eslint-disable-next-line fp/no-throw
+          throw new Error('Car not found')
+        }
+        return car
+      },
       async getCarWebsocket(carId) {
         if (websockets.has(carId)) {
           const websocket = websockets.get(carId)!
@@ -25,10 +38,12 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
       },
       async moveCarByJoystickPosition(carId, joystickPosition) {
         if (joystickPosition.x < -1 || joystickPosition.x > 1) {
+          // eslint-disable-next-line fp/no-throw
           throw new Error('Invalid joystick x position')
         }
 
         if (joystickPosition.y < -1 || joystickPosition.y > 1) {
+          // eslint-disable-next-line fp/no-throw
           throw new Error('Invalid joystick y position')
         }
 
@@ -104,18 +119,6 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
           })
         }
         websocket.send(JSON.stringify(command))
-      },
-      async getCarInfos(carId) {
-        const car = await db.query.cars.findFirst({
-          where: (car, { eq }) => eq(car.id, carId),
-          columns: {
-            ip: true,
-          },
-        })
-        if (car === undefined) {
-          throw new Error('Car not found')
-        }
-        return car
       },
     }
 

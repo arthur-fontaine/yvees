@@ -66,24 +66,24 @@ export const Button = withVariants<
       variantStyles.backgroundColor = backgroundColor
     }
     return (
-      <TamaguiButton
-        alignItems="center"
-        display="flex"
-        flexDirection="row"
-        fontSize={buttonMd ? '$buttonMd' : '$button'}
-        fontWeight={buttonMd ? '$buttonMd' : '$button'}
-        icon={icon && withProps(icon, { size: 16, strokeWidth: 3 })}
-        justifyContent="center"
-        onPress={onClick}
-        unstyled
-        {...variantStyles}
-        hoverStyle={{
+        <TamaguiButton
+          alignItems="center"
+          display="flex"
+          flexDirection="row"
+          fontSize={buttonMd ? '$buttonMd' : '$button'}
+          fontWeight={buttonMd ? '$buttonMd' : '$button'}
+          icon={icon && withProps(icon, { size: 16, strokeWidth: 3 })}
+          justifyContent="center"
+          onPress={onClick}
+          unstyled
+          {...variantStyles}
+          hoverStyle={{
           backgroundColor:
             backgroundColor || variant.hoverStyle?.backgroundColor,
         }}
-      >
-        {children}
-      </TamaguiButton>
+        >
+            {children}
+        </TamaguiButton>
     )
   },
 )

@@ -21,24 +21,24 @@ export function Navigator() {
   }
 
   return (
-    <NavigationContainer ref={navigationRef}>
-      <Pages.Navigator
-        initialRouteName={isSignedIn ? 'sessionManual' : 'sessionManual'}
-        screenOptions={{
+      <NavigationContainer ref={navigationRef}>
+          <Pages.Navigator
+            initialRouteName={isSignedIn ? 'sessionManual' : 'sessionManual'}
+            screenOptions={{
           headerShown: false,
         }}
-      >
-        {
+          >
+              {
           Object.entries(pages).map(([name, component]) => (
-            <Pages.Screen
-              component={component as never}
-              key={name}
-              name={name as never}
-            />
+              <Pages.Screen
+                component={component as never}
+                key={name}
+                name={name as never}
+              />
           ))
         }
-      </Pages.Navigator>
-    </NavigationContainer>
+          </Pages.Navigator>
+      </NavigationContainer>
   )
 }
 
