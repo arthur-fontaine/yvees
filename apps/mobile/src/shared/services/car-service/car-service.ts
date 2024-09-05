@@ -5,12 +5,12 @@ import type { IntRange } from '../../../types/int-range'
 export interface CarService extends DI.Service<
   'CarService',
   {
-    getCarWebsocket: (carId: string) => Promise<WebSocket>
+    getCarWebsocket: (carId: number) => Promise<WebSocket>
     moveCarByJoystickPosition: (
-      carId: string,
+      carId: number,
       joystickPosition: { x: number, y: number }
     ) => Promise<void>
-    sendCommand: (carId: string, command: CarCommand) => Promise<void>
+    sendCommand: (carId: number, command: CarCommand) => Promise<void>
     getCarInfos: (carId: number) => Promise<{
       ip: string
     }>

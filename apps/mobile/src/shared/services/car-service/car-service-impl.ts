@@ -5,7 +5,7 @@ import type { CarService } from './car-service'
 
 export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
   () => {
-    const websockets = new Map<string, WebSocket>()
+    const websockets = new Map<number, WebSocket>()
 
     const carService: CarService['value'] = {
       async getCarWebsocket(carId) {
@@ -16,7 +16,9 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
           }
         }
 
-        const websocket = new WebSocket('ws://192.168.1.127:80/ws')
+        const { ip } = await carService.getCarInfos(carId)
+
+        const websocket = new WebSocket(`ws://${ip}:80/ws`)
         websockets.set(carId, websocket)
 
         return websocket
@@ -103,7 +105,7 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
         }
         websocket.send(JSON.stringify(command))
       },
-      async getCarInfos(carId: number) {
+      async getCarInfos(carId) {
         const car = await db.query.cars.findFirst({
           where: (car, { eq }) => eq(car.id, carId),
           columns: {

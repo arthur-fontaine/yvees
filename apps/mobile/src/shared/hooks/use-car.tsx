@@ -5,7 +5,7 @@ import { useQuery } from 'react-query'
 
 import type { GeneratorReturn } from '../../types/generator-return'
 import type { carEvent } from '../events/car-event'
-import type { CarId } from '../schemas/car-id'
+import { carIdToNumber, type CarId } from '../schemas/car-id'
 import { serverImpls } from '../utils/server-impls'
 import { carService } from '../services/car-service/car-service'
 
@@ -46,15 +46,9 @@ export function CarEventsProvider({ children }: React.PropsWithChildren) {
   )
 }
 
-const getCarInfos = createRoute(DI.provide(function* (carIdString: CarId) {
+const getCarInfos = createRoute(DI.provide(function* (carId: CarId) {
   const { getCarInfos } = yield * DI.requireService(carService)
-
-  const yveesCarPrefix = 'yvees-car-'
-  
-  ;`${yveesCarPrefix}1` satisfies CarId
-  const carId = Number(carIdString.replace(yveesCarPrefix, ''))
-
-  return getCarInfos(carId)
+  return getCarInfos(carIdToNumber(carId))
 }, serverImpls))
 
 /**

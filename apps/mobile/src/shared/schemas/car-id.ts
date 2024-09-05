@@ -1,15 +1,19 @@
 import * as v from '@badrap/valita'
 
-export type CarId = `yvees-car-${number}`
+const idPrefix = 'yvees-car-'
+
+export type CarId = `${typeof idPrefix}${number}`
 
 function isCarId(value: string): value is CarId {
   return (
     typeof value === 'string' &&
-    value.startsWith('yvees-car-') &&
-    !Number.isNaN(Number(value.slice('yvees-car-'.length)))
+    value.startsWith(idPrefix) &&
+    !Number.isNaN(Number(value.slice(idPrefix.length)))
   )
 }
 
 export const carIdSchema = v
   .string()
   .assert(isCarId)
+
+export const carIdToNumber = (carId: CarId) => Number(carId.slice(idPrefix.length))
