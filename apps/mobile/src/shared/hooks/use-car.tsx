@@ -1,13 +1,16 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 
-import type { carEvent } from '../events/car-event'
 import type { GeneratorReturn } from '../../types/generator-return'
+import type { carEvent } from '../events/car-event'
+import type { CarId } from '../schemas/car-id'
 
 type CarEventsIterator = AsyncGenerator<GeneratorReturn<ReturnType<typeof carEvent['iterator']>>>
 
 interface CarEventsContextValue {
   carEventsIterator?: CarEventsIterator | undefined
+  carId: CarId | undefined
   registerCarEventsIterator: (iterator: CarEventsIterator) => void
+  setCarId: (carId: string) => void
 }
 
 // eslint-disable-next-line ts/naming-convention
@@ -18,14 +21,19 @@ const CarEventsContext
  * A provider to provide car events.
  */
 export function CarEventsProvider({ children }: React.PropsWithChildren) {
+  /* eslint-disable use-encapsulation/prefer-custom-hooks */
   const [carEventsIterator, setCarEventsIterator]
-    // eslint-disable-next-line use-encapsulation/prefer-custom-hooks
     = useState<CarEventsIterator>()
+
+  const [carId, setCarId] = useState<string>()
+  /* eslint-enable use-encapsulation/prefer-custom-hooks */
 
   return (
     <CarEventsContext.Provider value={{
       carEventsIterator,
+      carId,
       registerCarEventsIterator: setCarEventsIterator,
+      setCarId,
     }}
     >
       {children}
@@ -36,7 +44,7 @@ export function CarEventsProvider({ children }: React.PropsWithChildren) {
 /**
  * A hook to subscribe to car events.
  */
-export function useCarEvents() {
+export function useCar() {
   const context = useContext(CarEventsContext)
 
   if (!context) {
@@ -68,8 +76,17 @@ export function useCarEvents() {
     runListeners()
   }, [runListeners])
 
+  const registerCar = useCallback(({ carEventsIterator, carId }: {
+    carEventsIterator: CarEventsIterator
+    carId: string
+  }) => {
+    context.setCarId(carId)
+    context.registerCarEventsIterator(carEventsIterator)
+  }, [context])
+
   return {
+    carId: context.carId,
     onCarEvent,
-    registerCarEventsIterator: context.registerCarEventsIterator,
+    registerCar,
   }
 }

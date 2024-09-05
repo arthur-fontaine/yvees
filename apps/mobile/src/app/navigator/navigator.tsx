@@ -23,7 +23,7 @@ export function Navigator() {
   return (
     <NavigationContainer ref={navigationRef}>
       <Pages.Navigator
-        initialRouteName={isSignedIn ? 'home' : 'authentication'}
+        initialRouteName={isSignedIn ? 'sessionManual' : 'sessionManual'}
         screenOptions={{
           headerShown: false,
         }}
@@ -52,10 +52,10 @@ function useNavigationAuthEffect() {
     }
 
     if (isSignedIn) {
-      navigationRef.current?.navigate('home')
+      navigationRef.current?.navigate('sessionManual')
     }
     else {
-      navigationRef.current?.navigate('authentication')
+      navigationRef.current?.navigate('sessionManual')
     }
   }, [isLoaded, isSignedIn])
 
