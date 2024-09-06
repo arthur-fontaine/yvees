@@ -18,3 +18,4 @@ RUN pkgx install \
     npx
 
 ENV fish_greeting ""
+ENV NODE_OPTIONS "--experimental-websocket"

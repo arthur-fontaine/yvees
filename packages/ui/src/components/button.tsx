@@ -74,18 +74,19 @@ export const Button = withVariants<
           flexDirection="row"
           fontSize={buttonMd ? '$buttonMd' : '$button'}
           fontWeight={buttonMd ? '$buttonMd' : '$button'}
-          {...(icon
-          && { icon: withProps(icon as never, { size: 16, strokeWidth: 3 }) })
-          }
+          {...(
+            icon
+            && { icon: withProps(icon as never, { size: 16, strokeWidth: 3 }) }
+          )}
           disabled={disabled || false}
           justifyContent="center"
           onPress={onClick}
           unstyled
           {...variantStyles}
           hoverStyle={{
-          backgroundColor:
-            backgroundColor || variant.hoverStyle?.backgroundColor,
-        }}
+            backgroundColor:
+              backgroundColor || variant.hoverStyle?.backgroundColor,
+          }}
           opacity={disabled ? 0.5 : 1}
         >
             {children}

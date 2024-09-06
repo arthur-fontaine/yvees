@@ -1,12 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, Input } from 'ui'
 import { z } from 'zod'
 
 import { useBootCar } from './hooks/use-boot-car'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../../../../shared/components/ui/form'
-import { toast } from '../../../../shared/components/ui/use-toast'
 import { router } from '../../../../utils/router'
 
 const configureCarFormSchema = z.object({
@@ -31,7 +30,7 @@ const CONFIGURE_CAR_FORM_KEY = 'configureCarForm'
  * The configure car screen.
  */
 export function ConfigureCar() {
-  const { bootCar, error, loading } = useBootCar()
+  const { bootCar, loading } = useBootCar()
   const configureCarForm = useForm<z.infer<typeof configureCarFormSchema>>({
     async defaultValues() {
       const storedValues = localStorage.getItem(CONFIGURE_CAR_FORM_KEY)
@@ -43,18 +42,12 @@ export function ConfigureCar() {
     resolver: zodResolver(configureCarFormSchema),
   })
 
-  useEffect(() => {
-    if (error) {
-      toast({
-        description: error.message,
-        duration: 3500,
-      })
-    }
-  }, [error])
-
   // eslint-disable-next-line use-encapsulation/prefer-custom-hooks
   const onSubmit = useCallback(() => {
-    localStorage.setItem(CONFIGURE_CAR_FORM_KEY, JSON.stringify(configureCarForm.getValues()))
+    localStorage.setItem(
+      CONFIGURE_CAR_FORM_KEY,
+      JSON.stringify(configureCarForm.getValues()),
+    )
     bootCar(configureCarForm.getValues())
   }, [bootCar, configureCarForm])
 
@@ -113,8 +106,8 @@ export function ConfigureCar() {
                             </FormControl>
                             <FormMessage />
                             <FormDescription>
-                                Le mot de passe du wifi est le mot de passe de votre
-                                réseau wifi.
+                                Le mot de passe du wifi est le mot de passe de
+                                votre réseau wifi.
                             </FormDescription>
                         </FormItem>
             )}
@@ -137,8 +130,8 @@ export function ConfigureCar() {
                             </FormControl>
                             <FormMessage />
                             <FormDescription>
-                                L'adresse IP de la passerelle est l'adresse IP de
-                                votre routeur.
+                                L'adresse IP de la passerelle est l'adresse IP
+                                de votre routeur.
                             </FormDescription>
                         </FormItem>
             )}
@@ -161,7 +154,8 @@ export function ConfigureCar() {
                             </FormControl>
                             <FormMessage />
                             <FormDescription>
-                                Le masque de sous-réseau est l'adresse IP de votre routeur.
+                                Le masque de sous-réseau est l'adresse IP de
+                                votre routeur.
                             </FormDescription>
                         </FormItem>
             )}
