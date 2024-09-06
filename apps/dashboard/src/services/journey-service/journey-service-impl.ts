@@ -101,6 +101,22 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
     return Array.from(journeysMap.values())[0] || undefined
   },
 
+  deleteJourneyById: async ({journeyId}) => {
+    const journey = await db.query.journeys.findFirst({
+      where: (journeys, { eq }) =>
+        eq(journeys.id, journeyId),
+    })
+    
+    if (!journey){
+      console.error("Journey not found")
+      return
+    }
+
+    await db 
+      .delete(journeys)
+      .where(eq(journeys.id, journeyId))
+  },
+
   findJourneysByMuseumId: async ({ clerkOrganizationId }) => {
     const [museum] = await db.query.museums.findMany({
       where: (museum, { eq }) =>

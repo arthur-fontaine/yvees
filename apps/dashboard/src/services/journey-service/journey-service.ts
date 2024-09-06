@@ -29,7 +29,10 @@ export interface JourneyService
           journeySteps: JourneyStep[]
         } & Journey)[]
       >
+      deleteJourneyById: (params: { journeyId: number }) => Promise<void>
+
     }
   > {}
+
 
 export const journeyService = createService<JourneyService>('journey')

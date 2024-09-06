@@ -7,6 +7,9 @@ import { journeyService } from '../../../services/journey-service/journey-servic
 import { serverImpls } from '../../../utils/server-impls'
 import type { JourneySerialized } from '../types/data-card'
 
+/**
+ * Route to find journey by museum ID.
+ */
 export const getJourney = createRoute(
   DI.provide(async function* (clerkOrganizationId: string | undefined) {
     if (!clerkOrganizationId) {

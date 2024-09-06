@@ -25,10 +25,33 @@ export const getJourney = createRoute(
   },
 )
 
+
+/**
+ * Route to delete a journey by ID.
+ */
+export const deleteJourney = createRoute(
+  DI.provide(async function* (journeyId: number | undefined) {
+    if (!journeyId) {
+      return {}
+    }
+
+    const {
+      deleteJourneyById,
+    } = yield * DI.requireService(journeyService)
+
+    await deleteJourneyById({ journeyId })
+
+    return { success: true }
+  }, serverImpls),
+  {
+    path: '/delete-journey/:journeyId', 
+  },
+)
+
 /**
  * Route to delete a journeyStep by ID.
  */
-export const deleteJourney = createRoute(
+export const deleteJourneyStep = createRoute(
   DI.provide(async function* (journeyStepId: number | undefined) {
     if (!journeyStepId) {
       return {}

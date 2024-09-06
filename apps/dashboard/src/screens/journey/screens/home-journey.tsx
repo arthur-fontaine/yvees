@@ -10,7 +10,7 @@ import {
   TableRow,
 } from '../../../shared/components/ui/table'
 import { router } from '../../../utils/router'
-import { deleteJourney, useJourneyData } from '../hooks/use-home-journey'
+import { deleteJourneyStep, useJourneyData, deleteJourney } from '../hooks/use-home-journey'
 
 /**
  * Journey Home screen.
@@ -27,12 +27,22 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
 
   const handleDeleteStep = async (journeyStepId: number) => {
     try {
-      await deleteJourney(journeyStepId)
+      await deleteJourneyStep(journeyStepId)
       refetch()
     }
    catch (error) {
       console.error('Failed to delete step:', error)
     }
+  }
+
+  const handleDeleteJourney = async (journeyId: number) => {
+    try {
+        await deleteJourney(journeyId)
+        router.push('journeylist')      
+    }
+     catch (error) {
+        console.error('Failed to delete step:', error)
+      }
   }
 
   const sortedSteps = [...journey.journeySteps].sort((a, b) => {
@@ -70,7 +80,7 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
           </div>
           <div className="flex justify-between my-4 items-center">
               <h2 className="text-xl">Liste des étapes :</h2>
-              <div className="flex h-10">
+              <div className="flex h-10 gap-4">
                   <Button
                     buttonMd
                     icon={Icon.Plus}
@@ -80,6 +90,13 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
                     variant="primary"
                   >
                       Créer une étape
+                  </Button>
+                  <Button
+                    icon={Icon.Trash}
+                    onClick={() => handleDeleteJourney(Number(journeyId))}
+                    variant="cancel"
+                  >
+                      Delete
                   </Button>
               </div>
           </div>
