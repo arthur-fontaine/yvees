@@ -262,6 +262,9 @@ importers:
       '@types/react':
         specifier: ~18.2.45
         version: 18.2.79
+      babel-plugin-transform-import-meta:
+        specifier: ^2.2.1
+        version: 2.2.1(@babel/core@7.25.2)
       babel-preset-agrume:
         specifier: ^2.0.2
         version: 2.0.3(putout@36.4.2(typescript@5.5.4))
@@ -5260,6 +5263,11 @@ packages:
 
   babel-plugin-transform-flow-enums@0.0.2:
     resolution: {integrity: sha512-g4aaCrDDOsWjbm0PUUeVnkcVd6AKJsVc/MbnPhEotEpkeJQP6b8nzewohQi7+QS8UyPehOhGWn0nOwjvWpmMvQ==}
+
+  babel-plugin-transform-import-meta@2.2.1:
+    resolution: {integrity: sha512-AxNh27Pcg8Kt112RGa3Vod2QS2YXKKJ6+nSvRtv7qQTJAdx0MZa4UHZ4lnxHUWA2MNbLuZQv5FVab4P1CoLOWw==}
+    peerDependencies:
+      '@babel/core': ^7.10.0
 
   babel-plugin-transform-inline-environment-variables@0.4.4:
     resolution: {integrity: sha512-bJILBtn5a11SmtR2j/3mBOjX4K3weC6cq+NNZ7hG22wCAqpc3qtj/iN7dSe9HDiS46lgp1nHsQgeYrea/RUe+g==}
@@ -13930,7 +13938,7 @@ snapshots:
       supports-color: 8.1.1
       supports-hyperlinks: 2.3.0
       ts-node: 10.9.2(@swc/core@1.7.22)(@types/node@22.5.4)(typescript@5.5.4)
-      tslib: 2.6.2
+      tslib: 2.7.0
       widest-line: 3.1.0
       wordwrap: 1.0.0
       wrap-ansi: 7.0.0
@@ -17472,6 +17480,12 @@ snapshots:
       '@babel/plugin-syntax-flow': 7.24.7(@babel/core@7.25.2)
     transitivePeerDependencies:
       - '@babel/core'
+
+  babel-plugin-transform-import-meta@2.2.1(@babel/core@7.25.2):
+    dependencies:
+      '@babel/core': 7.25.2
+      '@babel/template': 7.25.0
+      tslib: 2.7.0
 
   babel-plugin-transform-inline-environment-variables@0.4.4: {}
 
@@ -23066,7 +23080,7 @@ snapshots:
   snake-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.7.0
 
   snakecase-keys@5.4.4:
     dependencies:
