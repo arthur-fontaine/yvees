@@ -20,24 +20,24 @@ export function SignInWithOAuth() {
   const translate = useTranslate()
 
   return (
-    <>
-      <Button
-        backgroundColor="#4285F4"
-        icon={Icon.BrandGoogle}
-        onClick={googleOAuthHandler}
-        variant="primary"
-      >
-        {translate('authentication.oauth.logInWithGoogle')}
-      </Button>
-      <Button
-        backgroundColor="#000000"
-        icon={Icon.BrandApple}
-        onClick={appleOAuthHandler}
-        variant="primary"
-      >
-        {translate('authentication.oauth.logInWithApple')}
-      </Button>
-    </>
+      <>
+          <Button
+            backgroundColor="#4285F4"
+            icon={Icon.BrandGoogle}
+            onClick={googleOAuthHandler}
+            variant="primary"
+          >
+              {translate('authentication.oauth.logInWithGoogle')}
+          </Button>
+          <Button
+            backgroundColor="#000000"
+            icon={Icon.BrandApple}
+            onClick={appleOAuthHandler}
+            variant="primary"
+          >
+              {translate('authentication.oauth.logInWithApple')}
+          </Button>
+      </>
   )
 }
 

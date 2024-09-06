@@ -1,11 +1,11 @@
-import { CameraView } from 'expo-camera'
-import React from 'react'
-import { Text } from 'react-native'
-import { Button, Card, Icon, ThemeProvider, Histories } from 'ui'
+import { CameraView } from "expo-camera";
+import React from "react";
+import { Text } from "react-native";
+import { Button, Card, Icon, ThemeProvider, Histories } from "ui";
 
-import { useScanController } from './hooks/use-scan-controller'
-import { DefaultLayout } from '../../shared/layouts/default-layout'
-import { useVisitData } from './hooks/use-visit-data'
+import { useScanController } from "./hooks/use-scan-controller";
+import { DefaultLayout } from "../../shared/layouts/default-layout";
+import { useVisitData } from "./hooks/use-visit-data";
 
 /**
  * The home screen of the application.
@@ -34,7 +34,7 @@ export function HomeScreen() {
       <DefaultLayout>
         <CameraView
           barcodeScannerSettings={{
-            barcodeTypes: ['qr', 'pdf417'],
+            barcodeTypes: ["qr", "pdf417"],
           }}
           facing="back"
           onBarcodeScanned={handleBarCodeScanned}
@@ -54,7 +54,7 @@ export function HomeScreen() {
         <Card
           action={{
             onClick: () => {},
-            text: 'Scanner un QR Code',
+            text: "Scanner un QR Code",
           }}
           icon={Icon.QrCode}
           text="Vous vous apprêtez à visiter un musée ? Demandez à l’accueil si ils prennent en charge les Yvees afin de rendre votre visite plus attractive !"

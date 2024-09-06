@@ -42,32 +42,32 @@ export const Title1 = withVariants<
     iconRight: IconRight,
   }: H1Props) => {
     return (
-      <TamaguiView
-        {...variant}
-      >
-        {IconLeft && (
-          <TamaguiView>
-            <IconLeft color={iconColor || '$defaultTitleIconColor'} size={24} strokeWidth={3} />
-          </TamaguiView>
-        )}
-        <TamaguiH1
-          alignItems="center"
-          color={color || '$defaultTitleTextColor'}
-          display="flex"
-          flexDirection="row"
-          fontFamily="$title"
-          fontSize="$title1"
-          fontWeight={800}
-          unstyled
+        <TamaguiView
+          {...variant}
         >
-          {children}
-        </TamaguiH1>
-        {IconRight && (
-          <TamaguiView>
-            <IconRight color={iconColor || '$defaultTitleIconColor'} size={24} strokeWidth={3} />
-          </TamaguiView>
+            {IconLeft && (
+            <TamaguiView>
+                <IconLeft color={iconColor || '$defaultTitleIconColor'} size={24} strokeWidth={3} />
+            </TamaguiView>
         )}
-      </TamaguiView>
+            <TamaguiH1
+              alignItems="center"
+              color={color || '$defaultTitleTextColor'}
+              display="flex"
+              flexDirection="row"
+              fontFamily="$title"
+              fontSize="$title1"
+              fontWeight={800}
+              unstyled
+            >
+                {children}
+            </TamaguiH1>
+            {IconRight && (
+            <TamaguiView>
+                <IconRight color={iconColor || '$defaultTitleIconColor'} size={24} strokeWidth={3} />
+            </TamaguiView>
+        )}
+        </TamaguiView>
     )
   },
 )
