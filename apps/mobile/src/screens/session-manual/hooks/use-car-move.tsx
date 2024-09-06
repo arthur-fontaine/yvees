@@ -1,6 +1,6 @@
 import { createRoute } from 'agrume'
 import * as DI from 'diabolo'
-import { useCallback } from 'react'
+import { useCallback, useRef } from 'react'
 
 import { useCar } from '../../../shared/hooks/use-car'
 import { type CarId, carIdToNumber } from '../../../shared/schemas/car-id'
@@ -23,9 +23,22 @@ const moveCar = createRoute(DI.provide(async function* (
  */
 export function useMoveCar() {
   const { carId } = useCar()
+  const lastMoveCarTs = useRef<number | undefined>()
 
   return {
     moveCar: useCallback(async (coordinates: Coordinates) => {
+      const MOVE_CAR_DELAY = 100
+      if (
+        lastMoveCarTs.current !== undefined
+        && coordinates.x !== 0
+        && coordinates.y !== 0
+        && Date.now() - lastMoveCarTs.current < MOVE_CAR_DELAY
+      ) {
+        return
+      }
+
+      lastMoveCarTs.current = Date.now()
+
       if (carId === undefined) {
         return
       }
