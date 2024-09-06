@@ -111,7 +111,8 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
       console.error("Journey not found")
       return
     }
-
+    await db.delete(journeySteps)
+      .where(eq(journeySteps.journeyId, journeyId))
     await db 
       .delete(journeys)
       .where(eq(journeys.id, journeyId))
