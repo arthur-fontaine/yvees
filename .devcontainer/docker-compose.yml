@@ -10,4 +10,6 @@ services:
     ports:
       - 5173:5173
       - 7777:7777
+      - 1883:1883
+      - 1884:1884
     command: sleep infinity

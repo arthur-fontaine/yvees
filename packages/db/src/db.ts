@@ -1,3 +1,4 @@
+import type { cars } from './schema/cars'
 import type { journeySteps } from './schema/journey-steps'
 import type { journeys } from './schema/journeys'
 import type { museums } from './schema/museums'
@@ -9,3 +10,4 @@ export type User = typeof users.$inferSelect
 export type Visit = typeof visits.$inferSelect
 export type JourneyStep = typeof journeySteps.$inferSelect
 export type Museum = typeof museums.$inferSelect
+export type Car = typeof cars.$inferSelect

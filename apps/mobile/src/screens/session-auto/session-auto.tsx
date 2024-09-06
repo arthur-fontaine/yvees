@@ -9,11 +9,11 @@ import { DefaultLayout } from '../../shared/layouts/default-layout'
  */
 export function SessionAutoScreen() {
   return (
-    <DefaultLayout>
-      <View style={{ backgroundColor: 'red', flex: 1 }}>
-        <Text>CAR CAMERA</Text>
-      </View>
-      <IntroductionPopup />
-    </DefaultLayout>
+      <DefaultLayout>
+          <View style={{ backgroundColor: 'red', flex: 1 }}>
+              <Text>CAR CAMERA</Text>
+          </View>
+          <IntroductionPopup />
+      </DefaultLayout>
   )
 }

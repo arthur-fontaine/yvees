@@ -1,5 +1,4 @@
 import React from 'react'
-import { ThemeProvider } from 'ui'
 
 import { JourneyCreate } from './screens/create-journey'
 import { JourneyStepCreate } from './screens/create-journey-step'
@@ -45,10 +44,8 @@ export function Journey() {
     RouteNames.JOURNEY_HOME,
     RouteNames.JOURNEY_CREATE_STEP,
     RouteNames.JOURNEY_LIST,
-  ])
+  ]);
   return (
-      <ThemeProvider theme="light">
-          {getComponentForRoute(route)}
-      </ThemeProvider>
-  )
+    {getComponentForRoute(route)}
+  );
 }

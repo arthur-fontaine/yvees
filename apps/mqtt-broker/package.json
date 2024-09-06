@@ -1,0 +1,10 @@
+{
+  "name": "mqtt-broker",
+  "scripts": {
+    "start": "aedes",
+    "dev": "aedes"
+  },
+  "dependencies": {
+    "aedes-cli": "latest"
+  }
+}

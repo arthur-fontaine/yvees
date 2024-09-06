@@ -8,8 +8,8 @@ import { DefaultLayout } from '../../shared/layouts/default-layout'
  */
 export function HomeScreen() {
   return (
-    <DefaultLayout>
-      <JoinCard />
-    </DefaultLayout>
+      <DefaultLayout>
+          <JoinCard />
+      </DefaultLayout>
   )
 }

@@ -56,44 +56,44 @@ export function SignIn() {
   }
 
   return (
-    <View style={styles.container}>
-      <Box marginBottom={24}>
-        <Title1 iconLeft={Icon.LogIn} variant="default">
-          {translate('authentication.logIn.title')}
-        </Title1>
-      </Box>
+      <View style={styles.container}>
+          <Box marginBottom={24}>
+              <Title1 iconLeft={Icon.LogIn} variant="default">
+                  {translate('authentication.logIn.title')}
+              </Title1>
+          </Box>
 
-      <Input
-        autoCapitalize="none"
-        error={emailError || signError}
-        onChangeText={text => setFormValue('emailAddress', text)}
-        placeholder={`${translate('misc.email')}...`}
-        value={emailAddress}
-        variant="default"
-      />
+          <Input
+            autoCapitalize="none"
+            error={emailError || signError}
+            onChangeText={text => setFormValue('emailAddress', text)}
+            placeholder={`${translate('misc.email')}...`}
+            value={emailAddress}
+            variant="default"
+          />
 
-      <Input
-        action={{
+          <Input
+            action={{
           icon: showPassword ? Icon.EyeOff : Icon.Eye,
           onClick: () => setFormValue('showPassword', !showPassword),
         }}
-        error={passwordError || signError}
-        onChangeText={text => setFormValue('password', text)}
-        placeholder={`${translate('misc.password')}...`}
-        secureTextEntry={showPassword}
-        value={password}
-        variant="default"
-      />
+            error={passwordError || signError}
+            onChangeText={text => setFormValue('password', text)}
+            placeholder={`${translate('misc.password')}...`}
+            secureTextEntry={showPassword}
+            value={password}
+            variant="default"
+          />
 
-      <Button
-        icon={Icon.LogIn}
-        onClick={onSignInPress}
-        variant="primary"
-      >
-        {translate('misc.logIn')}
-      </Button>
+          <Button
+            icon={Icon.LogIn}
+            onClick={onSignInPress}
+            variant="primary"
+          >
+              {translate('misc.logIn')}
+          </Button>
 
-    </View>
+      </View>
   )
 }
 
