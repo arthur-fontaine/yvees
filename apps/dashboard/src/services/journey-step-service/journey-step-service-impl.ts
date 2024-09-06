@@ -1,9 +1,9 @@
+import { db } from 'db/runtime/server'
 import { journeySteps } from 'db/schema'
 import { lazyCreateServiceImpl } from 'diabolo'
 import { eq } from 'drizzle-orm'
 
 import type { JourneyStepService } from './journey-step-service'
-import { db } from '../../utils/db'
 
 export const journeyStepServiceImpl = lazyCreateServiceImpl<JourneyStepService>(
   () => ({

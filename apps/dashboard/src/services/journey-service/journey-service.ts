@@ -12,6 +12,7 @@ export interface JourneyService
         clerkOrganizationId: string
         journey: JourneyForm
       }) => Promise<void>
+      deleteJourneyById: (params: { journeyId: number }) => Promise<void>
       findJourneyById: (params: {
         journeyId: string
       }) => Promise<
@@ -29,10 +30,8 @@ export interface JourneyService
           journeySteps: JourneyStep[]
         } & Journey)[]
       >
-      deleteJourneyById: (params: { journeyId: number }) => Promise<void>
 
     }
   > {}
-
 
 export const journeyService = createService<JourneyService>('journey')

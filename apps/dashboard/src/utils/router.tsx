@@ -16,21 +16,25 @@ export const RouteNames = {
   JOURNEY_HOME: 'journeyhome' as const,
   JOURNEY_LIST: 'journeylist' as const,
   LOGIN: 'login' as const,
-  ROBOT: 'robot' as const,
+  ROBOT_CONFIGURE: 'robotconfigure' as const,
+  ROBOT_HOME: 'robothome' as const,
 }
 /* eslint-enable ts/naming-convention */
 
 export const router = createRouter({
-  data: "/data",
-  ...createGroup("journey", "/journey", {
-    createJourney: "/create-journey",
-    createJourneyStep: "/:journeyId/create-journey-step",
-    home: "/:journeyId",
-    list: "/",
+  data: '/data',
+  ...createGroup('journey', '/journey', {
+    createJourney: '/create-journey',
+    createJourneyStep: '/:journeyId/create-journey-step',
+    home: '/:journeyId',
+    list: '/',
   }),
-  login: "/login",
-  robot: "/robot",
-});
+  login: '/login',
+  ...createGroup('robot', '/robot', {
+    configure: '/configure',
+    home: '/',
+  }),
+})
 
 export const useRoute = router.useRoute
 
@@ -38,14 +42,7 @@ export const useRoute = router.useRoute
  * Router component.
  */
 export function Router() {
-  const route = useRoute([
-    'login',
-    'data',
-    'journeyhome',
-    'journeycreate',
-    'robothome',
-    'robotconfigure',
-  ])
+  const route = useRoute(Object.values(RouteNames))
   const { session } = useClerk()
 
   if (session?.status !== 'active') {
@@ -56,7 +53,9 @@ export function Router() {
     switch (route?.name) {
       case 'data': { return <div>Data</div> }
       case 'journeyhome':
-      case 'journeycreate': { return <Journey /> }
+      case 'journeylist':
+      case 'journeycreateJourneyStep':
+      case 'journeycreateJourney': { return <Journey /> }
       case 'robothome':
       case 'robotconfigure': { return <Robot /> }
       default: { return <div>Not found</div> }

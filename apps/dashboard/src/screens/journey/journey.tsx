@@ -46,6 +46,6 @@ export function Journey() {
     RouteNames.JOURNEY_LIST,
   ]);
   return (
-    {getComponentForRoute(route)}
+    <div>{getComponentForRoute(route)}</div>
   );
 }

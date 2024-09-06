@@ -46,7 +46,7 @@ export function useDataCard() {
    = session.user?.organizationMemberships[0]?.organization.id
   const [journey, setJourney] = useState<JourneySerialized[] | undefined>()
   const [loading, setLoading] = useState(true)
-
+  console.log('clerkOrganizationId', clerkOrganizationId)
   useEffect(() => {
     getJourney(clerkOrganizationId).then((journey: JourneySerialized[]) => {
       setJourney(journey)
