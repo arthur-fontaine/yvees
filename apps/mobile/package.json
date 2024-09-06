@@ -21,6 +21,7 @@
     "@react-navigation/native-stack": "^6.9.26",
     "@tamagui/card": "^1.110.1",
     "agrume": "^2.0.0",
+    "db": "workspace:*",
     "diabolo": "npm:@jsr/arthur-fontaine__diabolo@^1.4.0",
     "expo": "^51.0.8",
     "expo-camera": "^15.0.10",

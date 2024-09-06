@@ -11,7 +11,8 @@ export const visits = sqliteTable('visits', withTimestamps({
   inProgress: integer('in_progress', { mode: 'boolean' }).notNull(),
   journeyId: integer('journey_id').notNull(),
   userId: integer('user_id').notNull(),
-}))
+}));
+
 
 export const visitsRelations = relations(visits, ({ one }) => ({
   journey: one(journeys, {

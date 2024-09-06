@@ -10,7 +10,7 @@ interface ButtonProps {
   backgroundColor?: string
   buttonMd?: boolean
   children?: string
-  icon?: typeof Icon[keyof typeof Icon] | undefined
+  icon?: typeof Icon[keyof typeof Icon]
   onClick?: GetProps<typeof TamaguiButton>['onPress']
 }
 

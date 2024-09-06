@@ -6,6 +6,7 @@
 const { getDefaultConfig } = require('@expo/metro-config')
 const path = require('path')
 const fs = require('fs')
+const nodeBuiltintModules = require('repl')._builtinLibs
 
 const projectRoot = __dirname
 const workspaceRoot = path.resolve(__dirname, '../..')
@@ -22,7 +23,10 @@ const shimPath = path.resolve(__dirname, 'node_modules/.shim/empty.js')
 fs.mkdirSync(path.dirname(shimPath), { recursive: true })
 fs.writeFileSync(shimPath, 'module.exports = {}')
 config.resolver.ignoreModules = [ // This is a custom property, used in resolveRequest
-  'agrume'
+  'agrume',
+  'fs', 'node:fs', 'path', 'node:path', "util", "node:util"
+  // ...nodeBuiltintModules,
+  // ...nodeBuiltintModules.map(m => `node:${m}`),
 ]
 config.resolver.resolveRequest = (context, /** @type string */moduleName, platform) => {
   if (config.resolver.ignoreModules.includes(moduleName)) {
@@ -41,8 +45,15 @@ config.resolver.resolveRequest = (context, /** @type string */moduleName, platfo
 
   return context.resolveRequest(context, moduleName, platform)
 }
+config.resolver = {
+  ...config.resolver,
+  unstable_enablePackageExports: true,
+}
 
-config.transformer = { ...config.transformer, unstable_allowRequireContext: true }
+config.transformer = {
+  ...config.transformer,
+  unstable_allowRequireContext: true
+}
 config.transformer.minifierPath = require.resolve('metro-minify-terser')
 
 module.exports = config

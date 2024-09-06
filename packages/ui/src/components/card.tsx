@@ -23,22 +23,25 @@ export const Card = withVariants<
 >(
   {
     $defaults: {
-      backgroundColor: '$cardBackgroundColor',
-      borderRadius: '$card',
+      backgroundColor: '$white',
+      borderRadius: 28,
       borderWidth: 0,
       cursor: 'pointer',
       flexDirection: 'column',
-      padding: '$card',
+      margin: 9,
+      overflow: 'hidden',
+      padding: 36,
+      marginVertical: 40,
+      marginHorizontal: 20,
+      gap: 10,
     },
     default: {
-      overflow: 'hidden',
     },
   },
 )(
   // eslint-disable-next-line ts/naming-convention
   ({ variant }, { action, icon: Icon, text, title }: CardProps) => {
     const ICON_SHIFT = 24
-
     return (
       <TamaguiCard
         {...variant}
