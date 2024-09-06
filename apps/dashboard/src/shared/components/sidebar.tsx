@@ -13,7 +13,7 @@ export function Sidebar() {
   const [activeButton] = useSideBar()
   const { signOut } = useClerk()
 
-  const handleButtonClick = (buttonName: 'data' | 'journeyhome' | 'robot') => {
+  const handleButtonClick = (buttonName: 'data' | 'journeyhome' | 'robothome') => {
     router.push(buttonName)
   }
 
@@ -28,9 +28,9 @@ export function Sidebar() {
               />
               <SidebarButton
                 icon={<Icon.Bot color="$orange" size={24} />}
-                isActive={activeButton === 'robot'}
+                isActive={activeButton === 'robothome' || activeButton === 'robotconfigure'}
                 label="Robot"
-                onClick={() => handleButtonClick('robot')}
+                onClick={() => handleButtonClick('robothome')}
               />
               <SidebarButton
                 icon={<Icon.Waypoints color="$orange" size={24} />}

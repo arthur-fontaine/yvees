@@ -153,7 +153,7 @@ export function JourneyCreate() {
                         buttonMd
                         onClick={() => {
                 form.reset()
-                router.push('journeyhome')
+                router.replace('journeyhome')
               }}
                         variant="cancel"
                       >

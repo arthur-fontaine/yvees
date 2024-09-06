@@ -143,6 +143,7 @@ export default antfu(
       'pnpm-lock.yaml',
       'apps/dashboard/src/shared/components/ui/',
       'apps/mobile/.expo/',
+      'packages/car/boot/',
       'packages/db/drizzle/meta/',
     ],
   },

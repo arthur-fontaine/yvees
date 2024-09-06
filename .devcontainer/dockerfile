@@ -14,7 +14,8 @@ RUN pkgx install \
     node@20 \
     pnpm.io@9.4.0 \
     bore.pub \
-    fish
+    fish \
+    npx
 
 ENV fish_greeting ""
 ENV NODE_OPTIONS "--experimental-websocket"

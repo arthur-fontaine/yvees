@@ -23,10 +23,10 @@ export function Navigator() {
   return (
       <NavigationContainer ref={navigationRef}>
           <Pages.Navigator
-            initialRouteName={isSignedIn ? 'sessionManual' : 'sessionManual'}
+            initialRouteName={isSignedIn ? 'home' : 'authentication'}
             screenOptions={{
-          headerShown: false,
-        }}
+              headerShown: false,
+            }}
           >
               {
           Object.entries(pages).map(([name, component]) => (

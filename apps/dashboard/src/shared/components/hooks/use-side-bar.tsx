@@ -7,7 +7,7 @@ import { useRoute } from '../../../utils/router'
  */
 export function useSideBar(defaultButton = 'data') {
   const [activeButton, setActiveButton] = useState<string>(defaultButton)
-  const route = useRoute(['login', 'data', 'journeyhome', 'journeycreate', 'robot'])
+  const route = useRoute(['login', 'data', 'journeyhome', 'journeycreate', 'robothome', 'robotconfigure'])
 
   useEffect(() => {
     setActiveButton(route?.name || defaultButton)
