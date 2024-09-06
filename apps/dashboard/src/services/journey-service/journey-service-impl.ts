@@ -30,56 +30,61 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
   },
 
   findJourneysByMuseumId: async ({ clerkOrganizationId }) => {
-    const [museum] = await db.query.museums.findMany({
-      where: (museum, { eq }) => eq(
-        museum.clerkOrganizationId,
-        clerkOrganizationId,
-      ),
-    })
-    const museumId = museum?.id
-
-    if (museumId === undefined) {
-      return []
-    }
-
-    const journeyData = await db
-      .select({
-        ...getTableColumns(db.tables.journeys),
-        averageVisitDuration: sql<number>`AVG(${db.tables.visits.endedAt} - ${db.tables.visits.createdAt}) OVER (PARTITION BY ${db.tables.journeys.id})`,
-        journeyStepData: db.tables.journeySteps,
-        journeyStepId: db.tables.journeySteps.id,
+    try {
+      const [museum] = await db.query.museums.findMany({
+        where: (museum, { eq }) => eq(
+          museum.clerkOrganizationId,
+          clerkOrganizationId,
+        ),
       })
-      .from(db.tables.journeys)
-      .leftJoin(db.tables.journeySteps, eq(
-        db.tables.journeys.id,
-        db.tables.journeySteps.journeyId,
-      ))
-      .leftJoin(db.tables.visits, eq(
-        db.tables.journeys.id,
-        db.tables.visits.journeyId,
-      ))
-      .where(eq(db.tables.journeys.museumId, museumId))
+      const museumId = museum?.id
 
-    const journeysMap = new Map<number, {
-      averageVisitDuration: number
-      journeySteps: JourneyStep[]
-    } & Journey>()
+      if (museumId === undefined) {
+        return []
+      }
 
-    for (const row of journeyData) {
-      const { id, journeyStepData, journeyStepId, ...journeyInfo } = row
-
-      if (!journeysMap.has(id)) {
-        journeysMap.set(id, {
-          id,
-          ...journeyInfo,
-          journeySteps: [],
+      const journeyData = await db
+        .select({
+          ...getTableColumns(db.tables.journeys),
+          averageVisitDuration: sql<number>`AVG(${db.tables.visits.endedAt} - ${db.tables.visits.createdAt}) OVER (PARTITION BY ${db.tables.journeys.id})`,
+          journeyStepData: db.tables.journeySteps,
+          journeyStepId: db.tables.journeySteps.id,
         })
-      }
+        .from(db.tables.journeys)
+        .leftJoin(db.tables.journeySteps, eq(
+          db.tables.journeys.id,
+          db.tables.journeySteps.journeyId,
+        ))
+        .leftJoin(db.tables.visits, eq(
+          db.tables.journeys.id,
+          db.tables.visits.journeyId,
+        ))
+        .where(eq(db.tables.journeys.museumId, museumId))
 
-      if (journeyStepData) {
-        journeysMap.get(id)!.journeySteps.push(journeyStepData)
+      const journeysMap = new Map<number, {
+        averageVisitDuration: number
+        journeySteps: JourneyStep[]
+      } & Journey>()
+
+      for (const row of journeyData) {
+        const { id, journeyStepData, journeyStepId, ...journeyInfo } = row
+
+        if (!journeysMap.has(id)) {
+          journeysMap.set(id, {
+            id,
+            ...journeyInfo,
+            journeySteps: [],
+          })
+        }
+
+        if (journeyStepData) {
+          journeysMap.get(id)!.journeySteps.push(journeyStepData)
+        }
       }
+      return Array.from(journeysMap.values())
+    } catch (error) {
+      console.error('Error in findJourneysByMuseumId', error)
+      throw error
     }
-    return Array.from(journeysMap.values())
   },
 }))

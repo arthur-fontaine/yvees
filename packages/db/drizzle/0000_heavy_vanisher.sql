@@ -1,3 +1,11 @@
+CREATE TABLE `car` (
+	`battery` integer NOT NULL,
+	`id` integer PRIMARY KEY NOT NULL,
+	`ip` text NOT NULL,
+	`journey_id` integer,
+	`museum_id` integer NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE `journey_steps` (
 	`id` integer PRIMARY KEY NOT NULL,
 	`journey_id` integer NOT NULL,
@@ -36,12 +44,4 @@ CREATE TABLE `visits` (
 	`user_id` integer NOT NULL,
 	`created_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
 	`updated_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL
-);
---> statement-breakpoint
-CREATE TABLE `car` (
-	`battery` integer NOT NULL,
-	`id` integer PRIMARY KEY NOT NULL,
-	`ip` text NOT NULL,
-	`journey_id` integer,
-	`museum_id` integer NOT NULL
 );

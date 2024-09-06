@@ -1,9 +1,53 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "84a45521-47a0-42c6-89aa-7c427a633425",
+  "id": "e355f9ab-fdb8-40e9-9fad-9ddedcf66407",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
+    "car": {
+      "name": "car",
+      "columns": {
+        "battery": {
+          "name": "battery",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "ip": {
+          "name": "ip",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "journey_id": {
+          "name": "journey_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "museum_id": {
+          "name": "museum_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "journey_steps": {
       "name": "journey_steps",
       "columns": {
@@ -225,50 +269,6 @@
           "notNull": true,
           "autoincrement": false,
           "default": "(strftime('%s', 'now'))"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "car": {
-      "name": "car",
-      "columns": {
-        "battery": {
-          "name": "battery",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "ip": {
-          "name": "ip",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "journey_id": {
-          "name": "journey_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "museum_id": {
-          "name": "museum_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
         }
       },
       "indexes": {},
