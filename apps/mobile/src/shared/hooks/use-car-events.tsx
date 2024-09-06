@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 
-import type { carEvent } from '../events/car-event'
 import type { GeneratorReturn } from '../../types/generator-return'
+import type { carEvent } from '../events/car-event'
 
 type CarEventsIterator = AsyncGenerator<GeneratorReturn<ReturnType<typeof carEvent['iterator']>>>
 
@@ -23,13 +23,13 @@ export function CarEventsProvider({ children }: React.PropsWithChildren) {
     = useState<CarEventsIterator>()
 
   return (
-    <CarEventsContext.Provider value={{
+      <CarEventsContext.Provider value={{
       carEventsIterator,
       registerCarEventsIterator: setCarEventsIterator,
     }}
-    >
-      {children}
-    </CarEventsContext.Provider>
+      >
+          {children}
+      </CarEventsContext.Provider>
   )
 }
 

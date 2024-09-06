@@ -19,15 +19,15 @@ export function IntroductionPopup() {
 
   return (
     cardDisplayed && (
-      <Box
-        alignItems="center"
-        flex={1}
-        height={screenHeight}
-        justifyContent="center"
-        paddingHorizontal="$normal"
-        position="absolute"
-        width={screenWidth}
-      >
+    <Box
+      alignItems="center"
+      flex={1}
+      height={screenHeight}
+      justifyContent="center"
+      paddingHorizontal="$normal"
+      position="absolute"
+      width={screenWidth}
+    >
         <Card
           action={{
             onClick: closeCard,
@@ -37,7 +37,7 @@ export function IntroductionPopup() {
           title={translate('introductionPopup.title')}
           variant="default"
         />
-      </Box>
+    </Box>
     )
   )
 }

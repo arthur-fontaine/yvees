@@ -8,15 +8,15 @@ import { SignInForm } from './components/sign-in'
  */
 export function Authentication() {
   return (
-    <>
-      <SignedOut>
-        <SignInForm />
-      </SignedOut>
-      <SignedIn>
-        {/* TODO : setup to home page + remove UserButton */}
-        <h1>DASHBOARD</h1>
-        <UserButton />
-      </SignedIn>
-    </>
+      <>
+          <SignedOut>
+              <SignInForm />
+          </SignedOut>
+          <SignedIn>
+              {/* TODO : setup to home page + remove UserButton */}
+              <h1>DASHBOARD</h1>
+              <UserButton />
+          </SignedIn>
+      </>
   )
 }

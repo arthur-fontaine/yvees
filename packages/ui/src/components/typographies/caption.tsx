@@ -11,14 +11,14 @@ interface BodyProps {
  */
 export function Caption({ children, color }: BodyProps) {
   return (
-    <TamaguiParagraph
-      color={color || '$defaultBodyTextColor'}
-      fontFamily="$body"
-      fontSize="$caption"
-      fontWeight="$caption"
-      lineHeight="$caption"
-    >
-      {children}
-    </TamaguiParagraph>
+      <TamaguiParagraph
+        color={color || '$defaultBodyTextColor'}
+        fontFamily="$body"
+        fontSize="$caption"
+        fontWeight="$caption"
+        lineHeight="$caption"
+      >
+          {children}
+      </TamaguiParagraph>
   )
 }

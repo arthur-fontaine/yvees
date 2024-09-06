@@ -10,12 +10,12 @@ interface DefaultLayoutProps extends React.PropsWithChildren {
  */
 export function DefaultLayout(props: DefaultLayoutProps) {
   return (
-    <Box
-      backgroundColor="$backgroundColor"
-      flex={1}
-      padding={props.withPadding === false ? 0 : '$normal'}
-    >
-      {props.children}
-    </Box>
+      <Box
+        backgroundColor="$backgroundColor"
+        flex={1}
+        padding={props.withPadding === false ? 0 : '$normal'}
+      >
+          {props.children}
+      </Box>
   )
 }

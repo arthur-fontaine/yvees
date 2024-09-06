@@ -78,91 +78,91 @@ export function JourneyCreate() {
   }
 
   return (
-    <div className="h-screen p-10">
-      <h1 className="text-3xl font-bold my-8">Création d'un parcours :</h1>
-      <div>
-        <p className="text-sm text-muted-foreground max-w-3xl">
-          Vous êtes entrain de créer un nouveau parcours. Après avoir rempli les
-          différents champs, vous pourrez accéder à la page de ce parcours, où
-          vous pourrez modifier les champs et ajouter des étapes. À la création
-          d'un parcours, les étapes de début et de fin sont automatiquement
-          créées.
-        </p>
-      </div>
-      <h2 className="text-xl mt-8">Remplissez les différents champs :</h2>
-      <Form {...form}>
-        <form
-          className="w-2/3 space-y-6 my-4"
-          onSubmit={form.handleSubmit(onSubmit)}
-        >
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Nom du parcours :</FormLabel>
-                <FormControl>
-                  <Input
-                    inputMd
-                    onChangeText={field.onChange}
-                    placeholder="Nom du parcours.."
-                    variant="outlined"
-                  />
-                </FormControl>
-                <FormMessage />
-                <FormDescription>
-                  Le début d'un nouveau voyage pour ton musée..
-                </FormDescription>
-              </FormItem>
+      <div className="h-screen p-10">
+          <h1 className="text-3xl font-bold my-8">Création d'un parcours :</h1>
+          <div>
+              <p className="text-sm text-muted-foreground max-w-3xl">
+                  Vous êtes entrain de créer un nouveau parcours. Après avoir
+                  rempli les différents champs, vous pourrez accéder à la page
+                  de ce parcours, où vous pourrez modifier les champs et ajouter
+                  des étapes. À la création d'un parcours, les étapes de début
+                  et de fin sont automatiquement créées.
+              </p>
+          </div>
+          <h2 className="text-xl mt-8">Remplissez les différents champs :</h2>
+          <Form {...form}>
+              <form
+                className="w-2/3 space-y-6 my-4"
+                onSubmit={form.handleSubmit(onSubmit)}
+              >
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Nom du parcours :</FormLabel>
+                            <FormControl>
+                                <Input
+                                  inputMd
+                                  onChangeText={field.onChange}
+                                  placeholder="Nom du parcours.."
+                                  variant="outlined"
+                                />
+                            </FormControl>
+                            <FormMessage />
+                            <FormDescription>
+                                Le début d'un nouveau voyage pour ton musée..
+                            </FormDescription>
+                        </FormItem>
             )}
-          />
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="mt-20">Description du parcours :</FormLabel>
-                <FormControl>
-                  <Textarea
-                    className="resize-none"
-                    placeholder="Description du parcours.."
-                    {...field}
                   />
-                </FormControl>
-                <FormMessage />
-                <FormDescription>
-                  Détails supplémentaires sur le parcours..
-                </FormDescription>
-              </FormItem>
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel className="mt-20">Description du parcours :</FormLabel>
+                            <FormControl>
+                                <Textarea
+                                  className="resize-none"
+                                  placeholder="Description du parcours.."
+                                  {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                            <FormDescription>
+                                Détails supplémentaires sur le parcours..
+                            </FormDescription>
+                        </FormItem>
             )}
-          />
-          <div className="flex justify-between h-10">
-            <Button
-              buttonMd
-              onClick={form.handleSubmit(async (data) => {
+                  />
+                  <div className="flex justify-between h-10">
+                      <Button
+                        buttonMd
+                        onClick={form.handleSubmit(async (data) => {
                 await onSubmit(data)
                 if (!error) {
                   router.push('journeyhome')
                 }
               })}
-              variant="primary"
-            >
-              {loading ? 'Création en cours...' : 'Créer'}
-            </Button>
-            <Button
-              buttonMd
-              onClick={() => {
+                        variant="primary"
+                      >
+                          {loading ? 'Création en cours...' : 'Créer'}
+                      </Button>
+                      <Button
+                        buttonMd
+                        onClick={() => {
                 form.reset()
-                router.push('journeyhome')
+                router.replace('journeyhome')
               }}
-              variant="cancel"
-            >
-              Annuler
-            </Button>
-          </div>
-          {error && <p className="text-red-600">{error}</p>}
-        </form>
-      </Form>
-    </div>
+                        variant="cancel"
+                      >
+                          Annuler
+                      </Button>
+                  </div>
+                  {error && <p className="text-red-600">{error}</p>}
+              </form>
+          </Form>
+      </div>
   )
 }
