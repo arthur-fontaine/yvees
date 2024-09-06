@@ -84,83 +84,83 @@ export function SignUp() {
   }
 
   return (
-    <View>
-      {!pendingVerification && (
-        <View style={styles.container}>
+      <View>
+          {!pendingVerification && (
+          <View style={styles.container}>
 
-          <Box marginBottom={24}>
-            <Title1 iconLeft={Icon.LogIn} variant="default">
-              {translate('authentication.signUp.title')}
-            </Title1>
-          </Box>
+              <Box marginBottom={24}>
+                  <Title1 iconLeft={Icon.LogIn} variant="default">
+                      {translate('authentication.signUp.title')}
+                  </Title1>
+              </Box>
 
-          <Input
-            onChangeText={text => setFormValue('firstName', text)}
-            placeholder={`${translate('misc.firstName')}...`}
-            value={firstName}
-            variant="default"
-          />
+              <Input
+                onChangeText={text => setFormValue('firstName', text)}
+                placeholder={`${translate('misc.firstName')}...`}
+                value={firstName}
+                variant="default"
+              />
 
-          <Input
-            autoCapitalize="none"
-            error={emailError || signError}
-            onChangeText={text => setFormValue('emailAddress', text)}
-            placeholder={`${translate('misc.email')}...`}
-            value={emailAddress}
-            variant="default"
-          />
+              <Input
+                autoCapitalize="none"
+                error={emailError || signError}
+                onChangeText={text => setFormValue('emailAddress', text)}
+                placeholder={`${translate('misc.email')}...`}
+                value={emailAddress}
+                variant="default"
+              />
 
-          <Input
-            action={{
+              <Input
+                action={{
               icon: showPassword ? Icon.EyeOff : Icon.Eye,
               onClick: () => setFormValue('showPassword', !showPassword),
             }}
-            error={passwordError || signError}
-            onChangeText={text => setFormValue('password', text)}
-            placeholder={`${translate('misc.password')}...`}
-            secureTextEntry={showPassword}
-            value={password}
-            variant="default"
-          />
+                error={passwordError || signError}
+                onChangeText={text => setFormValue('password', text)}
+                placeholder={`${translate('misc.password')}...`}
+                secureTextEntry={showPassword}
+                value={password}
+                variant="default"
+              />
 
-          <Input
-            action={{
+              <Input
+                action={{
               icon: showConfPassword ? Icon.EyeOff : Icon.Eye,
               onClick: () => setFormValue('showConfPassword', !showConfPassword),
             }}
-            error={confirmPasswordError || signError}
-            onChangeText={text => setFormValue('confirmPassword', text)}
-            placeholder={`${translate('authentication.signUp.confirmPassword')}...`}
-            secureTextEntry={showConfPassword}
-            value={confirmPassword}
-            variant="default"
-          />
+                error={confirmPasswordError || signError}
+                onChangeText={text => setFormValue('confirmPassword', text)}
+                placeholder={`${translate('authentication.signUp.confirmPassword')}...`}
+                secureTextEntry={showConfPassword}
+                value={confirmPassword}
+                variant="default"
+              />
 
-          <Button onClick={onSignUpPress} variant="primary">
-            {translate('misc.signUp')}
-          </Button>
+              <Button onClick={onSignUpPress} variant="primary">
+                  {translate('misc.signUp')}
+              </Button>
 
-        </View>
-      )}
-      {pendingVerification && (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.containerCode}>
-            <Title1 variant="default">Code de vérification</Title1>
-            <Text>
-              Entrez le code de vérification reçu par
-              par mail a l’adresse suivante:
-            </Text>
-            <OtpInput
-              codes={codes}
-              error={otpError}
-              onChangeCode={handleCodeChange}
-              refs={refs}
-            />
-            <Button onClick={onPressVerify} variant="primary">Verify Code</Button>
           </View>
-        </TouchableWithoutFeedback>
       )}
-    </View>
+          {pendingVerification && (
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <View style={styles.containerCode}>
+                  <Title1 variant="default">Code de vérification</Title1>
+                  <Text>
+                      Entrez le code de vérification reçu par
+                      par mail a l’adresse suivante:
+                  </Text>
+                  <OtpInput
+                    codes={codes}
+                    error={otpError}
+                    onChangeCode={handleCodeChange}
+                    refs={refs}
+                  />
+                  <Button onClick={onPressVerify} variant="primary">Verify Code</Button>
+              </View>
+          </TouchableWithoutFeedback>
+      )}
+      </View>
   )
 }
 

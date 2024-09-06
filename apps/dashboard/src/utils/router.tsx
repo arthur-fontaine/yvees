@@ -53,11 +53,11 @@ export function Router() {
   }
 
   return (
-    <ThemeProvider theme="light">
-      <Sidebar />
-      <div className="pl-40">
-        {getRoute()}
-      </div>
-    </ThemeProvider>
+      <ThemeProvider theme="light">
+          <Sidebar />
+          <div className="pl-40">
+              {getRoute()}
+          </div>
+      </ThemeProvider>
   )
 }

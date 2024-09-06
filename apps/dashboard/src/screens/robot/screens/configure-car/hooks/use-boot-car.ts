@@ -3,17 +3,19 @@ import { createRoute } from 'agrume'
 import { buildBoot } from 'car'
 import * as DI from 'diabolo'
 import { EspLoader } from 'esptool.ts'
+import { useEffect } from 'react'
 
 import { museumService } from '../../../../../services/museum-service/museum-service'
+import { toast } from '../../../../../shared/components/ui/use-toast'
+import { useAsyncCallback } from '../../../../../shared/hooks/use-async-callback'
 import { serverImpls } from '../../../../../utils/server-impls'
-import { useAsyncCallback } from '../../../../../shared/hooks/use-async-callback';
 
 const getProgramBins = createRoute(DI.provide(async function* (
   { clerkOrganizationId, ...params }:
     { clerkOrganizationId: string } & Omit<Parameters<typeof buildBoot>[0], 'IP_CAR_4_REPLACE'>,
 ) {
   const { findMuseumOfClerkOrg, getCarsOfMuseum }
-    = yield* DI.requireService(museumService)
+    = yield * DI.requireService(museumService)
   const museum = await findMuseumOfClerkOrg({ clerkOrganizationId })
 
   if (museum === undefined) {
@@ -67,8 +69,8 @@ export function useBootCar() {
     = session.user?.organizationMemberships[0]?.organization.id
 
   const {
-    fn: bootCar_,
     error,
+    fn: bootCar_,
     loading,
   } = useAsyncCallback(async (params: Omit<Parameters<typeof bootCar>[1], 'clerkOrganizationId'>) => {
     if (clerkOrganizationId === undefined) {
@@ -79,16 +81,25 @@ export function useBootCar() {
     await bootCar(espLoader, { ...params, clerkOrganizationId })
   }, [clerkOrganizationId])
 
+  useEffect(() => {
+    if (error) {
+      toast({
+        description: error.message,
+        duration: 3500,
+      })
+    }
+  }, [error])
+
   return { bootCar: bootCar_, error, loading }
 }
 
 async function bootCar(espLoader: EspLoader, params: {
   clerkOrganizationId: string
   gatewayIp: string
+  mqttIp: string
   subnet: string
   wifiPassword: string
   wifiSsid: string
-  mqttIp: string
 }) {
   logger.log('Booting ESP32')
 
@@ -103,21 +114,21 @@ async function bootCar(espLoader: EspLoader, params: {
 
   const { bootloader, firmware, partitionTable } = await getProgramBins({
     /* eslint-disable ts/naming-convention */
+    IP_CAR_3_REPLACE: ipGateway3,
     IP_GATEWAY_1_REPLACE: ipGateway1,
     IP_GATEWAY_2_REPLACE: ipGateway2,
     IP_GATEWAY_3_REPLACE: ipGateway3,
     IP_GATEWAY_4_REPLACE: ipGateway4,
+    IP_MQTT_1_REPLACE: mqttIp1,
+    IP_MQTT_2_REPLACE: mqttIp2,
+    IP_MQTT_3_REPLACE: mqttIp3,
+    IP_MQTT_4_REPLACE: mqttIp4,
     PASSWORD_WIFI_REPLACE: params.wifiPassword,
     SSID_WIFI_REPLACE: params.wifiSsid,
     SUBNET_1_REPLACE: subnet1,
     SUBNET_2_REPLACE: subnet2,
     SUBNET_3_REPLACE: subnet3,
     SUBNET_4_REPLACE: subnet4,
-    IP_MQTT_1_REPLACE: mqttIp1,
-    IP_MQTT_2_REPLACE: mqttIp2,
-    IP_MQTT_3_REPLACE: mqttIp3,
-    IP_MQTT_4_REPLACE: mqttIp4,
-    IP_CAR_3_REPLACE: ipGateway3,
     /* eslint-enable ts/naming-convention */
     clerkOrganizationId: params.clerkOrganizationId,
   })
@@ -127,19 +138,19 @@ async function bootCar(espLoader: EspLoader, params: {
     address: number
     data: Uint8Array
   }[] = [
-      {
-        address: 0x1000,
-        data: new Uint8Array(bootloader),
-      },
-      {
-        address: 0x8000,
-        data: new Uint8Array(partitionTable),
-      },
-      {
-        address: 0x10000,
-        data: new Uint8Array(firmware),
-      },
-    ]
+    {
+      address: 0x1000,
+      data: new Uint8Array(bootloader),
+    },
+    {
+      address: 0x8000,
+      data: new Uint8Array(partitionTable),
+    },
+    {
+      address: 0x10000,
+      data: new Uint8Array(firmware),
+    },
+  ]
 
   logger.log('Connecting to ESP32')
   await espLoader.connect()

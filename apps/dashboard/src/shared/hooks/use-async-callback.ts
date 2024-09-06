@@ -1,11 +1,15 @@
-import { useCallback, useState } from "react"
+import { useCallback, useState } from 'react'
 
-export const useAsyncCallback = <T extends (...args: any[]) => Promise<any>>(
-  callback: T,
-  deps: React.DependencyList = [],
-) => {
+/**
+ * A hook to handle async callbacks.
+ */
+export function useAsyncCallback<T extends (
+  // eslint-disable-next-line ts/no-explicit-any
+  ...args: any[]
+// eslint-disable-next-line ts/no-explicit-any
+) => Promise<any>>(callback: T, deps: React.DependencyList = []) {
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<Error | null>(null)
+  const [error, setError] = useState<Error | undefined>()
 
   const fn = useCallback(
     async (...args: Parameters<T>) => {
@@ -16,10 +20,11 @@ export const useAsyncCallback = <T extends (...args: any[]) => Promise<any>>(
       catch (error) {
         if (error instanceof Error) {
           setError(error)
-        } else {
+        }
+        else {
           setError(new Error(error as never))
         }
-        throw error
+        console.error(error)
       }
       finally {
         setLoading(false)
@@ -29,8 +34,8 @@ export const useAsyncCallback = <T extends (...args: any[]) => Promise<any>>(
   )
 
   return {
+    error,
     fn,
     loading,
-    error,
   }
 }

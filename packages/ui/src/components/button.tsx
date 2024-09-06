@@ -10,9 +10,9 @@ interface ButtonProps {
   backgroundColor?: string
   buttonMd?: boolean
   children?: string
+  disabled?: boolean
   icon?: typeof Icon[keyof typeof Icon] | undefined
   onClick?: GetProps<typeof TamaguiButton>['onPress']
-  disabled?: boolean
 }
 
 export const Button = withVariants<
@@ -59,35 +59,37 @@ export const Button = withVariants<
     backgroundColor,
     buttonMd,
     children,
+    disabled,
     icon,
     onClick,
-    disabled,
   }: ButtonProps) => {
     const variantStyles = { ...variant }
     if (backgroundColor) {
       variantStyles.backgroundColor = backgroundColor
     }
     return (
-      <TamaguiButton
-        alignItems="center"
-        display="flex"
-        flexDirection="row"
-        fontSize={buttonMd ? '$buttonMd' : '$button'}
-        fontWeight={buttonMd ? '$buttonMd' : '$button'}
-        {...(icon && { icon: withProps(icon as never, { size: 16, strokeWidth: 3 }) })}
-        disabled={disabled || false}
-        justifyContent="center"
-        onPress={onClick}
-        unstyled
-        {...variantStyles}
-        hoverStyle={{
+        <TamaguiButton
+          alignItems="center"
+          display="flex"
+          flexDirection="row"
+          fontSize={buttonMd ? '$buttonMd' : '$button'}
+          fontWeight={buttonMd ? '$buttonMd' : '$button'}
+          {...(icon
+          && { icon: withProps(icon as never, { size: 16, strokeWidth: 3 }) })
+          }
+          disabled={disabled || false}
+          justifyContent="center"
+          onPress={onClick}
+          unstyled
+          {...variantStyles}
+          hoverStyle={{
           backgroundColor:
             backgroundColor || variant.hoverStyle?.backgroundColor,
         }}
-        opacity={disabled ? 0.5 : 1}
-      >
-        {children}
-      </TamaguiButton>
+          opacity={disabled ? 0.5 : 1}
+        >
+            {children}
+        </TamaguiButton>
     )
   },
 )

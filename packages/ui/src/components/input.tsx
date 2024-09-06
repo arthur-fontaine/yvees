@@ -66,50 +66,50 @@ export const Input = withVariants<
   }, [action])
 
   return (
-    <TamaguiView
-      {...variant}
-      {...(action ? { paddingRight: '0' } : {})}
-      position="relative"
-      {...(error ? {
+      <TamaguiView
+        {...variant}
+        {...(action ? { paddingRight: '0' } : {})}
+        position="relative"
+        {...(error ? {
         borderColor: '$error',
         borderWidth: 1,
       } : {})}
-    >
-      {Icon && (
-        <TamaguiView marginRight={8} opacity={0.3}>
-          <Icon size={16} strokeWidth={3} />
-        </TamaguiView>
-      )}
-      <TamaguiInput
-        autoCapitalize={autoCapitalize}
-        defaultValue={value}
-        flex={1}
-        fontFamily="$body"
-        fontSize={inputMd ? '$inputMd' : '$button'}
-        fontWeight={inputMd ? '$inputMd' : '$button'}
-        lineHeight="$button"
-        onChangeText={onChangeText}
-        outlineWidth={0}
-        placeholder={placeholder}
-        placeholderTextColor="#64748B"
-        secureTextEntry={secureTextEntry}
-        unstyled
       >
-      </TamaguiInput>
-      {action && (
-        <Button
-          icon={action?.icon}
-          onClick={onActionClick}
-          variant={variantName === 'outlined' ? 'empty' : 'secondary'}
-        />
+          {Icon && (
+          <TamaguiView marginRight={8} opacity={0.3}>
+              <Icon size={16} strokeWidth={3} />
+          </TamaguiView>
       )}
-      {error && (
-        <TamaguiView bottom={-16} left={0} position="absolute">
-          <Caption color="$error">
-            {error}
-          </Caption>
-        </TamaguiView>
+          <TamaguiInput
+            autoCapitalize={autoCapitalize}
+            defaultValue={value}
+            flex={1}
+            fontFamily="$body"
+            fontSize={inputMd ? '$inputMd' : '$button'}
+            fontWeight={inputMd ? '$inputMd' : '$button'}
+            lineHeight="$button"
+            onChangeText={onChangeText}
+            outlineWidth={0}
+            placeholder={placeholder}
+            placeholderTextColor="#64748B"
+            secureTextEntry={secureTextEntry}
+            unstyled
+          >
+          </TamaguiInput>
+          {action && (
+          <Button
+            icon={action?.icon}
+            onClick={onActionClick}
+            variant={variantName === 'outlined' ? 'empty' : 'secondary'}
+          />
       )}
-    </TamaguiView>
+          {error && (
+          <TamaguiView bottom={-16} left={0} position="absolute">
+              <Caption color="$error">
+                  {error}
+              </Caption>
+          </TamaguiView>
+      )}
+      </TamaguiView>
   )
 })

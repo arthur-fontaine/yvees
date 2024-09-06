@@ -21,18 +21,18 @@ export function App() {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <ThemeProvider theme="light">
-        <ClerkProvider
-          publishableKey={config.clerk.publishableKey}
-          tokenCache={tokenCache}
-        >
-          <CarEventsProvider>
-            <Navigator />
-          </CarEventsProvider>
-        </ClerkProvider>
-      </ThemeProvider>
-      <StatusBar style="auto" />
-    </View>
+      <View style={{ flex: 1 }}>
+          <ThemeProvider theme="light">
+              <ClerkProvider
+                publishableKey={config.clerk.publishableKey}
+                tokenCache={tokenCache}
+              >
+                  <CarEventsProvider>
+                      <Navigator />
+                  </CarEventsProvider>
+              </ClerkProvider>
+          </ThemeProvider>
+          <StatusBar style="auto" />
+      </View>
   )
 }

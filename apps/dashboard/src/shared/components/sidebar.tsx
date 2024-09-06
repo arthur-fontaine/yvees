@@ -18,35 +18,35 @@ export function Sidebar() {
   }
 
   return (
-    <div className="fixed bg-orangeLight h-full w-40 p-2 flex flex-col">
-      <div className="pt-12">
-        <SidebarButton
-          icon={<Icon.BarChart4 color="$orange" size={24} />}
-          isActive={activeButton === 'data'}
-          label="Données"
-          onClick={() => handleButtonClick('data')}
-        />
-        <SidebarButton
-          icon={<Icon.Bot color="$orange" size={24} />}
-          isActive={activeButton === 'robothome' || activeButton === 'robotconfigure'}
-          label="Robot"
-          onClick={() => handleButtonClick('robothome')}
-        />
-        <SidebarButton
-          icon={<Icon.Waypoints color="$orange" size={24} />}
-          isActive={activeButton === 'journeyhome' || activeButton === 'journeycreate'}
-          label="Parcours"
-          onClick={() => handleButtonClick('journeyhome')}
-        />
+      <div className="fixed bg-orangeLight h-full w-40 p-2 flex flex-col">
+          <div className="pt-12">
+              <SidebarButton
+                icon={<Icon.BarChart4 color="$orange" size={24} />}
+                isActive={activeButton === 'data'}
+                label="Données"
+                onClick={() => handleButtonClick('data')}
+              />
+              <SidebarButton
+                icon={<Icon.Bot color="$orange" size={24} />}
+                isActive={activeButton === 'robothome' || activeButton === 'robotconfigure'}
+                label="Robot"
+                onClick={() => handleButtonClick('robothome')}
+              />
+              <SidebarButton
+                icon={<Icon.Waypoints color="$orange" size={24} />}
+                isActive={activeButton === 'journeyhome' || activeButton === 'journeycreate'}
+                label="Parcours"
+                onClick={() => handleButtonClick('journeyhome')}
+              />
+          </div>
+          <div className="flex-grow"></div>
+          <SidebarButton
+            icon={<Icon.LogOut color="$orange" size={24} />}
+            isActive={activeButton === 'Logout'}
+            label="Deconnexion"
+            onClick={() => signOut(() => router.push('login'))}
+          />
       </div>
-      <div className="flex-grow"></div>
-      <SidebarButton
-        icon={<Icon.LogOut color="$orange" size={24} />}
-        isActive={activeButton === 'Logout'}
-        label="Deconnexion"
-        onClick={() => signOut(() => router.push('login'))}
-      />
-    </div>
   )
 }
 
@@ -62,13 +62,13 @@ function SidebarButton({
   onClick: () => void
 }) {
   return (
-    <Button
-      className={`flex gap-2 my-2 w-full justify-start text-orange ${isActive ? 'bg-white' : ''} hover:bg-white hover:text-orange-dark`}
-      onClick={onClick}
-      variant="ghost"
-    >
-      {icon}
-      {label}
-    </Button>
+      <Button
+        className={`flex gap-2 my-2 w-full justify-start text-orange ${isActive ? 'bg-white' : ''} hover:bg-white hover:text-orange-dark`}
+        onClick={onClick}
+        variant="ghost"
+      >
+          {icon}
+          {label}
+      </Button>
   )
 }

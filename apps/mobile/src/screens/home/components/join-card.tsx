@@ -34,72 +34,72 @@ export function JoinCard() {
   const cardBackgroundColor = useTheme().cardBackgroundColor?.val
 
   return (
-    <Box>
-      <Animated.View
-        onLayout={handleJoinCardLayout}
-        style={{
+      <Box>
+          <Animated.View
+            onLayout={handleJoinCardLayout}
+            style={{
           opacity: joinCardOpacity,
         }}
-      >
-        <Card
-          action={{
+          >
+              <Card
+                action={{
             onClick: openCamera,
             text: translate('joinCard.scanQRCode'),
           }}
-          icon={Icon.QrCode}
-          text={translate('joinCard.welcomeText')}
-          title={translate('joinCard.title')}
-          variant="default"
-        />
-      </Animated.View>
-      <Animated.View
-        style={{
+                icon={Icon.QrCode}
+                text={translate('joinCard.welcomeText')}
+                title={translate('joinCard.title')}
+                variant="default"
+              />
+          </Animated.View>
+          <Animated.View
+            style={{
           left: 0,
           opacity: cameraCardOpacity,
           pointerEvents: isCameraOpen ? 'auto' : 'none',
           position: 'absolute',
           right: 0,
         }}
-      >
-        <Animated.View
-          style={{
+          >
+              <Animated.View
+                style={{
             height: cameraCardHeight,
           }}
-        >
-          <Box borderRadius="$card" flex={1} overflow="hidden">
-            <CameraView
-              barcodeScannerSettings={{
+              >
+                  <Box borderRadius="$card" flex={1} overflow="hidden">
+                      <CameraView
+                        barcodeScannerSettings={{
                 barcodeTypes: ['qr'],
               }}
-              facing="back"
-              onBarcodeScanned={handleBarCodeScanned}
-              style={{ flex: 1 }}
-            />
-            <LinearGradient
-              colors={[`${cardBackgroundColor}00`, `${cardBackgroundColor}FF`]}
-              end={{ x: 0, y: 1 }}
-              locations={[0, 0.68]}
-              start={{ x: 0, y: 0 }}
-              style={{
+                        facing="back"
+                        onBarcodeScanned={handleBarCodeScanned}
+                        style={{ flex: 1 }}
+                      />
+                      <LinearGradient
+                        colors={[`${cardBackgroundColor}00`, `${cardBackgroundColor}FF`]}
+                        end={{ x: 0, y: 1 }}
+                        locations={[0, 0.68]}
+                        start={{ x: 0, y: 0 }}
+                        style={{
                 bottom: 0,
                 height: 260,
                 left: 0,
                 position: 'absolute',
                 right: 0,
               }}
-            />
-            <Box bottom={0} left={0} margin="$card" position="absolute" right={0}>
-              <Button
-                onClick={closeCamera}
-                variant="primary"
-              >
-                {translate('misc.close')}
-              </Button>
-            </Box>
-          </Box>
-        </Animated.View>
-      </Animated.View>
-    </Box>
+                      />
+                      <Box bottom={0} left={0} margin="$card" position="absolute" right={0}>
+                          <Button
+                            onClick={closeCamera}
+                            variant="primary"
+                          >
+                              {translate('misc.close')}
+                          </Button>
+                      </Box>
+                  </Box>
+              </Animated.View>
+          </Animated.View>
+      </Box>
   )
 }
 
