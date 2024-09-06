@@ -5,71 +5,50 @@ import { ThemeProvider } from 'ui'
 import { Journey } from './screens/journey/journey'
 import { Authentication } from './screens/login/authentication'
 import { Sidebar } from './shared/components/sidebar'
-import { useRoute } from './utils/router'
+import { RouteNames, useRoute } from './utils/router'
 
 /**
- * App component.
+ * App.
  */
 export function App() {
-  const route = useRoute([
-    'login',
-    'data',
-    'journeylist',
-    'journeycreateJourney',
-    'journeycreateJourneyStep',
-    'robot',
-    'journeyhome',
-  ])
+  const route = useRoute(Object.values(RouteNames))
   const { session } = useClerk()
 
-  if (session?.status !== 'active') {
-    return (
-      <ThemeProvider theme="light">
-        <Authentication />
-      </ThemeProvider>
-    )
-  }
- else {
+  const isAuthenticated = session?.status === 'active'
+
+  const renderContent = () => {
+    if (!isAuthenticated) {
+      return <Authentication />
+    }
+
     switch (route?.name) {
-      case 'data': {
-        return (
-          <ThemeProvider theme="light">
-            <Sidebar />
-            <div className="pl-40">Data</div>
-          </ThemeProvider>
-        )
-      }
-      case 'journeyhome':
-      case 'journeylist':
-      case 'journeycreateJourney': 
-      case 'journeycreateJourneyStep': {
-        return (
-          <ThemeProvider theme="light">
-            <Sidebar />
-            <div className="pl-40">
-              <Journey />
-            </div>
-          </ThemeProvider>
-        )
+      case RouteNames.DATA: {
+        return <div className="pl-40">Data</div>
       }
 
-      case 'robot': {
-        return (
-          <ThemeProvider theme="light">
-            <Sidebar />
-            <div className="pl-40">robot</div>
-          </ThemeProvider>
-        )
+      case RouteNames.ROBOT: {
+        return <div className="pl-40">robot</div>
+      }
+
+      case RouteNames.JOURNEY_HOME:
+      case RouteNames.JOURNEY_LIST:
+      case RouteNames.JOURNEY_CREATE:
+      case RouteNames.JOURNEY_CREATE_STEP: {
+        return <Journey />
       }
 
       default: {
-        return (
-          <ThemeProvider theme="light">
-            <Sidebar />
-            <div className="pl-44">Not found</div>
-          </ThemeProvider>
-        )
+        return <div className="pl-44">Not found</div>
       }
     }
   }
+
+  return (
+      <ThemeProvider theme="light">
+          <Sidebar />
+          <div className="pl-40">
+              {renderContent()}
+          </div>
+      </ThemeProvider>
+  )
 }

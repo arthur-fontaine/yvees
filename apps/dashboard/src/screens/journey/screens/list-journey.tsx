@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Icon } from 'ui'
 
-import { router } from '../../../utils/router'
+import { RouteNames, router } from '../../../utils/router'
 import { JourneyCard } from '../components/card-journey'
 
 /**
@@ -18,7 +18,7 @@ export function JourneyList() {
                         buttonMd
                         icon={Icon.Plus}
                         onClick={() => {
-                router.push('journeycreateJourney')
+                router.push(RouteNames.JOURNEY_CREATE)
               }}
                         variant="primary"
                       >

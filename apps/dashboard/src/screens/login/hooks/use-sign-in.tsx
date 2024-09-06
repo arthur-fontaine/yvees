@@ -1,7 +1,7 @@
 import { useSignIn } from '@clerk/clerk-react'
 import { useState } from 'react'
 
-import { router } from '../../../utils/router'
+import { RouteNames, router } from '../../../utils/router'
 
 interface AuthFormState {
   emailAddress: string
@@ -57,7 +57,7 @@ export function useSignInForm() {
       })
       if (signInAttempt.status === 'complete') {
         await setActive({ session: signInAttempt.createdSessionId })
-        router.push('data')
+        router.push(RouteNames.DATA)
       }
  else {
         console.error(JSON.stringify(signInAttempt, undefined, 2))

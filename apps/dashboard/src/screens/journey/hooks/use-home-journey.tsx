@@ -25,7 +25,6 @@ export const getJourney = createRoute(
   },
 )
 
-
 /**
  * Route to delete a journey by ID.
  */
@@ -44,7 +43,7 @@ export const deleteJourney = createRoute(
     return { success: true }
   }, serverImpls),
   {
-    path: '/delete-journey/:journeyId', 
+    path: '/delete-journey/:journeyId',
   },
 )
 
@@ -84,15 +83,14 @@ export function useJourneyData(journeyId: string | undefined) {
 
     setLoading(true)
     try {
-      // Fetch journey data using the getJourney function
       const fetchedJourney = await getJourney(journeyId)
       setJourney(fetchedJourney)
     }
- catch (error) {
+    catch (error) {
       console.error('Failed to fetch journey:', error)
       setJourney(undefined)
     }
- finally {
+    finally {
       setLoading(false)
     }
   }

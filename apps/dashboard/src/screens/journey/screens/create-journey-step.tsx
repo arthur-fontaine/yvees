@@ -15,7 +15,7 @@ import {
 } from '../../../shared/components/ui/form'
 import { Textarea } from '../../../shared/components/ui/textarea'
 import { toast } from '../../../shared/components/ui/use-toast'
-import { router } from '../../../utils/router'
+import { RouteNames, router } from '../../../utils/router'
 import { useInsertJourneyStep } from '../hooks/use-create-journey-step'
 import type { JourneyStepForm } from '../types/create-journey-step'
 
@@ -143,7 +143,7 @@ export function JourneyStepCreate({ journeyId }: { journeyId: string }) {
                         onClick={form.handleSubmit(async (data) => {
                 await onSubmit(data)
                 if (!error) {
-                  router.push('journeyhome', { journeyId })
+                  router.push(RouteNames.JOURNEY_HOME, { journeyId })
                 }
               })}
                         variant="primary"
@@ -154,7 +154,7 @@ export function JourneyStepCreate({ journeyId }: { journeyId: string }) {
                         buttonMd
                         onClick={() => {
                 form.reset()
-                router.push('journeyhome', { journeyId })
+                router.push(RouteNames.JOURNEY_HOME, { journeyId })
               }}
                         variant="cancel"
                       >
