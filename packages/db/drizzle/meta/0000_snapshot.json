@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "75abb17f-44f7-46da-b3f6-a3d0ab0e1e3e",
-  "prevId": "c01dd92c-6bbe-4a7b-b226-0192af961e64",
+  "id": "2857418a-0043-4be8-9e83-451cf6bf519d",
+  "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "car": {
       "name": "car",

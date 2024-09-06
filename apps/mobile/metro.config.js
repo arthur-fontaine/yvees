@@ -20,9 +20,10 @@ config.resolver.nodeModulesPaths = [
 
 const shimPath = path.resolve(__dirname, 'node_modules/.shim/empty.js')
 fs.mkdirSync(path.dirname(shimPath), { recursive: true })
-fs.writeFileSync(shimPath, 'module.exports = {}')
+fs.writeFileSync(shimPath, 'module.exports = { promisify: () => {} }')
 config.resolver.ignoreModules = [ // This is a custom property, used in resolveRequest
-  'agrume'
+  'agrume',
+  'fs', 'node:fs', 'path', 'node:path', "util", "node:util", 'url', 'node:url',
 ]
 config.resolver.resolveRequest = (context, /** @type string */moduleName, platform) => {
   if (config.resolver.ignoreModules.includes(moduleName)) {
@@ -41,8 +42,9 @@ config.resolver.resolveRequest = (context, /** @type string */moduleName, platfo
 
   return context.resolveRequest(context, moduleName, platform)
 }
+config.resolver.unstable_enablePackageExports = true
 
-config.transformer = { ...config.transformer, unstable_allowRequireContext: true }
+config.transformer.unstable_allowRequireContext = true
 config.transformer.minifierPath = require.resolve('metro-minify-terser')
 
 module.exports = config
