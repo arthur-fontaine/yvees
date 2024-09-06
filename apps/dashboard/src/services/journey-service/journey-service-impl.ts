@@ -55,6 +55,23 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
       .returning()
   },
 
+  deleteJourneyById: async ({ journeyId }) => {
+    const journey = await db.query.journeys.findFirst({
+      where: (journeys, { eq }) =>
+        eq(journeys.id, journeyId),
+    })
+
+    if (!journey) {
+      console.error('Journey not found')
+      return
+    }
+    await db.delete(journeySteps)
+      .where(eq(journeySteps.journeyId, journeyId))
+    await db
+      .delete(journeys)
+      .where(eq(journeys.id, journeyId))
+  },
+
   findJourneyById: async ({ journeyId }) => {
     const journeyData = await db
       .select({
@@ -99,23 +116,6 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
     }
 
     return Array.from(journeysMap.values())[0] || undefined
-  },
-
-  deleteJourneyById: async ({journeyId}) => {
-    const journey = await db.query.journeys.findFirst({
-      where: (journeys, { eq }) =>
-        eq(journeys.id, journeyId),
-    })
-    
-    if (!journey){
-      console.error("Journey not found")
-      return
-    }
-    await db.delete(journeySteps)
-      .where(eq(journeySteps.journeyId, journeyId))
-    await db 
-      .delete(journeys)
-      .where(eq(journeys.id, journeyId))
   },
 
   findJourneysByMuseumId: async ({ clerkOrganizationId }) => {

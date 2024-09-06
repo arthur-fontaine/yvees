@@ -10,7 +10,7 @@ import {
   TableRow,
 } from '../../../shared/components/ui/table'
 import { router } from '../../../utils/router'
-import { deleteJourneyStep, useJourneyData, deleteJourney } from '../hooks/use-home-journey'
+import { deleteJourney, deleteJourneyStep, useJourneyData } from '../hooks/use-home-journey'
 
 /**
  * Journey Home screen.
@@ -38,7 +38,7 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
   const handleDeleteJourney = async (journeyId: number) => {
     try {
         await deleteJourney(journeyId)
-        router.push('journeylist')      
+        router.push('journeylist')
     }
      catch (error) {
         console.error('Failed to delete step:', error)
