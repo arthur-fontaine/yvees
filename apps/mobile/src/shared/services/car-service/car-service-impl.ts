@@ -1,7 +1,7 @@
 import { db } from 'db/runtime/server'
 import * as DI from 'diabolo'
 
-import type { CarService } from './car-service'
+import { type CarService, carCommand } from './car-service'
 
 export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
   () => {
@@ -70,10 +70,8 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
         //   * (joystickPosition.x > 0 ? 1 : 1 + joystickPosition.x)
         //   + extraSpeed
 
-        // console.log([leftSpeed, leftSpeed, rightSpeed, rightSpeed])
-
         // await carService.sendCommand(carId, {
-        //   cmd: 1,
+        //   cmd: carCommand.move,
         //   data: [leftSpeed, leftSpeed, rightSpeed, rightSpeed],
         // })
 
@@ -105,7 +103,7 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
           : [speedLittleSide, speedBigSide] // turn left or go straight
 
         await carService.sendCommand(carId, {
-          cmd: 1,
+          cmd: carCommand.move,
           data: [leftSpeed, leftSpeed, rightSpeed, rightSpeed],
         })
       },
