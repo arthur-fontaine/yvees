@@ -115,15 +115,11 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
   },
 
   findJourneysByMuseumId: async ({ clerkOrganizationId }) => {
-    const test = await db.query.museums.findMany({})
-    console.log(test)
-
     try {
       const [museum] = await db.query.museums.findMany({
         where: (museum, { eq }) =>
           eq(museum.clerkOrganizationId, clerkOrganizationId),
       })
-      console.error(clerkOrganizationId, museum)
       const museumId = museum?.id
 
       if (museumId === undefined) {
