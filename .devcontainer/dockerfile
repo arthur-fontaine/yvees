@@ -15,7 +15,16 @@ RUN pkgx install \
     pnpm.io@9.4.0 \
     bore.pub \
     fish \
-    npx
+    npx \
+    uv
+
+# Install libs
+RUN apt-get install \
+    libgl1 \
+    libglib2.0-0 \
+    libzbar0 \
+    -y
 
 ENV fish_greeting ""
 ENV NODE_OPTIONS "--experimental-websocket"
+ENV QR_DECODE_SERVICE_PORT 1927
