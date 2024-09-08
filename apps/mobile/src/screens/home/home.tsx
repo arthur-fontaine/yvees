@@ -1,24 +1,15 @@
-import { CameraView } from "expo-camera";
 import React from "react";
-import { Text } from "react-native";
-import { Button, Card, Icon, ThemeProvider, Histories } from "ui";
-
+import { Button, Card, Icon, ThemeProvider, Histories,  } from "ui";
 import { useScanController } from "./hooks/use-scan-controller";
 import { DefaultLayout } from "../../shared/layouts/default-layout";
 import { useVisitData } from "./hooks/use-visit-data";
+import { Text } from 'react-native'
+import { CameraView } from 'expo-camera'
 
-/**
- * The home screen of the application.
- */
+
 export function HomeScreen() {
-  const { visit, loading } = useVisitData();
-
-  if (loading) {
-    return <Text>Loading...</Text>;
-  }
-  if (!visit || visit.length === 0) {
-    return <Text>Pas d'historique</Text>;
-  }
+  const userId = 0; 
+  const { visit, loading } = useVisitData(userId);
 
   const {
     allowToScanAgain,
@@ -62,7 +53,16 @@ export function HomeScreen() {
           variant="default"
         />
       </ThemeProvider>
-      {visit.length > 0 && <Histories variant="default" histories={visit} />}
+
+      {visit && visit.length > 0 && (
+        <Histories variant="default" histories={visit} />
+      )}
+
+      { visit && visit.length === 0 && (
+        <Text>Vous n'avez aucune visite pour le moment.</Text>
+      )}
+
+      <Text>Chargement des visites...</Text>
     </DefaultLayout>
   );
 }

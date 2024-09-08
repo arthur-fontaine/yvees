@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import { visitHistoryService } from '../../../services/visit-history-service/visit-history-service'
 import { serverImpls } from '../../../utils/server-impl'
 import type { VisitByUserIdSerialized } from '../types/visit'
-import { console } from 'inspector'
 
 export const getVisitsByUserId = createRoute(
     DI.provide(async function* (userId: number | undefined) {
@@ -17,11 +16,12 @@ export const getVisitsByUserId = createRoute(
 
         const visits = await findVisitByUserId({ userId })
         return visits?.map((visit) => {
-        return {
-            ...visit,
-            createdAt: visit.createdAt?.toISOString(),
-            updatedAt: visit.updatedAt?.toISOString(),
-        } })
+            return {
+                ...visit,
+                createdAt: visit.createdAt?.toISOString(),
+                updatedAt: visit.updatedAt?.toISOString(),
+            }
+        })
     }, serverImpls),
     {
         path: '/get-visits',
@@ -32,24 +32,36 @@ export const getVisitsByUserId = createRoute(
  *  Hook to get the data for the journey card.
  */
 
-export function useVisitData() {
-    const [visit, setVisit] = useState<VisitByUserIdSerialized[] | undefined>()
-    const [loading, setLoading] = useState(false)
+
+export function useVisitData(userId: number) {
+    const [visit, setVisit] = useState<VisitByUserIdSerialized[] | undefined>([]);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
-
-        try{
-            const userId = 0
-            getVisitsByUserId(userId).then((visit: VisitByUserIdSerialized[]) => {
-                setVisit(visit)
-                setLoading(false)
-            })
+        if (!userId) {
+            setVisit(undefined);
+            setLoading(false);
+            return;
         }
 
-        catch{
-            console.warn('error')
-        }
+        const fetchVisits = async () => {
+            setLoading(true);
+            try {
+                const fetchedVisits = await getVisitsByUserId(userId); 
+                setVisit(fetchedVisits);
+            } catch (error) {
+                console.error('Failed to fetch visits:', error);
+                setVisit(undefined);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    }, [])
-    return { visit, loading }
-};
+        fetchVisits();
+    }, [userId]);
+
+    return { visit, loading }; 
+}
+
+
+
