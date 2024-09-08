@@ -1,8 +1,9 @@
-import path from 'path'
-import fileURLToPath from 'file-uri-to-path'
+import path from 'node:path'
+
 import Database from 'better-sqlite3'
 import type { BetterSQLite3Database } from 'drizzle-orm/better-sqlite3'
 import { drizzle } from 'drizzle-orm/better-sqlite3'
+import fileURLToPath from 'file-uri-to-path'
 
 import * as schema from '../schema/schema'
 

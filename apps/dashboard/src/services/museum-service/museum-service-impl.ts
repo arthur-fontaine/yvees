@@ -22,9 +22,18 @@ export const museumServiceImpl = lazyCreateServiceImpl<MuseumService>(() => ({
     })
     return result
   },
+
   getCarsOfMuseum(params) {
     return db.query.cars.findMany({
       where: (car, { eq }) => eq(car.museumId, params.museumId),
     })
+  },
+
+  insertNewCarOfMuseum: async ({ ip, museumId }) => {
+    await db.insert(db.tables.cars).values({
+      battery: 100, // TODO: get real value
+      ip,
+      museumId,
+    }).returning()
   },
 }))

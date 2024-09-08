@@ -140,9 +140,11 @@ export default antfu(
     ignores: [
       '**/__generated__/**',
       '**/*.config.*',
-      './pnpm-lock.yaml',
-      'packages/car/boot',
-      'apps/dashboard/src/shared/components/ui'
+      'pnpm-lock.yaml',
+      'apps/dashboard/src/shared/components/ui/',
+      'apps/mobile/.expo/',
+      'packages/car/boot/',
+      'packages/db/drizzle/meta/',
     ],
   },
 )

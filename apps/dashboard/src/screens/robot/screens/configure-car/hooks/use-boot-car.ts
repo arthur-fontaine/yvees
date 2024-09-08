@@ -14,7 +14,7 @@ const getProgramBins = createRoute(DI.provide(async function* (
   { clerkOrganizationId, ...params }:
     { clerkOrganizationId: string } & Omit<Parameters<typeof buildBoot>[0], 'IP_CAR_4_REPLACE'>,
 ) {
-  const { findMuseumOfClerkOrg, getCarsOfMuseum }
+  const { findMuseumOfClerkOrg, getCarsOfMuseum, insertNewCarOfMuseum }
     = yield * DI.requireService(museumService)
   const museum = await findMuseumOfClerkOrg({ clerkOrganizationId })
 
@@ -50,6 +50,8 @@ const getProgramBins = createRoute(DI.provide(async function* (
   }
 
   const ipCar4 = getIpParts(carIp, true)[3]
+
+  await insertNewCarOfMuseum({ ip: carIp, museumId: museum.id })
 
   return buildBoot({
     ...params,

@@ -8,6 +8,8 @@ export interface MuseumService extends Service<'museum', {
     params: { clerkOrganizationId: string }
   ) => Promise<Museum | undefined>
   getCarsOfMuseum: (params: { museumId: number }) => Promise<Car[]>
+  insertNewCarOfMuseum:
+  (params: { ip: string, museumId: number }) => Promise<void>
 }> { }
 
 export const museumService = createService<MuseumService>('museum')
