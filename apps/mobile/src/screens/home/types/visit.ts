@@ -1,9 +1,9 @@
 export interface VisitByUserIdSerialized {
-    ended_at: number
-    id: number
-    in_progress: number
-    journey_id: number
-    userId: number
-    createdAt: string
-    updatedAt: string
+  createdAt: string
+  endedAt: number
+  id: number
+  inProgress: number
+  journeyId: number
+  updatedAt: string
+  userId: number
 }
