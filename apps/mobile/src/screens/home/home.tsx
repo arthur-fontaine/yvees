@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, Icon, ThemeProvider, Histories,  } from "ui";
+import { Button, Card, Icon, ThemeProvider, Histories, } from "ui";
 import { useScanController } from "./hooks/use-scan-controller";
 import { DefaultLayout } from "../../shared/layouts/default-layout";
 import { useVisitData } from "./hooks/use-visit-data";
@@ -8,8 +8,7 @@ import { CameraView } from 'expo-camera'
 
 
 export function HomeScreen() {
-  const userId = 0; 
-  const { visit, loading } = useVisitData(userId);
+  const { visit, loading } = useVisitData();
 
   const {
     allowToScanAgain,
@@ -19,6 +18,7 @@ export function HomeScreen() {
     openCamera,
     requestPermissionToUseCamera,
   } = useScanController();
+
 
   if (isCameraOpen && hasPermissionToUseCamera) {
     return (
@@ -44,7 +44,7 @@ export function HomeScreen() {
       <ThemeProvider>
         <Card
           action={{
-            onClick: () => {},
+            onClick: () => { },
             text: "Scanner un QR Code",
           }}
           icon={Icon.QrCode}
@@ -58,11 +58,10 @@ export function HomeScreen() {
         <Histories variant="default" histories={visit} />
       )}
 
-      { visit && visit.length === 0 && (
+      {!loading && visit && visit.length === 0 && (
         <Text>Vous n'avez aucune visite pour le moment.</Text>
       )}
 
-      <Text>Chargement des visites...</Text>
     </DefaultLayout>
   );
 }

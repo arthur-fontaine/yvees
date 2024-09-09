@@ -5,5 +5,12 @@ export interface VisitByUserIdSerialized {
   inProgress: number
   journeyId: number
   updatedAt: string
-  userId: number
+  userId: number,
+  journey?: {
+    museum?: {
+      name: string;
+    };
+  };
 }
+
+

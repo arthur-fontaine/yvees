@@ -3,44 +3,45 @@ import * as DI from 'diabolo'
 import { useEffect, useState } from 'react'
 
 import { visitHistoryService } from '../../../services/visit-history-service/visit-history-service'
-import { serverImpls } from '../../../utils/server-impl'
-import type { VisitByUserIdSerialized } from '../types/visit'
+import { serverImpls } from '../../../shared/utils/server-impls'
+import type { VisitWithJourneyAndMuseum } from '../../../../../../packages/db/src/db' 
 
 export const getVisitsByUserId = createRoute(
   DI.provide(async function* (userId: number | undefined) {
     if (!userId) {
-      return []
+      return [];
     }
-    const { findVisitByUserId } = yield * DI.requireService(visitHistoryService)
-    console.warn('Service findVisitByUserId:', findVisitByUserId)
 
-    const visits = await findVisitByUserId({ userId })
-    return visits?.map((visit) => {
+    const { findVisitByUserId } = yield* DI.requireService(visitHistoryService);
+    const visits: VisitWithJourneyAndMuseum[] = await findVisitByUserId({ userId });
+
+    return visits.map((visit) => {
       return {
         ...visit,
         createdAt: visit.createdAt?.toISOString(),
         updatedAt: visit.updatedAt?.toISOString(),
-      }
-    })
+        journey: {
+          ...visit.journey.museum,
+        },
+      };
+    });
   }, serverImpls),
   {
     path: '/get-visits',
-  },
-)
+  }
+);
 
 /**
  *  Hook to get the data for the journey card.
  */
 
-/**
- *
- */
-export function useVisitData(userId: number) {
-  const [visit, setVisit] = useState<VisitByUserIdSerialized[] | undefined>([])
+export function useVisitData() {
+  const [visit, setVisit] = useState<VisitWithJourneyAndMuseum[] | undefined>([])
   const [loading, setLoading] = useState<boolean>(false)
+  const userId = 1;
 
   useEffect(() => {
-    if (!userId) {
+    if (userId === undefined) {
       setVisit(undefined)
       setLoading(false)
       return
@@ -51,12 +52,9 @@ export function useVisitData(userId: number) {
       try {
         const fetchedVisits = await getVisitsByUserId(userId)
         setVisit(fetchedVisits)
-      }
-      catch (error) {
-        console.error('Failed to fetch visits:', error)
+      } catch (error) {
         setVisit(undefined)
-      }
-      finally {
+      } finally {
         setLoading(false)
       }
     }

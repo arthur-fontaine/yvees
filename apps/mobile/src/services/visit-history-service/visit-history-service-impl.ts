@@ -1,15 +1,20 @@
 import { db } from 'db/runtime/server'
 import { lazyCreateServiceImpl } from 'diabolo'
-
 import type { VisitHistoryService } from './visit-history-service'
 
 export const visitServiceImpl = lazyCreateServiceImpl<VisitHistoryService>(() =>
   ({
     findVisitByUserId: async ({ userId }) => {
-      console.error('Fetching visits for userId:', userId)
 
       const result = await db.query.visits.findMany({
         where: (visit, { eq }) => eq(visit.userId, userId),
+        with: {
+          journey: {
+            with: {
+              museum: true, 
+            }
+          }
+        }
       })
 
       console.error('Result from database:', result)
@@ -19,7 +24,10 @@ export const visitServiceImpl = lazyCreateServiceImpl<VisitHistoryService>(() =>
         return []
       }
 
-      return Array.from(result.values())
+      return result.map(visit => ({
+        ...visit,
+        journey: visit.journey, 
+        museum: visit.journey.museum 
+      }));
     },
-
   }))

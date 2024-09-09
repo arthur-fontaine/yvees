@@ -11,3 +11,10 @@ export type Visit = typeof visits.$inferSelect
 export type JourneyStep = typeof journeySteps.$inferSelect
 export type Museum = typeof museums.$inferSelect
 export type Car = typeof cars.$inferSelect
+
+export type VisitWithJourneyAndMuseum = Visit & {
+    journey: Journey & {
+      museum: Museum;
+    };
+  };
+  
