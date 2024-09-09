@@ -52,7 +52,7 @@ export const deleteJourney = createRoute(
  */
 export const deleteJourneyStep = createRoute(
   DI.provide(async function* (journeyStepId: number | undefined) {
-    if (!journeyStepId) {
+    if (journeyStepId === undefined) {
       return {}
     }
     const {

@@ -3,6 +3,7 @@ import { createGroup, createRouter } from '@swan-io/chicane'
 import React from 'react'
 import { ThemeProvider } from 'ui'
 
+import { Data } from '../screens/data/data'
 import { Journey } from '../screens/journey/journey'
 import { Authentication } from '../screens/login/authentication'
 import { Robot } from '../screens/robot/robot'
@@ -51,7 +52,7 @@ export function Router() {
 
   function getRoute() {
     switch (route?.name) {
-      case 'data': { return <div>Data</div> }
+      case 'data': { return <Data /> }
       case 'journeyhome':
       case 'journeylist':
       case 'journeycreateJourneyStep':

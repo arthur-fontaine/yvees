@@ -13,8 +13,6 @@ export function Authentication() {
               <SignInForm />
           </SignedOut>
           <SignedIn>
-              {/* TODO : setup to home page + remove UserButton */}
-              <h1>DASHBOARD</h1>
               <UserButton />
           </SignedIn>
       </>

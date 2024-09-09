@@ -44,8 +44,8 @@ export function Journey() {
     RouteNames.JOURNEY_HOME,
     RouteNames.JOURNEY_CREATE_STEP,
     RouteNames.JOURNEY_LIST,
-  ]);
+  ])
   return (
-    <div>{getComponentForRoute(route)}</div>
-  );
+      <div>{getComponentForRoute(route)}</div>
+  )
 }
