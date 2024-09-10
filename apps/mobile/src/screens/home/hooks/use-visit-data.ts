@@ -1,10 +1,11 @@
+import { useAuth } from '@clerk/clerk-expo'
 import { createRoute } from 'agrume'
 import * as DI from 'diabolo'
 import { useEffect, useState } from 'react'
 
 import { visitHistoryService } from '../../../services/visit-history-service/visit-history-service'
 import { serverImpls } from '../../../shared/utils/server-impls'
-import type { VisitWithJourneyAndMuseum } from '../../../../../../packages/db/src/db' 
+import type { VisitWithJourneyAndMuseum } from '../../../../../../packages/db/src/db'
 
 export const getVisitsByUserId = createRoute(
   DI.provide(async function* (userId: number | undefined) {
@@ -38,8 +39,8 @@ export const getVisitsByUserId = createRoute(
 export function useVisitData() {
   const [visit, setVisit] = useState<VisitWithJourneyAndMuseum[] | undefined>([])
   const [loading, setLoading] = useState<boolean>(false)
-  const userId = 1;
-
+  const { userId } = useAuth();
+  
   useEffect(() => {
     if (userId === undefined) {
       setVisit(undefined)
