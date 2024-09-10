@@ -16,15 +16,18 @@ const formatDate = (dateString: string) => {
   });
 };
 
+interface Journey {
+  name: string;
+}
+
 interface ItemProps {
   id?: number;
   createdAt: string;
   updatedAt?: string;
   userId?: number;
-  in_progress?: number;
   journey_id?: number;
-  ended_at: number;
-  name: string;
+  ended_at?: number;
+  journey?: Journey;
 
   action?: {
     onClick: () => void;
@@ -70,15 +73,15 @@ export const Histories = withVariants<
                 <YGroup.Item key={index}>
                   <ListItem
                     title={
-                      <>
-                        <Paragraph fontWeight="bold" size="$3">
-                          {history.name}
+                      <View style={{ flexDirection: 'column' }}> 
+                        <Paragraph variant="primary" style={{ fontWeight: '600' }}>
+                          {history.journey?.name} 
                         </Paragraph>
 
-                        <Paragraph fontWeight="bold" size="$3">
-                          Visité le {formattedDate}
+                        <Paragraph>
+                          Visité le {formattedDate} 
                         </Paragraph>
-                      </>
+                      </View>
                     }
                     icon={<Image size="$5" color="orange" />}
                     iconAfter={<ChevronRight color="orange" />}
