@@ -16,7 +16,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '../../../shared/components/ui/chart'
-import { useData } from '../hooks/use-data'
+import { useVisitsData } from '../hooks/use-visits-data'
 
 export const description = 'A stacked area chart'
 
@@ -31,7 +31,7 @@ const chartConfig = {
  * ChartVisits component.
  */
 export function ChartVisits() {
-  const { chartData, loading } = useData()
+  const { chartData, loading } = useVisitsData()
     if (loading) {
     return <p>Loading...</p>
   }
