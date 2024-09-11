@@ -17,8 +17,6 @@ export const visitServiceImpl = lazyCreateServiceImpl<VisitHistoryService>(() =>
         }
       })
 
-      console.error('Result from database:', result)
-
       if (!result || result.length === 0) {
         console.error('No visits found for userId:', userId)
         return []
