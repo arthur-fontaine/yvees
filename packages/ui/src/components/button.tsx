@@ -1,5 +1,5 @@
 import React from 'react'
-import type { GetProps } from 'tamagui'
+import type { GetProps, TamaguiElement } from 'tamagui'
 import { Button as TamaguiButton } from 'tamagui'
 
 import type { Icon } from './icon/icon'
@@ -56,7 +56,7 @@ export const Button = withVariants<
   },
 )((
   { variant },
-{
+  {
     backgroundColor,
     buttonMd,
     children,
@@ -64,6 +64,7 @@ export const Button = withVariants<
     icon,
     onClick,
   }: ButtonProps,
+  ref?: React.ForwardedRef<TamaguiElement | null> | undefined,
 ) => {
   const variantStyles = { ...variant }
   if (backgroundColor) {
@@ -83,6 +84,7 @@ export const Button = withVariants<
         flexDirection="row"
         fontSize={buttonMd ? '$buttonMd' : '$button'}
         fontWeight={buttonMd ? '$buttonMd' : '$button'}
+        ref={ref}
         {...(icon && {
         icon: withProps(icon as never, { size: 16, strokeWidth: 3 }),
       })}

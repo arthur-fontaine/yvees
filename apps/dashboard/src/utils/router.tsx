@@ -52,13 +52,13 @@ export function Router() {
 
   function getRoute() {
     switch (route?.name) {
-      case 'data': { return <Data /> }
-      case 'journeyhome':
-      case 'journeylist':
-      case 'journeycreateJourneyStep':
-      case 'journeycreateJourney': { return <Journey /> }
-      case 'robothome':
-      case 'robotconfigure': { return <Robot /> }
+      case RouteNames.DATA: { return <Data /> }
+      case RouteNames.JOURNEY_HOME:
+      case RouteNames.JOURNEY_LIST:
+      case RouteNames.JOURNEY_CREATE_STEP:
+      case RouteNames.JOURNEY_CREATE: { return <Journey /> }
+      case RouteNames.ROBOT_HOME:
+      case RouteNames.ROBOT_CONFIGURE: { return <Robot /> }
       default: { return <div>Not found</div> }
     }
   }

@@ -38,7 +38,7 @@ export const getJourney = createRoute(
  */
 export const deleteJourney = createRoute(
   DI.provide(async function* (journeyId: number | undefined) {
-    if (!journeyId) {
+    if (journeyId === undefined) {
       return { success: false }
     }
 
@@ -54,6 +54,28 @@ export const deleteJourney = createRoute(
   }, serverImpls),
   {
     path: '/delete-journey/:journeyId',
+  },
+)
+
+export const updateJourneyControlMode = createRoute(
+    DI.provide(async function* ({ controlMode, journeyId }: { controlMode: 'automatic' | 'manual', journeyId: number }) {
+    if (journeyId === undefined || controlMode === undefined) {
+      return { success: false }
+    }
+    const { updateJourneyControlMode } = yield * DI.requireService(
+      journeyService,
+    )
+    try {
+      await updateJourneyControlMode({ controlMode, journeyId })
+      return { success: true }
+    }
+    catch (error) {
+      console.error('Failed to update journey control mode:', error)
+      return { success: false }
+    }
+  }, serverImpls),
+  {
+    path: '/update-journey-control-mode/:journeyId',
   },
 )
 
@@ -88,7 +110,6 @@ export function useJourneyData(journeyId: string | undefined) {
   } & FindJourneyByIdReturn) | undefined>
     (undefined)
   const [loading, setLoading] = useState(true)
-
   const fetchJourney = async () => {
     if (!journeyId) {
       setJourney(undefined)

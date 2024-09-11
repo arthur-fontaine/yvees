@@ -115,4 +115,19 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
         eq(db.tables.journeySteps.journeyId, db.tables.journeys.id),
       )
   },
+
+  updateJourneyControlMode: async ({ controlMode, journeyId }) => {
+    const journey = await db.query.journeys.findFirst({
+      where: (journeys, { eq }) => eq(journeys.id, journeyId),
+    })
+
+    if (!journey) {
+      console.error('Journey not found')
+      return
+    }
+    await db
+      .update(journeys)
+      .set({ controlMode })
+      .where(eq(journeys.id, journeyId))
+  },
 }))
