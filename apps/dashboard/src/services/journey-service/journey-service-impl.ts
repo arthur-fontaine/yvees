@@ -64,8 +64,10 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
       console.error('Journey not found')
       return
     }
-    await db.delete(journeySteps).where(eq(journeySteps.journeyId, journeyId))
-    await db.delete(journeys).where(eq(journeys.id, journeyId))
+    await db
+      .update(journeys)
+      .set({ archived: true })
+      .where(eq(journeys.id, journeyId))
   },
 
   findJourneyById: async ({ journeyId }) => {
@@ -142,7 +144,9 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
           db.tables.visits,
           eq(db.tables.journeys.id, db.tables.visits.journeyId),
         )
-        .where(eq(db.tables.journeys.museumId, museumId))
+        .where(
+          sql`${db.tables.journeys.museumId} = ${museumId} AND ${db.tables.journeys.archived} = 0`,
+        )
 
       const journeysMap = new Map<
         number,

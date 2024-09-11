@@ -32,17 +32,17 @@ const insertJourneyStep = createRoute(
 export function useInsertJourneyStep() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | undefined>(undefined)
-
   const insertNewJourneyStep = async (journeyStep: JourneyStepForm):
   Promise<void> => {
     setLoading(true)
     setError(undefined)
 
-    try {
+  try {
+      console.log('journeyStep', journeyStep)
       await insertJourneyStep({ journeyStep })
       setLoading(false)
     }
- catch (err) {
+  catch (err) {
       setError('Failed to insert journey')
       setLoading(false)
     }

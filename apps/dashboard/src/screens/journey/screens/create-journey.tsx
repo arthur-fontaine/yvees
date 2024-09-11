@@ -57,6 +57,7 @@ export function JourneyCreate() {
       description: data.description,
       draft: true,
       name: data.name,
+      archived: false,
     }
 
     try {
