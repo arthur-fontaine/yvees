@@ -1,12 +1,15 @@
 import React from "react";
-import { Button, Card, Icon, ThemeProvider, Histories, } from "ui";
+import { Button, Card, Icon, ThemeProvider } from "ui";
 import { useScanController } from "./hooks/use-scan-controller";
 import { DefaultLayout } from "../../shared/layouts/default-layout";
 import { useVisitData } from "./hooks/use-visit-data";
 import { Text } from 'react-native'
 import { CameraView } from 'expo-camera'
+import { Histories } from "./components/histories";
 
-
+/**
+ * The home screen of the application.
+ */
 export function HomeScreen() {
   const { visit, loading } = useVisitData();
 
