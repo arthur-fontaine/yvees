@@ -1,6 +1,5 @@
 import React from 'react'
 import { Button, Icon } from 'ui'
-import { toast } from '../../../shared/components/ui/use-toast'
 
 import {
   Table,
@@ -10,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from '../../../shared/components/ui/table'
+import { toast } from '../../../shared/components/ui/use-toast'
 import { RouteNames, router } from '../../../utils/router'
 import { deleteJourney, deleteJourneyStep, useJourneyData } from '../hooks/use-home-journey'
 
@@ -45,7 +45,8 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
         title: 'Succès',
       })
       router.push(RouteNames.JOURNEY_LIST)
-    } catch (error) {
+    }
+ catch (error) {
       toast({
         description: 'Échec de la suppression du parcours.',
         duration: 3500,

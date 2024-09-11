@@ -54,10 +54,10 @@ export function JourneyCreate() {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     const journeyData: JourneyForm = {
+      archived: false,
       description: data.description,
       draft: true,
       name: data.name,
-      archived: false,
     }
 
     try {

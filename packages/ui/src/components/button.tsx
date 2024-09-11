@@ -1,93 +1,93 @@
-import React from "react";
-import type { GetProps } from "tamagui";
-import { Button as TamaguiButton } from "tamagui";
+import React from 'react'
+import type { GetProps } from 'tamagui'
+import { Button as TamaguiButton } from 'tamagui'
 
-import type { Icon } from "./icon/icon";
-import { withProps } from "../utils/with-props";
-import { withVariants } from "../utils/with-variants";
+import type { Icon } from './icon/icon'
+import { withProps } from '../utils/with-props'
+import { withVariants } from '../utils/with-variants'
 
 interface ButtonProps {
-  backgroundColor?: string;
-  buttonMd?: boolean;
-  children?: string;
-  disabled?: boolean;
-  icon?: (typeof Icon)[keyof typeof Icon] | undefined;
-  onClick?: GetProps<typeof TamaguiButton>["onPress"];
+  backgroundColor?: string
+  buttonMd?: boolean
+  children?: string
+  disabled?: boolean
+  icon?: (typeof Icon)[keyof typeof Icon] | undefined
+  onClick?: GetProps<typeof TamaguiButton>['onPress']
 }
 
 export const Button = withVariants<
-  "cancel" | "empty" | "primary" | "secondary",
+  'cancel' | 'empty' | 'primary' | 'secondary',
   GetProps<typeof TamaguiButton>
 >({
   $defaults: {
-    borderRadius: "$mediumSizedElement",
+    borderRadius: '$mediumSizedElement',
     borderWidth: 0,
-    cursor: "pointer",
-    padding: "$normal",
+    cursor: 'pointer',
+    padding: '$normal',
   },
   cancel: {
-    backgroundColor: "$cancelButtonBackground",
-    color: "$cancelButtonTextColor",
+    backgroundColor: '$cancelButtonBackground',
+    color: '$cancelButtonTextColor',
     hoverStyle: {
-      backgroundColor: "$cancelButtonHoverBackground",
+      backgroundColor: '$cancelButtonHoverBackground',
     },
   },
   empty: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     hoverStyle: {
-      backgroundColor: "transparent",
+      backgroundColor: 'transparent',
     },
   },
   primary: {
-    backgroundColor: "$primaryButtonBackground",
-    color: "$primaryButtonTextColor",
+    backgroundColor: '$primaryButtonBackground',
+    color: '$primaryButtonTextColor',
     hoverStyle: {
-      backgroundColor: "$primaryButtonHoverBackground",
+      backgroundColor: '$primaryButtonHoverBackground',
     },
   },
   secondary: {
-    backgroundColor: "$secondaryButtonBackground",
-    color: "$secondaryButtonTextColor",
+    backgroundColor: '$secondaryButtonBackground',
+    color: '$secondaryButtonTextColor',
     hoverStyle: {
-      backgroundColor: "$secondaryButtonHoverBackground",
+      backgroundColor: '$secondaryButtonHoverBackground',
     },
   },
 })((
   { variant },
-  { backgroundColor, buttonMd, children, disabled, icon, onClick }: ButtonProps
+  { backgroundColor, buttonMd, children, disabled, icon, onClick }: ButtonProps,
 ) => {
-  const variantStyles = { ...variant };
+  const variantStyles = { ...variant }
   if (backgroundColor) {
-    variantStyles.backgroundColor = backgroundColor;
+    variantStyles.backgroundColor = backgroundColor
   }
 
   const disabledStyles = disabled
     ? {
-        cursor: "not-allowed",
+        cursor: 'not-allowed',
         opacity: 0.7,
       }
-    : {};
+    : {}
   return (
-    <TamaguiButton
-      alignItems="center"
-      display="flex"
-      flexDirection="row"
-      fontSize={buttonMd ? "$buttonMd" : "$button"}
-      fontWeight={buttonMd ? "$buttonMd" : "$button"}
-      {...(icon && {
+      <TamaguiButton
+        alignItems="center"
+        display="flex"
+        flexDirection="row"
+        fontSize={buttonMd ? '$buttonMd' : '$button'}
+        fontWeight={buttonMd ? '$buttonMd' : '$button'}
+        {...(icon && {
         icon: withProps(icon as never, { size: 16, strokeWidth: 3 }),
       })}
-      disabled={disabled || false}
-      justifyContent="center"
-      onPress={onClick}
-      unstyled
-      {...variantStyles}
-      {...disabledStyles}
-      hoverStyle={{
+        disabled={disabled || false}
+        justifyContent="center"
+        onPress={onClick}
+        unstyled
+        {...variantStyles}
+        {...disabledStyles}
+        hoverStyle={{
         backgroundColor: backgroundColor || variant.hoverStyle?.backgroundColor,
       }}
-    >
-      {children}
-    </TamaguiButton>
-  );
-});
+      >
+          {children}
+      </TamaguiButton>
+  )
+})

@@ -38,7 +38,6 @@ export function useInsertJourneyStep() {
     setError(undefined)
 
   try {
-      console.log('journeyStep', journeyStep)
       await insertJourneyStep({ journeyStep })
       setLoading(false)
     }

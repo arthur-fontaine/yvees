@@ -39,7 +39,8 @@ export const deleteJourney = createRoute(
     try {
       await deleteJourneyById({ journeyId })
       return { success: true }
-    } catch (error) {
+    }
+ catch (error) {
       return { success: false }
     }
   }, serverImpls),
