@@ -53,7 +53,7 @@ export function useData() {
   useEffect(() => {
     getVisits(clerkOrganizationId).then((visits: VisitSerialized[]) => {
       const realData = visits
-      const fakeData = generateFakeVisitsData()
+      const fakeData = import.meta.env.DEV ? generateFakeVisitsData() : [] // Only generate fake data in development
       const combinedData = [...realData, ...fakeData]
       const formattedData = processVisitsToChartData(combinedData)
 
