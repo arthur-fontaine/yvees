@@ -13,9 +13,7 @@ export interface JourneyService
         journey: JourneyForm
       }) => Promise<void>
       deleteJourneyById: (params: { journeyId: number }) => Promise<void>
-      findJourneyById: (params: {
-        journeyId: string
-      }) => Promise<
+      findJourneyById: (params: { journeyId: string }) => Promise<
         | ({
           averageVisitDuration: number
           journeySteps: JourneyStep[]
@@ -30,6 +28,10 @@ export interface JourneyService
           numberOfSteps: number
         } & Pick<Journey, 'description' | 'id' | 'name'>)[]
       >
+      updateJourneyControlMode: (params: {
+        controlMode: 'automatic' | 'manual'
+        journeyId: number
+      }) => Promise<void>
     }
   > { }
 

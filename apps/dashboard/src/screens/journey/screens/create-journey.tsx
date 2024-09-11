@@ -55,6 +55,7 @@ export function JourneyCreate() {
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     const journeyData: JourneyForm = {
       archived: false,
+      controlMode: 'automatic',
       description: data.description,
       draft: true,
       name: data.name,
@@ -83,10 +84,11 @@ export function JourneyCreate() {
           <h1 className="text-3xl font-bold my-8">Création d'un parcours :</h1>
           <div>
               <p className="text-sm text-muted-foreground max-w-3xl">
-                  Vous êtes entrain de créer un nouveau parcours. Après avoir
-                  rempli les différents champs, vous pourrez accéder à la
-                  page de ce parcours, où vous pourrez modifier les
-                  champs et ajouter des étapes. À la
+                  Vous êtes entrain de créer un nouveau parcours.
+                  Après avoir rempli les
+                  différents champs, vous pourrez accéder à la page
+                  de ce parcours, où
+                  vous pourrez modifier les champs et ajouter des étapes. À la
                   créationd'un parcours, les étapes de début et de fin sont
                   automatiquement créées.
               </p>

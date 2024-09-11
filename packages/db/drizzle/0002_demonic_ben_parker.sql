@@ -1,0 +1,1 @@
+ALTER TABLE `journeys` ADD `control_mode` text NOT NULL;

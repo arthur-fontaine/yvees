@@ -9,9 +9,9 @@ import {
   TableHeader,
   TableRow,
 } from '../../../shared/components/ui/table'
-import { toast } from '../../../shared/components/ui/use-toast'
 import { RouteNames, router } from '../../../utils/router'
-import { deleteJourney, deleteJourneyStep, useJourneyData } from '../hooks/use-home-journey'
+import { JourneyDropDown } from '../components/drop-down-journey'
+import { deleteJourneyStep, useJourneyData } from '../hooks/use-home-journey'
 
 /**
  * Journey Home screen.
@@ -37,25 +37,6 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
     }
   }
 
-  const handleDeleteJourney = async (journeyId: number) => {
-    try {
-      await deleteJourney(journeyId)
-      toast({
-        description: 'Le parcours a été supprimé avec succès !',
-        duration: 3500,
-        title: 'Succès',
-      })
-      router.push(RouteNames.JOURNEY_LIST)
-    }
-    catch (error) {
-      toast({
-        description: 'Échec de la suppression du parcours.',
-        duration: 3500,
-        title: 'Erreur',
-      })
-    }
-  }
-
   const sortedSteps = [...journey.journeySteps].sort((a, b) => {
     if (a.start) {
       return -1
@@ -78,18 +59,18 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
                   Parcours :
                   {journey.name}
               </h1>
-              <h3>
-                  {new Date(journey.createdAt).toLocaleDateString('en-US', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                  })}
-              </h3>
+              <JourneyDropDown journey={journey} />
           </div>
           <div className="mb-8">
               <h2 className="text-xl mb-2">Description :</h2>
-              <p className="text-sm text-muted-foreground max-w-3xl">
+              <p className="text-md text-muted-foreground max-w-3xl">
                   {journey.description}
+              </p>
+              <p className="text-xs text-muted-foreground max-w-3xl">
+                  Créer le :
+                  {' '}
+                  {`${new Date(journey.createdAt).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric',
+                })}`}
               </p>
           </div>
           <div className="flex justify-between my-4 items-center">
@@ -99,18 +80,11 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
                     buttonMd
                     icon={Icon.Plus}
                     onClick={() => {
-              router.push(RouteNames.JOURNEY_CREATE_STEP, { journeyId })
-            }}
+                      router.push(RouteNames.JOURNEY_CREATE_STEP, { journeyId })
+                    }}
                     variant="primary"
                   >
                       Créer une étape
-                  </Button>
-                  <Button
-                    icon={Icon.Trash}
-                    onClick={() => handleDeleteJourney(Number(journeyId))}
-                    variant="cancel"
-                  >
-                      Delete
                   </Button>
               </div>
           </div>
