@@ -14,22 +14,15 @@ export const journeyStepServiceImpl = lazyCreateServiceImpl<JourneyStepService>(
 
       if (!journey) {
         console.error('Journey not found')
+        return
       }
 
-      if (journey !== undefined) {
-        await db
-          .insert(journeySteps)
-          .values({
-            ...journeyStep,
-          })
-          .returning()
-      }
+      await db.insert(journeySteps).values(journeyStep)
     },
 
     deleteJourneyStepsByJourneyStepId: async ({ journeyStepId }) => {
       const journeyStep = await db.query.journeySteps.findFirst({
-        where: (journeySteps, { eq }) =>
-          eq(journeySteps.id, journeyStepId),
+        where: (journeySteps, { eq }) => eq(journeySteps.id, journeyStepId),
       })
 
       if (!journeyStep) {
