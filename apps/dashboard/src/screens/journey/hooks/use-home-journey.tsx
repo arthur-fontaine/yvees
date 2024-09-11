@@ -31,16 +31,17 @@ export const getJourney = createRoute(
 export const deleteJourney = createRoute(
   DI.provide(async function* (journeyId: number | undefined) {
     if (!journeyId) {
-      return {}
+      return { success: false }
     }
 
-    const {
-      deleteJourneyById,
-    } = yield * DI.requireService(journeyService)
+    const { deleteJourneyById } = yield * DI.requireService(journeyService)
 
-    await deleteJourneyById({ journeyId })
-
-    return { success: true }
+    try {
+      await deleteJourneyById({ journeyId })
+      return { success: true }
+    } catch (error) {
+      return { success: false }
+    }
   }, serverImpls),
   {
     path: '/delete-journey/:journeyId',

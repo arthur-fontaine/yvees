@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Icon } from 'ui'
+import { toast } from '../../../shared/components/ui/use-toast'
 
 import {
   Table,
@@ -37,12 +38,20 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
 
   const handleDeleteJourney = async (journeyId: number) => {
     try {
-        await deleteJourney(journeyId)
-        router.push(RouteNames.JOURNEY_LIST)
+      await deleteJourney(journeyId)
+      toast({
+        description: 'Le parcours a été supprimé avec succès !',
+        duration: 3500,
+        title: 'Succès',
+      })
+      router.push(RouteNames.JOURNEY_LIST)
+    } catch (error) {
+      toast({
+        description: 'Échec de la suppression du parcours.',
+        duration: 3500,
+        title: 'Erreur',
+      })
     }
-     catch (error) {
-        console.error('Failed to delete step:', error)
-      }
   }
 
   const sortedSteps = [...journey.journeySteps].sort((a, b) => {
