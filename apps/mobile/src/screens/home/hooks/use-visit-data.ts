@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 import { visitHistoryService } from '../../../services/visit-history-service/visit-history-service'
 import { serverImpls } from '../../../shared/utils/server-impls'
-import type { VisitWithJourneyAndMuseum } from '../../../../../../packages/db/src/db'
+import type { VisitWithJourneyAndMuseum } from '../types/VisitWithJourneyAndMuseum'
 
 export const getVisitsByUserId = createRoute(
   DI.provide(async function* (userId: number | undefined) {

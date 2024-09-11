@@ -1,7 +1,7 @@
 import type { Service } from 'diabolo'
 import { createService } from 'diabolo'
 
-import type { VisitWithJourneyAndMuseum } from '../../../../../packages/db/src/db'; 
+import type { VisitWithJourneyAndMuseum } from '../../screens/home/types/VisitWithJourneyAndMuseum'
 
 export interface VisitHistoryService extends Service<'visit', {
   findVisitByUserId: (
