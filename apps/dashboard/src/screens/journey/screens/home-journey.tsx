@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Icon } from 'ui'
+import { Button, Icon, useTheme } from 'ui'
 
 import {
   Table,
@@ -18,6 +18,7 @@ import { deleteJourney, deleteJourneyStep, useJourneyData } from '../hooks/use-h
  */
 export function JourneyHome({ journeyId }: { journeyId: string }) {
   const { journey, loading, refetch } = useJourneyData(journeyId)
+  const { orange } = useTheme()
 
   if (loading) {
     return <p>Loading...</p>
@@ -31,7 +32,7 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
       await deleteJourneyStep(journeyStepId)
       refetch()
     }
-   catch (error) {
+    catch (error) {
       console.error('Failed to delete step:', error)
     }
   }
@@ -46,7 +47,7 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
       })
       router.push(RouteNames.JOURNEY_LIST)
     }
- catch (error) {
+    catch (error) {
       toast({
         description: 'Échec de la suppression du parcours.',
         duration: 3500,
@@ -57,16 +58,16 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
 
   const sortedSteps = [...journey.journeySteps].sort((a, b) => {
     if (a.start) {
-        return -1
+      return -1
     }
     if (b.start) {
-        return 1
+      return 1
     }
     if (a.end) {
-        return 1
+      return 1
     }
     if (b.end) {
-        return -1
+      return -1
     }
     return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime() // Sort the rest by creation date
   })
@@ -78,8 +79,11 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
                   {journey.name}
               </h1>
               <h3>
-                  {new Date(journey.createdAt).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric',
-      })}
+                  {new Date(journey.createdAt).toLocaleDateString('en-US', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                  })}
               </h3>
           </div>
           <div className="mb-8">
@@ -124,7 +128,13 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
             sortedSteps.map(step => (
                 <TableRow key={step.id}>
                     <TableCell>{step.name}</TableCell>
-                    <TableCell>{step.id}</TableCell>
+                    <TableCell>
+                        <a download={`QRCode-${journey.name}-${step.name}.png`} href={step.qrCodeBase64}>
+                            <p style={{ color: orange.val, textDecoration: 'underline' }}>
+                                Télécharger le QR Code
+                            </p>
+                        </a>
+                    </TableCell>
                     <TableCell>
                         {new Date(step.createdAt).toLocaleDateString('en-US', {
                     day: '2-digit',

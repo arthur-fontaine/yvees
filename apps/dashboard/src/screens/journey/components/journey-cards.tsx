@@ -49,9 +49,7 @@ export function JourneyCards() {
                       <div className="flex justify-between text-sm text-muted-foreground">
                           <p>Temps moyen :</p>
                           <p>
-                              {data.averageVisitDuration
-                    ? data.averageVisitDuration
-                    : 'N/A'}
+                              {data.averageVisitDuration || 'N/A'}
                           </p>
                       </div>
                       <div className="flex justify-between text-sm text-muted-foreground">

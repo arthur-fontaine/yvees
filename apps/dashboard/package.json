@@ -25,6 +25,7 @@
     "dotenv": "^16.4.5",
     "esptool.ts": "^0.14.0",
     "lucide-react": "^0.439.0",
+    "qrcode": "^1.5.4",
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.52.1",
@@ -38,6 +39,7 @@
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.11",
+    "@types/qrcode": "^1.5.5",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@types/serialize-javascript": "^5.0.4",

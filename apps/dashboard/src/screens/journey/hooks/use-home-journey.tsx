@@ -1,5 +1,6 @@
 import { createRoute } from 'agrume'
 import * as DI from 'diabolo'
+import qrcode from 'qrcode'
 import { useEffect, useState } from 'react'
 import serialize from 'serialize-javascript'
 
@@ -79,7 +80,12 @@ export const deleteJourneyStep = createRoute(
  * Hook to get the data for a journey by ID.
  */
 export function useJourneyData(journeyId: string | undefined) {
-  const [journey, setJourney] = useState<Awaited<ReturnType<JourneyService['value']['findJourneyById']>> | undefined>
+  type FindJourneyByIdReturn = NonNullable<Awaited<ReturnType<JourneyService['value']['findJourneyById']>>>
+  const [journey, setJourney] = useState<({
+    journeySteps: ({
+      qrCodeBase64: string
+    } & FindJourneyByIdReturn['journeySteps'][number])[]
+  } & FindJourneyByIdReturn) | undefined>
     (undefined)
   const [loading, setLoading] = useState(true)
 
@@ -94,7 +100,23 @@ export function useJourneyData(journeyId: string | undefined) {
     try {
       // eslint-disable-next-line no-eval
       const fetchedJourney = eval(`(${await getJourney(journeyId)})`) as Awaited<ReturnType<JourneyService['value']['findJourneyById']>>
-      setJourney(fetchedJourney)
+
+      if (!fetchedJourney) {
+        setJourney(undefined)
+        return
+      }
+
+      setJourney({
+        ...fetchedJourney,
+        journeySteps: await Promise.all(
+          fetchedJourney.journeySteps.map(async step => ({
+            ...step,
+            qrCodeBase64: await qrcode.toDataURL(`yvees-journey-step-${step.id}`, {
+              width: 1024,
+            }),
+          })),
+        ),
+      })
     }
     catch (error) {
       console.error('Failed to fetch journey:', error)
