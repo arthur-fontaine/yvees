@@ -4,7 +4,7 @@ import type { BarcodeScanningResult } from 'expo-camera'
 import { useCameraPermissions } from 'expo-camera'
 import { useCallback, useRef, useState } from 'react'
 
-import { useCarEvents } from '../../../shared/hooks/use-car-events'
+import { useCar } from '../../../shared/hooks/use-car'
 import { carIdSchema } from '../../../shared/schemas/car-id'
 import { joinSessionService } from '../../../shared/services/join-session-service/join-session-service'
 import { agrumeSseClientForRn } from '../../../shared/utils/agrume-sse-client-for-rn'
@@ -29,7 +29,7 @@ export function useScanController() {
 
   const scanned = useRef(false)
 
-  const { registerCarEventsIterator } = useCarEvents()
+  const { registerCar } = useCar()
 
   const handleBarCodeScanned = useCallback(
     async (scanningResult: BarcodeScanningResult) => {
@@ -45,7 +45,10 @@ export function useScanController() {
       scanned.current = true
       const carEventsIterator = await joinSession(r.value)
 
-      registerCarEventsIterator(carEventsIterator)
+      registerCar({
+        carEventsIterator,
+        carId: r.value,
+      })
     },
     [],
   )
