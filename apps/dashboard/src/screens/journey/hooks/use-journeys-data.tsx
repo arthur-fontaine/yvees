@@ -17,6 +17,9 @@ export const getJourney = createRoute(
     const { findJourneysByMuseumId } = yield * DI.requireService(journeyService)
     return findJourneysByMuseumId({ clerkOrganizationId })
   }, serverImpls),
+  {
+    path: '/get-journey',
+  },
 )
 
 /**

@@ -1,7 +1,7 @@
 import { db } from 'db/runtime/server'
 import { journeySteps, journeys } from 'db/schema'
 import { lazyCreateServiceImpl } from 'diabolo'
-import { eq, sql } from 'drizzle-orm'
+import { and, eq, getTableColumns, sql } from 'drizzle-orm'
 
 import type { JourneyService } from './journey-service'
 
@@ -66,52 +66,53 @@ export const journeyServiceImpl = lazyCreateServiceImpl<JourneyService>(() => ({
   },
 
   findJourneyById: async ({ journeyId }) => {
-    const journey = await db.query.journeys.findFirst({
-      extras: {
-        averageVisitDuration: sql<number>`AVG(${db.tables.visits.endedAt} - ${db.tables.visits.createdAt}) OVER (PARTITION BY ${db.tables.journeys.id})`.as('averageVisitDuration'),
-      },
-      where: (journeys, { eq }) => eq(journeys.id, Number(journeyId)),
-      with: {
-        journeySteps: true,
-        visits: {
-          columns: { createdAt: true, endedAt: true },
-        },
-      },
-    })
-
-    if (!journey) {
-      console.error('Journey not found')
-      return
-    }
-
-    const { visits, ..._journey } = journey
-    return _journey
+    return await db
+      .selectDistinct({
+        averageVisitDuration: sql<number>`AVG(${db.tables.visits.endedAt} - ${db.tables.visits.createdAt}) OVER (PARTITION BY ${db.tables.journeys.id})`,
+        ...getTableColumns(db.tables.journeys),
+        journeySteps: db.tables.journeySteps,
+      })
+      .from(db.tables.journeys)
+      .where(eq(db.tables.journeys.id, Number(journeyId)))
+      .leftJoin(
+        db.tables.visits,
+        eq(db.tables.visits.journeyId, db.tables.journeys.id),
+      )
+      .leftJoin(
+        db.tables.journeySteps,
+        eq(db.tables.journeySteps.journeyId, db.tables.journeys.id),
+      )
+      .then(journeys => (journeys[0] && {
+        ...journeys[0],
+        journeySteps: journeys.flatMap(journey => journey.journeySteps || []),
+      }))
   },
 
   findJourneysByMuseumId: async ({ clerkOrganizationId }) => {
-    const journeys = await db.query.journeys.findMany({
-      columns: {
-        description: true,
-        id: true,
-        name: true,
-      },
-      extras: {
-        averageVisitDuration: sql<number>`AVG(${db.tables.visits.endedAt} - ${db.tables.visits.createdAt}) OVER (PARTITION BY ${db.tables.journeys.id})`.as('averageVisitDuration'),
-      },
-      where: (_, { eq }) =>
+    return await db
+      .selectDistinct({
+        averageVisitDuration: sql<number>`AVG(${db.tables.visits.endedAt} - ${db.tables.visits.createdAt}) OVER (PARTITION BY ${db.tables.journeys.id})`,
+        description: db.tables.journeys.description,
+        id: db.tables.journeys.id,
+        name: db.tables.journeys.name,
+        numberOfSteps: sql<number>`(SELECT COUNT(*) FROM ${db.tables.journeySteps} WHERE ${db.tables.journeySteps.journeyId} = ${db.tables.journeys.id})`,
+      })
+      .from(db.tables.journeys)
+      .where(and(
         eq(db.tables.museums.clerkOrganizationId, clerkOrganizationId),
-      with: {
-        journeySteps: { columns: { id: true } },
-        museum: { columns: { clerkOrganizationId: true } },
-      },
-    })
-
-    return journeys.map((journey) => {
-      const { journeySteps, museum, ..._journey } = journey
-      return {
-        ..._journey,
-        numberOfSteps: journeySteps.length,
-      }
-    })
+        eq(db.tables.journeys.archived, false),
+      ))
+      .leftJoin(
+        db.tables.museums,
+        eq(db.tables.museums.id, db.tables.journeys.museumId),
+      )
+      .leftJoin(
+        db.tables.visits,
+        eq(db.tables.visits.journeyId, db.tables.journeys.id),
+      )
+      .leftJoin(
+        db.tables.journeySteps,
+        eq(db.tables.journeySteps.journeyId, db.tables.journeys.id),
+      )
   },
 }))

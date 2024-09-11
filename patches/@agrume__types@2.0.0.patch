@@ -1,0 +1,15 @@
+diff --git a/dist/types.d.ts b/dist/types.d.ts
+index 74b2260e478e284215d312d5ac1ba4467c7ea6ab..849a1a6c8ff392689d8b0a0bba48a934b565b550 100644
+--- a/dist/types.d.ts
++++ b/dist/types.d.ts
+@@ -71,7 +71,9 @@ interface RouteOptions<R extends AnyRoute, C = undefined> {
+     getClient?: GetClient<R, C>;
+     path?: `/${string}`;
+ }
+-type RouteReturnValue<R extends AnyRoute, O extends AnyRouteOptions | undefined> = O extends undefined ? Client<R> : NonNullable<O>['getClient'] extends undefined ? Client<R> : ReturnType<NonNullable<NonNullable<O>['getClient']>>;
++type RouteReturnValue<R extends AnyRoute, O extends AnyRouteOptions | undefined>  = O extends undefined ? Client<R>
++: NonNullable<O> extends { getClient: (...args: never[]) => void } ? ReturnType<NonNullable<O>['getClient']>
++: Client<R>;
+ type FlattenPromise<T> = T extends Promise<infer U> ? FlattenPromise<U> : Promise<T>;
+ type Client<R extends AnyRoute> = (...parameters: Parameters<R>) => ReturnType<R> extends Generator<infer GeneratorT, infer GeneratorReturn, infer GeneratorNext> ? Promise<AsyncGenerator<GeneratorT, GeneratorReturn, GeneratorNext>> : ReturnType<R> extends AsyncGenerator ? Promise<ReturnType<R>> : FlattenPromise<ReturnType<R>>;
+ 

@@ -34,6 +34,9 @@ export const getVisits = createRoute(
       updatedAt: visit.updatedAt?.toISOString(),
     })) ?? []
   }, serverImpls),
+  {
+    path: '/get-visits',
+  },
 )
 
 /**
@@ -75,8 +78,7 @@ export function processVisitsToChartData(visitDates: { createdAt: string }[]) {
     visitsByMonth.set(monthYear, currentVisits + 1)
   })
 
-  const chartData = Object.keys(visitsByMonth)
-    .sort()
+  const chartData = Array.from(visitsByMonth.keys())
     .map((monthYear) => {
       const [year, month] = monthYear.split('-')
       const date = new Date(Number(year), Number(month) - 1)
@@ -98,7 +100,9 @@ function generateFakeVisitsData(): { createdAt: string }[] {
   for (let i = 0; i < 6; i++) {
     const monthDate = new Date(now.getFullYear(), now.getMonth() - i, 1)
     const monthISO = `${monthDate.toISOString().split('T')[0]}T00:00:00Z`
-    fakeData.push({ createdAt: monthISO })
+    for (let j = 0; j < Math.floor(Math.random() * 10); j++) {
+      fakeData.push({ createdAt: monthISO })
+    }
   }
 
   return fakeData

@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
+  '@agrume/types@2.0.0':
+    hash: ylr5femkkgkmizp72u27enx4zi
+    path: patches/@agrume__types@2.0.0.patch
   babel-plugin-agrume@2.1.2:
     hash: fajpwpztetrmu3owfurnilagjq
     path: patches/babel-plugin-agrume@2.1.2.patch
@@ -11290,7 +11293,7 @@ snapshots:
   '@agrume/core@2.0.0':
     dependencies:
       '@agrume/internals': 2.0.0
-      '@agrume/types': 2.0.0
+      '@agrume/types': 2.0.0(patch_hash=ylr5femkkgkmizp72u27enx4zi)
       '@babel/parser': 7.25.6
       '@types/connect': 3.4.38
       connect: 3.7.0
@@ -11301,7 +11304,7 @@ snapshots:
 
   '@agrume/internals@2.0.0':
     dependencies:
-      '@agrume/types': 2.0.0
+      '@agrume/types': 2.0.0(patch_hash=ylr5femkkgkmizp72u27enx4zi)
       node-machine-id: 1.1.12
     transitivePeerDependencies:
       - supports-color
@@ -11310,7 +11313,7 @@ snapshots:
     dependencies:
       '@agrume/core': 2.0.0
       '@agrume/internals': 2.0.0
-      '@agrume/types': 2.0.0
+      '@agrume/types': 2.0.0(patch_hash=ylr5femkkgkmizp72u27enx4zi)
       '@babel/core': 7.25.2
       babel-preset-agrume: 2.0.3(putout@36.4.2(eslint@8.57.0)(typescript@5.5.4))
       defu: 6.1.4
@@ -11346,7 +11349,7 @@ snapshots:
       - supports-color
       - terser
 
-  '@agrume/types@2.0.0':
+  '@agrume/types@2.0.0(patch_hash=ylr5femkkgkmizp72u27enx4zi)':
     dependencies:
       '@types/connect': 3.4.38
       connect: 3.7.0
@@ -14565,8 +14568,6 @@ snapshots:
       '@putout/operator-filesystem': 4.1.0(putout@36.4.2(eslint@8.57.0)(typescript@5.5.4))
       '@putout/operator-json': 2.2.0
       putout: 36.4.2(eslint@8.57.0)(typescript@5.5.4)
-    transitivePeerDependencies:
-      - supports-color
 
   '@putout/operator-regexp@1.0.0(putout@36.4.2(eslint@8.57.0)(typescript@5.5.4))':
     dependencies:

@@ -27,6 +27,9 @@ export const getJourney = createRoute(
 
     return serialize(journey)
   }, serverImpls),
+  {
+    path: '/get-journey/:journeyId',
+  },
 )
 
 /**
