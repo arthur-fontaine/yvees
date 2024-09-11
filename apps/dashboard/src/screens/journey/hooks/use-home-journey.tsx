@@ -1,28 +1,32 @@
 import { createRoute } from 'agrume'
 import * as DI from 'diabolo'
 import { useEffect, useState } from 'react'
+import serialize from 'serialize-javascript'
 
+import type { JourneyService } from '../../../services/journey-service/journey-service'
 import { journeyService } from '../../../services/journey-service/journey-service'
 import { journeyStepService } from '../../../services/journey-step-service/journey-step-service'
 import { serverImpls } from '../../../utils/server-impls'
-import type { JourneySerialized } from '../types/data-card'
 
 /**
  * Route to get a journey by ID.
  */
 export const getJourney = createRoute(
-  DI.provide(async function* (journeyId: string | undefined) {
+  DI.provide(async function* (journeyId: string) {
     if (!journeyId) {
-      return {}
+      // eslint-disable-next-line fp/no-throw
+      throw new Error('Journey not found')
     }
     const { findJourneyById } = yield * DI.requireService(journeyService)
     const journey = await findJourneyById({ journeyId })
 
-    return journey || {}
+    if (!journey) {
+      // eslint-disable-next-line fp/no-throw
+      throw new Error('Journey not found')
+    }
+
+    return serialize(journey)
   }, serverImpls),
-  {
-    path: '/get-journey/:journeyId',
-  },
 )
 
 /**
@@ -40,7 +44,7 @@ export const deleteJourney = createRoute(
       await deleteJourneyById({ journeyId })
       return { success: true }
     }
- catch (error) {
+    catch (error) {
       return { success: false }
     }
   }, serverImpls),
@@ -72,8 +76,8 @@ export const deleteJourneyStep = createRoute(
  * Hook to get the data for a journey by ID.
  */
 export function useJourneyData(journeyId: string | undefined) {
-  const [journey, setJourney] = useState<JourneySerialized | undefined>
-  (undefined)
+  const [journey, setJourney] = useState<Awaited<ReturnType<JourneyService['value']['findJourneyById']>> | undefined>
+    (undefined)
   const [loading, setLoading] = useState(true)
 
   const fetchJourney = async () => {
@@ -85,7 +89,8 @@ export function useJourneyData(journeyId: string | undefined) {
 
     setLoading(true)
     try {
-      const fetchedJourney = await getJourney(journeyId)
+      // eslint-disable-next-line no-eval
+      const fetchedJourney = eval(`(${await getJourney(journeyId)})`) as Awaited<ReturnType<JourneyService['value']['findJourneyById']>>
       setJourney(fetchedJourney)
     }
     catch (error) {
