@@ -7,6 +7,7 @@ import { withTimestamps } from './utils/with-timestamps'
 import { visits } from './visits'
 
 export const journeys = sqliteTable('journeys', withTimestamps({
+  archived: integer('archived', { mode: 'boolean' }).notNull(),
   description: text('description'),
   draft: integer('draft', { mode: 'boolean' }).notNull(),
   id: integer('id').notNull().primaryKey(),

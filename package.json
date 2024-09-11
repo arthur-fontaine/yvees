@@ -30,7 +30,8 @@
   "pnpm": {
     "patchedDependencies": {
       "babel-plugin-agrume@2.1.2": "patches/babel-plugin-agrume@2.1.2.patch",
-      "drizzle-orm@0.31.4": "patches/drizzle-orm@0.31.4.patch"
+      "drizzle-orm@0.31.4": "patches/drizzle-orm@0.31.4.patch",
+      "@agrume/types@2.0.0": "patches/@agrume__types@2.0.0.patch"
     }
   }
 }

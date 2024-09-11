@@ -16,8 +16,8 @@ import {
 import { Textarea } from '../../../shared/components/ui/textarea'
 import { toast } from '../../../shared/components/ui/use-toast'
 import { RouteNames, router } from '../../../utils/router'
-import { useInsertJourney } from '../hooks/use-create-journey'
-import type { JourneyForm } from '../types/create-journey'
+import { useInsertJourneyStep } from '../hooks/use-create-journey-step'
+import type { JourneyStepForm } from '../types/create-journey-step'
 
 const formSchema = z.object({
   description: z
@@ -39,9 +39,9 @@ const formSchema = z.object({
 })
 
 /**
- *  Journey Create screen.
+ *  JourneyStep Create screen.
  */
-export function JourneyCreate() {
+export function JourneyStepCreate({ journeyId }: { journeyId: string }) {
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       description: '',
@@ -50,20 +50,22 @@ export function JourneyCreate() {
     resolver: zodResolver(formSchema),
   })
 
-  const { error, insertNewJourney, loading } = useInsertJourney()
+  const { error, insertNewJourneyStep, loading } = useInsertJourneyStep()
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    const journeyData: JourneyForm = {
-      archived: false,
+    const journeyStepData: JourneyStepForm = {
       description: data.description,
       draft: true,
+      end: false,
+      journeyId: Number(journeyId),
       name: data.name,
+      start: false,
     }
 
     try {
-      await insertNewJourney(journeyData)
+      await insertNewJourneyStep(journeyStepData)
       toast({
-        description: 'Le parcours a été créé avec succès !',
+        description: 'L\'étape a été créé avec succès !',
         duration: 3500,
         title: 'Parcours',
       })
@@ -71,7 +73,7 @@ export function JourneyCreate() {
     }
  catch (err) {
       toast({
-        description: 'Échec de la création du parcours.',
+        description: 'Échec de la création de l\'étape.',
         duration: 3500,
         title: 'Erreur',
       })
@@ -80,15 +82,12 @@ export function JourneyCreate() {
 
   return (
       <div className="h-screen p-10">
-          <h1 className="text-3xl font-bold my-8">Création d'un parcours :</h1>
+          <h1 className="text-3xl font-bold my-8">Création d'une étape :</h1>
           <div>
               <p className="text-sm text-muted-foreground max-w-3xl">
-                  Vous êtes entrain de créer un nouveau parcours. Après avoir
+                  Vous êtes entrain de créer une nouvelle étape. Après avoir
                   rempli les différents champs, vous pourrez accéder à la
-                  page de ce parcours, où vous pourrez modifier les
-                  champs et ajouter des étapes. À la
-                  créationd'un parcours, les étapes de début et de fin sont
-                  automatiquement créées.
+                  page de cette étape.
               </p>
           </div>
           <h2 className="text-xl mt-8">Remplissez les différents champs :</h2>
@@ -102,18 +101,18 @@ export function JourneyCreate() {
                     name="name"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Nom du parcours :</FormLabel>
+                            <FormLabel>Nom de l'étape :</FormLabel>
                             <FormControl>
                                 <Input
                                   inputMd
                                   onChangeText={field.onChange}
-                                  placeholder="Nom du parcours.."
+                                  placeholder="Nom de l'étape.."
                                   variant="outlined"
                                 />
                             </FormControl>
                             <FormMessage />
                             <FormDescription>
-                                Le début d'un nouveau voyage pour ton musée..
+                                Le début d'une nouvelle étape pour ton voyage..
                             </FormDescription>
                         </FormItem>
             )}
@@ -123,19 +122,17 @@ export function JourneyCreate() {
                     name="description"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="mt-20">
-                                Description du parcours :
-                            </FormLabel>
+                            <FormLabel className="mt-20">Description de l'étape :</FormLabel>
                             <FormControl>
                                 <Textarea
                                   className="resize-none"
-                                  placeholder="Description du parcours.."
+                                  placeholder="Description de l'étape.."
                                   {...field}
                                 />
                             </FormControl>
                             <FormMessage />
                             <FormDescription>
-                                Détails supplémentaires sur le parcours..
+                                Détails supplémentaires sur l'étape..
                             </FormDescription>
                         </FormItem>
             )}
@@ -146,7 +143,7 @@ export function JourneyCreate() {
                         onClick={form.handleSubmit(async (data) => {
                 await onSubmit(data)
                 if (!error) {
-                  router.push(RouteNames.JOURNEY_LIST)
+                  router.push(RouteNames.JOURNEY_HOME, { journeyId })
                 }
               })}
                         variant="primary"
@@ -157,7 +154,7 @@ export function JourneyCreate() {
                         buttonMd
                         onClick={() => {
                 form.reset()
-                router.push(RouteNames.JOURNEY_LIST)
+                router.push(RouteNames.JOURNEY_HOME, { journeyId })
               }}
                         variant="cancel"
                       >

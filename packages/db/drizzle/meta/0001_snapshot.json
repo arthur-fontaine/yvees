@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "e355f9ab-fdb8-40e9-9fad-9ddedcf66407",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "7cad0431-af75-40af-aa64-af595dfd05a1",
+  "prevId": "e355f9ab-fdb8-40e9-9fad-9ddedcf66407",
   "tables": {
     "car": {
       "name": "car",
@@ -153,6 +153,13 @@
           "notNull": true,
           "autoincrement": false
         },
+        "archived": {
+          "name": "archived",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "created_at": {
           "name": "created_at",
           "type": "integer",
@@ -217,6 +224,13 @@
         },
         "name": {
           "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "user": {
+          "name": "user",
           "type": "text",
           "primaryKey": false,
           "notNull": true,

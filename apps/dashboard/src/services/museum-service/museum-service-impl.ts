@@ -29,9 +29,20 @@ export const museumServiceImpl = lazyCreateServiceImpl<MuseumService>(() => ({
     })
   },
 
+  getVisitsOfMuseum: async ({ museumId }) => {
+    const journeysWithVisits = await db.query.journeys.findMany({
+      where: (journey, { eq }) => eq(journey.museumId, museumId),
+      with: {
+        visits: true,
+      },
+    })
+
+    return journeysWithVisits.flatMap(journey => journey.visits)
+  },
+
   insertNewCarOfMuseum: async ({ ip, museumId }) => {
     await db.insert(db.tables.cars).values({
-      battery: 100, // TODO: get real value
+      battery: 100, // TODO: get real battery level
       ip,
       museumId,
     }).returning()

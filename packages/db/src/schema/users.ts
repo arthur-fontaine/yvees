@@ -5,6 +5,7 @@ import { withTimestamps } from './utils/with-timestamps'
 import { visits } from './visits'
 
 export const users = sqliteTable('users', withTimestamps({
+  clerkUserId: text('user').notNull(),
   id: integer('id').notNull().primaryKey(),
   name: text('name').notNull(),
 }))
