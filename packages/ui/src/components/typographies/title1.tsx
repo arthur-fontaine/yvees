@@ -27,6 +27,7 @@ export const Title1 = withVariants<
       borderWidth: 0,
       display: 'flex',
       flexDirection: 'row',
+      gap: 8,
     },
     default: {},
   },
