@@ -7,7 +7,7 @@
     "dev:build-dry": "mkdir -p node_modules/.prebuild-rn",
     "dev:build-transform": "babel src --out-dir node_modules/.prebuild-rn --extensions .ts,.js,.tsx,.jsx,.cjs,.mjs --watch",
     "dev:expo": "expo start --tunnel --dev-client",
-    "dev:agrume": "agrume --tunnel localtunnel --watch",
+    "dev:agrume": "agrume --tunnel bore --watch",
     "dev": "run-p dev:*",
     "preprebuild": "pnpm -w run build && mkdir -p node_modules/.prebuild-rn",
     "prebuild": "babel src --out-dir node_modules/.prebuild-rn --extensions .ts,.js,.tsx,.jsx,.cjs,.mjs",

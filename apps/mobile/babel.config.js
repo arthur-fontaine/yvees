@@ -5,7 +5,7 @@ const { state } = require('@agrume/internals');
 
 state.set((state) => {
   state.options.tunnel = {
-    type: 'localtunnel',
+    type: 'bore',
   };
   return state;
 })
