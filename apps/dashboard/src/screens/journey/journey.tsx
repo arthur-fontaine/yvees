@@ -3,7 +3,7 @@ import React from 'react'
 import { JourneyCreate } from './screens/create-journey'
 import { JourneyStepCreate } from './screens/create-journey-step'
 import { JourneyHome } from './screens/home-journey'
-import { JourneyList } from './screens/list-journey'
+import { JourneyList } from './screens/journey-list'
 import { RouteNames, useRoute } from '../../utils/router'
 
 interface RouteParams {

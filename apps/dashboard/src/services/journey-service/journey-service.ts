@@ -27,11 +27,10 @@ export interface JourneyService
       }) => Promise<
         ({
           averageVisitDuration: number
-          journeySteps: JourneyStep[]
-        } & Journey)[]
+          numberOfSteps: number
+        } & Pick<Journey, 'description' | 'id' | 'name'>)[]
       >
-
     }
-  > {}
+  > { }
 
 export const journeyService = createService<JourneyService>('journey')

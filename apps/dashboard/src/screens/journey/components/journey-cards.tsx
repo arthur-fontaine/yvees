@@ -9,33 +9,32 @@ import {
   CardTitle,
 } from '../../../shared/components/ui/card'
 import { RouteNames, router } from '../../../utils/router'
-import { useDataCard } from '../hooks/use-data-card'
-import type { JourneySerialized } from '../types/data-card'
+import { useJourneysData } from '../hooks/use-journeys-data'
 
 /**
  *   Journey Card component.
  */
-export function JourneyCard() {
-  const { journey, loading } = useDataCard()
+export function JourneyCards() {
+  const { journeys, loading } = useJourneysData()
   if (loading) {
     return <p>Loading...</p>
   }
 
-  if (journey === undefined || journey.length === 0) {
+  if (journeys === undefined || journeys.length === 0) {
     return <p>No journeys available.</p>
   }
   return (
       <div className="grid grid-cols-4 gap-4">
-          {journey.length > 0
-          && journey.map((data: JourneySerialized) => (
+          {journeys.length > 0
+          && journeys.map(data => (
               <Card
                 className="hover:bg-orangeLight"
                 key={data.id}
                 onClick={() => {
-              router.push(RouteNames.JOURNEY_HOME, {
-                journeyId: data.id.toString(),
-              })
-            }}
+                  router.push(RouteNames.JOURNEY_HOME, {
+                    journeyId: data.id.toString(),
+                  })
+                }}
               >
                   <CardHeader>
                       <CardTitle className="flex justify-between text-1xl mb-4">
@@ -57,7 +56,7 @@ export function JourneyCard() {
                       </div>
                       <div className="flex justify-between text-sm text-muted-foreground">
                           <p>Nombres d'étapes :</p>
-                          <p>{data.journeySteps.length}</p>
+                          <p>{data.numberOfSteps}</p>
                       </div>
                   </CardContent>
               </Card>
