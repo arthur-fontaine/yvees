@@ -18,43 +18,52 @@ interface ButtonProps {
 export const Button = withVariants<
   'cancel' | 'empty' | 'primary' | 'secondary',
   GetProps<typeof TamaguiButton>
->({
-  $defaults: {
-    borderRadius: '$mediumSizedElement',
-    borderWidth: 0,
-    cursor: 'pointer',
-    padding: '$normal',
-  },
-  cancel: {
-    backgroundColor: '$cancelButtonBackground',
-    color: '$cancelButtonTextColor',
-    hoverStyle: {
-      backgroundColor: '$cancelButtonHoverBackground',
+>(
+  {
+    $defaults: {
+      borderRadius: '$mediumSizedElement',
+      borderWidth: 0,
+      cursor: 'pointer',
+      padding: '$normal',
     },
-  },
-  empty: {
-    backgroundColor: 'transparent',
-    hoverStyle: {
+    cancel: {
+      backgroundColor: '$cancelButtonBackground',
+      color: '$cancelButtonTextColor',
+      hoverStyle: {
+        backgroundColor: '$cancelButtonHoverBackground',
+      },
+    },
+    empty: {
       backgroundColor: 'transparent',
+      hoverStyle: {
+        backgroundColor: 'transparent',
+      },
+    },
+    primary: {
+      backgroundColor: '$primaryButtonBackground',
+      color: '$primaryButtonTextColor',
+      hoverStyle: {
+        backgroundColor: '$primaryButtonHoverBackground',
+      },
+    },
+    secondary: {
+      backgroundColor: '$secondaryButtonBackground',
+      color: '$secondaryButtonTextColor',
+      hoverStyle: {
+        backgroundColor: '$secondaryButtonHoverBackground',
+      },
     },
   },
-  primary: {
-    backgroundColor: '$primaryButtonBackground',
-    color: '$primaryButtonTextColor',
-    hoverStyle: {
-      backgroundColor: '$primaryButtonHoverBackground',
-    },
-  },
-  secondary: {
-    backgroundColor: '$secondaryButtonBackground',
-    color: '$secondaryButtonTextColor',
-    hoverStyle: {
-      backgroundColor: '$secondaryButtonHoverBackground',
-    },
-  },
-})((
+)((
   { variant },
-  { backgroundColor, buttonMd, children, disabled, icon, onClick }: ButtonProps,
+{
+    backgroundColor,
+    buttonMd,
+    children,
+    disabled,
+    icon,
+    onClick,
+  }: ButtonProps,
 ) => {
   const variantStyles = { ...variant }
   if (backgroundColor) {
@@ -63,9 +72,9 @@ export const Button = withVariants<
 
   const disabledStyles = disabled
     ? {
-        cursor: 'not-allowed',
-        opacity: 0.7,
-      }
+      cursor: 'not-allowed',
+      opacity: 0.7,
+    }
     : {}
   return (
       <TamaguiButton
