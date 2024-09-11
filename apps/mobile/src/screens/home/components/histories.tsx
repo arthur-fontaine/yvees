@@ -44,6 +44,7 @@ export const Histories = ({ histories }: HistoryProps) => {
         borderRadius: 28,
         padding: 32,
         flexDirection: 'column',
+        marginTop: 20,
       }}
     >
       <View
@@ -75,8 +76,8 @@ export const Histories = ({ histories }: HistoryProps) => {
                   borderColor: '#eee',
                 }}
               >
-                <View style={{ flexDirection: 'column', marginRight: 8 }}>
-                  <Image size={24} color="orange" style={{ marginBottom: 5 }} />
+                <Image size={24} color="orange" style={{ marginBottom: 5 }} />
+                <View>
                   <Text style={{ fontWeight: '600', color: '#000' }}>
                     {history.journey?.name}
                   </Text>
