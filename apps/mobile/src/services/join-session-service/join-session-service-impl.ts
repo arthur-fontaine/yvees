@@ -1,8 +1,8 @@
 import * as DI from 'diabolo'
 
 import type { JoinSessionService } from './join-session-service'
-import { carEvent } from '../../events/car-event'
-import { carIdSchema } from '../../schemas/car-id'
+import { carEvent } from '../../../src/shared/events/car-event'
+import { carIdSchema } from '../../shared/schemas/car-id'
 
 export const joinSessionServiceImpl
   = DI.lazyCreateServiceImpl<JoinSessionService>(
