@@ -1,11 +1,12 @@
 import * as DI from 'diabolo'
 
 import type { IntRange } from '../../../types/int-range'
+import type { JourneyId } from '../../schemas/journey-id'
 
 export interface CarService extends DI.Service<
   'CarService',
   {
-    getCarInfos: (carId: number) => Promise<{
+    getCarInfos: (params: { journeyId: JourneyId }) => Promise<{
       ip: string
     }>
     getCarWebsocket: (carId: number) => Promise<WebSocket>
