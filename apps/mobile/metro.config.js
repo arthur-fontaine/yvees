@@ -33,6 +33,7 @@ config.resolver.ignoreModules = [
   "node:util",
   "url",
   "node:url",
+  "db/runtime/server"
 ];
 config.resolver.resolveRequest = (
   context,

@@ -3,7 +3,7 @@ import type { Journey, Museum, Visit } from 'db'
 import * as DI from 'diabolo'
 import { useEffect, useState } from 'react'
 
-import { visitHistoryService } from '../../../services/visit-history-service/visit-history-service'
+import { visitService } from '../../../services/visit-service/visit-service'
 import { serverImpls } from '../../../shared/utils/server-impls'
 
 export type VisitWithJourneyAndMuseum = {
@@ -17,7 +17,7 @@ export const getVisitsByUserId = createRoute(
     if (userId === undefined) {
       return []
     }
-    const { findVisitByUserId } = yield * DI.requireService(visitHistoryService)
+    const { findVisitByUserId } = yield * DI.requireService(visitService)
     const visits: VisitWithJourneyAndMuseum[] = await findVisitByUserId(
       { userId },
     )
