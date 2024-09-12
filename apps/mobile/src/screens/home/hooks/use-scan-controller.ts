@@ -2,7 +2,8 @@ import { createRoute } from 'agrume'
 import * as DI from 'diabolo'
 import type { BarcodeScanningResult } from 'expo-camera'
 import { useCameraPermissions } from 'expo-camera'
-import { useCallback, useRef, useState } from 'react'
+import type React from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { useCar } from '../../../shared/hooks/use-car'
 import { carIdSchema } from '../../../shared/schemas/car-id'
@@ -19,10 +20,16 @@ const joinSession = createRoute(joinSessionFn, {
   getClient: agrumeSseClientForRn<typeof joinSessionFn>,
 })
 
+interface UseScanControllerProps {
+  onOpenCameraRef: React.MutableRefObject<
+    ((cameraIsOpen: boolean) => void) | undefined
+  >
+}
+
 /**
  * A hook to control the scan screen.
  */
-export function useScanController() {
+export function useScanController(props: UseScanControllerProps) {
   const [isCameraOpen, setIsCameraOpen] = useState(false)
   const [, requestPermissionToUseCamera]
     = useCameraPermissions()
@@ -65,6 +72,10 @@ export function useScanController() {
     scanned.current = false
     setIsCameraOpen(false)
   }, [])
+
+  useEffect(() => {
+    props.onOpenCameraRef?.current?.(isCameraOpen)
+  }, [isCameraOpen])
 
   return {
     closeCamera,
