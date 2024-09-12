@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from 'ui'
 
 interface DefaultLayoutProps extends React.PropsWithChildren {
-  withPadding?: boolean | undefined
+  withPadding?: boolean
 }
 
 /**

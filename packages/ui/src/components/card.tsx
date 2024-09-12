@@ -38,6 +38,7 @@ export const Card = withVariants<
   // eslint-disable-next-line ts/naming-convention
   ({ variant }, { action, icon: Icon, text, title }: CardProps) => {
     const ICON_SHIFT = 24
+
     return (
         <TamaguiCard
           {...variant}
