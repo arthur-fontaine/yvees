@@ -31,6 +31,7 @@ export const Card = withVariants<
       padding: '$card',
     },
     default: {
+      overflow: 'hidden',
     },
   },
 )(

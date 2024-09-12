@@ -1,95 +1,114 @@
-import React from 'react';
-import { ChevronRight, History, Image } from '@tamagui/lucide-icons';
-import { ScrollView, View, Text } from 'react-native';
-import { Title1 } from 'ui';
+import React, { useEffect } from 'react'
+import { Animated, Easing, ScrollView, Text, View, useAnimatedValue } from 'react-native'
+import { Icon, Title1, useTheme } from 'ui'
 
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
+import type { JoinCard } from './join-card'
+import { useVisitData } from '../hooks/use-visit-data'
+
+function formatDate(dateString: Date) {
+  const date = new Date(dateString)
   return date.toLocaleDateString('fr-FR', {
-    year: 'numeric',
-    month: 'long',
     day: 'numeric',
-  });
-};
-
-interface Journey {
-  name: string;
+    month: 'long',
+    year: 'numeric',
+  })
 }
 
-interface ItemProps {
-  id?: number;
-  createdAt: string;
-  updatedAt?: string;
-  userId?: number;
-  journey_id?: number;
-  ended_at?: number;
-  journey?: Journey;
-
-  action?: {
-    onClick: () => void;
-    text: string;
-  };
+interface HistoriesProps {
+  onOpenCameraRef: Parameters<typeof JoinCard>[0]['onOpenCameraRef']
 }
 
-interface HistoryProps {
-  histories: ItemProps[];
-}
-
-export const Histories = ({ histories }: HistoryProps) => {
+/**
+ * Component to display the user's visit history.
+ */
+export function Histories(props: HistoriesProps) {
+  const { loading, visits } = useVisitData()
+  const { opacity } = useHistoriesAnimation(props)
+  const { cardBackgroundColor } = useTheme()
+  if (loading) {
+      return (<Text>Chargement...</Text>)
+  }
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 28,
-        padding: 32,
-        flexDirection: 'column',
-        marginTop: 20,
-      }}
-    >
-      <View
+      <Animated.View
         style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          alignSelf: 'flex-start',
-          marginBottom: 10,
+          backgroundColor: cardBackgroundColor.val,
+          borderRadius: 28,
+          flex: 1,
+          flexDirection: 'column',
+          marginHorizontal: -16,
+          marginTop: 20,
+          opacity,
+          padding: 32,
+          zIndex: -1,
         }}
       >
-        <History size={24} color="orange" style={{ marginRight: 8 }} />
-        <Title1 variant="default">Historique</Title1>
-      </View>
+          <View
+            style={{
+          alignItems: 'center',
+          alignSelf: 'flex-start',
+          flexDirection: 'row',
+          marginBottom: 10,
+        }}
+          >
+              <Icon.History color="orange" size={24} style={{ marginRight: 8 }} />
+              <Title1 variant="default">Historique</Title1>
+          </View>
+          {visits.length === 0 && <Text>Aucune visite disponible.</Text>}
+          <ScrollView style={{ width: '100%' }}>
+              {visits.map(visit => (
+                  <View key={visit.id}>
+                      <View
+                        style={{
+                        alignItems: 'center',
+                        borderBottomWidth: 1,
+                        borderColor: '#eee',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        paddingVertical: 12,
+                      }}
+                      >
+                          <Icon.Image color="orange" size={24} style={{ marginBottom: 5 }} />
+                          <View>
+                              <Text style={{ color: '#000', fontWeight: '600' }}>
+                                  {visit.journey?.name}
+                              </Text>
+                              <Text>
+                                  Visité le
+                                  {' '}
+                                  {formatDate(visit.createdAt)}
+                              </Text>
+                          </View>
+                          <Icon.ChevronRight color="orange" size={24} />
+                      </View>
+                  </View>
+            ))}
+          </ScrollView>
+      </Animated.View>
+  )
+}
 
-      <ScrollView style={{ width: '100%' }}>
-        <View>
-          {histories.map((history, index) => {
-            const formattedDate = formatDate(history.createdAt);
+function useHistoriesAnimation(props: HistoriesProps) {
+  const animatedOpacity = useAnimatedValue(1)
 
-            return (
-              <View
-                key={index}
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  paddingVertical: 12,
-                  borderBottomWidth: 1,
-                  borderColor: '#eee',
-                }}
-              >
-                <Image size={24} color="orange" style={{ marginBottom: 5 }} />
-                <View>
-                  <Text style={{ fontWeight: '600', color: '#000' }}>
-                    {history.journey?.name}
-                  </Text>
-                  <Text>Visité le {formattedDate}</Text>
-                </View>
+  useEffect(() => {
+    // eslint-disable-next-line ts/naming-convention
+    const ANIMATION_EASING = Easing.circle
+    const ANIMATION_DURATION = 500
 
-                <ChevronRight size={24} color="orange" />
-              </View>
-            );
-          })}
-        </View>
-      </ScrollView>
-    </View>
-  );
-};
+    props.onOpenCameraRef.current = (isCameraOpen) => {
+      Animated
+        .timing(animatedOpacity, {
+          delay: isCameraOpen ? 0 : ANIMATION_DURATION,
+          duration: ANIMATION_DURATION,
+          easing: ANIMATION_EASING,
+          toValue: isCameraOpen ? 0 : 1,
+          useNativeDriver: true,
+        })
+        .start()
+    }
+  }, [])
+
+  return {
+    opacity: animatedOpacity,
+  }
+}
