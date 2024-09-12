@@ -30,6 +30,7 @@
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.52.1",
+    "react-query": "^3.39.3",
     "recharts": "^2.12.7",
     "serialize-javascript": "^6.0.2",
     "shadcn-ui": "^0.8.0",

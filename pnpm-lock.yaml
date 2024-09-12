@@ -140,6 +140,9 @@ importers:
       react-hook-form:
         specifier: ^7.52.1
         version: 7.53.0(react@18.2.0)
+      react-query:
+        specifier: ^3.39.3
+        version: 3.39.3(react-dom@18.3.1(react@18.2.0))(react-native@0.74.1(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0)
       recharts:
         specifier: ^2.12.7
         version: 2.12.7(react-dom@18.3.1(react@18.2.0))(react@18.2.0)
@@ -14547,6 +14550,8 @@ snapshots:
       putout: 36.4.2(eslint@8.57.0)(typescript@5.5.4)
       try-catch: 3.0.1
       try-to-catch: 3.0.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@putout/engine-parser@10.8.0':
     dependencies:
@@ -14567,6 +14572,8 @@ snapshots:
       picomatch: 4.0.2
       putout: 36.4.2(eslint@8.57.0)(typescript@5.5.4)
       try-to-catch: 3.0.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@putout/engine-reporter@2.0.0(putout@36.4.2(eslint@8.57.0)(typescript@5.5.4))':
     dependencies:
@@ -14577,6 +14584,8 @@ snapshots:
       putout: 36.4.2(eslint@8.57.0)(typescript@5.5.4)
       try-catch: 3.0.1
       try-to-catch: 3.0.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@putout/engine-runner@21.1.0(putout@36.4.2(eslint@8.57.0)(typescript@5.5.4))':
     dependencies:
