@@ -1,3 +1,4 @@
+import type { Car, Journey } from 'db'
 import { db } from 'db/runtime/server'
 import * as DI from 'diabolo'
 
@@ -8,16 +9,33 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
   () => {
     const websockets = new Map<number, WebSocket>()
 
+    const carsMap = new Map<number, Car>()
+    const FETCH_CARS_INTERVAL = 10000
+    const fetchCars = async () => {
+      const cars = await db.query.cars.findMany()
+      for (const car of cars) {
+        carsMap.set(car.id, car)
+      }
+    }
+    setInterval(fetchCars, FETCH_CARS_INTERVAL)
+    fetchCars()
+
+    const journeysMap = new Map<number, Journey>()
+    const FETCH_JOURNEYS_INTERVAL = 10000
+    const fetchJourneys = async () => {
+      const journeys = await db.query.journeys.findMany()
+      for (const journey of journeys) {
+        journeysMap.set(journey.id, journey)
+      }
+    }
+    setInterval(fetchJourneys, FETCH_JOURNEYS_INTERVAL)
+    fetchJourneys()
+
     const carService: CarService['value'] = {
       async getCarInfos({ journeyId }) {
         const journeyIdFromUri = journeyIdToNumber(journeyId)
 
-        const car = await db.query.cars.findFirst({
-          columns: {
-            ip: true,
-          },
-          where: (car, { eq }) => eq(car.journeyId, journeyIdFromUri),
-        })
+        const car = carsMap.get(journeyIdFromUri)
         if (car === undefined) {
           // eslint-disable-next-line fp/no-throw
           throw new Error('Car not found')
@@ -32,12 +50,7 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
           }
         }
 
-        const car = await db.query.cars.findFirst({
-          columns: {
-            ip: true,
-          },
-          where: (car, { eq }) => eq(car.id, carId),
-        })
+        const car = carsMap.get(carId)
 
         if (car === undefined) {
           // eslint-disable-next-line fp/no-throw
@@ -50,6 +63,30 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
         return websocket
       },
       async moveCarByJoystickPosition(carId, joystickPosition) {
+        const car = carsMap.get(carId)
+
+        if (car === undefined) {
+          // eslint-disable-next-line fp/no-throw
+          throw new Error('Car not found')
+        }
+
+        if (car.journeyId === null) {
+          // eslint-disable-next-line fp/no-throw
+          throw new Error('Car is not in a journey')
+        }
+
+        const journey = journeysMap.get(car.journeyId)
+
+        if (journey === undefined) {
+          // eslint-disable-next-line fp/no-throw
+          throw new Error('Journey not found')
+        }
+
+        if (journey.controlMode === 'automatic') {
+          // eslint-disable-next-line fp/no-throw
+          throw new Error('Car is in automatic mode')
+        }
+
         if (joystickPosition.x < -1 || joystickPosition.x > 1) {
           // eslint-disable-next-line fp/no-throw
           throw new Error('Invalid joystick x position')
