@@ -51,7 +51,7 @@ const getCarInfos = createRoute(DI.provide(function* (
 ) {
   const { getCarInfos } = yield * DI.requireService(carService)
   return getCarInfos({ journeyId })
-}, serverImpls))
+}, serverImpls), { path: '/get-car-infos' })
 
 /**
  * A hook to subscribe to car events.

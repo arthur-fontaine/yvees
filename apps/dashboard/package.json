@@ -16,7 +16,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
     "@swan-io/chicane": "^2.0.0",
-    "@tamagui/vite-plugin": "^1.110.1",
+    "@tamagui/vite-plugin": "1.110.2",
     "agrume": "2.0.0",
     "car": "workspace:*",
     "class-variance-authority": "^0.7.0",

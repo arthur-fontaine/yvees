@@ -14,6 +14,7 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
 
         const car = await db.query.cars.findFirst({
           columns: {
+            id: true,
             ip: true,
           },
           where: (car, { eq }) => eq(car.journeyId, journeyIdFromUri),
