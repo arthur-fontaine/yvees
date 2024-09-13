@@ -14473,6 +14473,8 @@ snapshots:
       putout: 36.4.2(eslint@8.57.0)(typescript@5.5.4)
       try-catch: 3.0.1
       try-to-catch: 3.0.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@putout/engine-parser@10.8.0':
     dependencies:
@@ -14493,6 +14495,8 @@ snapshots:
       picomatch: 4.0.2
       putout: 36.4.2(eslint@8.57.0)(typescript@5.5.4)
       try-to-catch: 3.0.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@putout/engine-reporter@2.0.0(putout@36.4.2(eslint@8.57.0)(typescript@5.5.4))':
     dependencies:
@@ -14503,6 +14507,8 @@ snapshots:
       putout: 36.4.2(eslint@8.57.0)(typescript@5.5.4)
       try-catch: 3.0.1
       try-to-catch: 3.0.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@putout/engine-runner@21.1.0(putout@36.4.2(eslint@8.57.0)(typescript@5.5.4))':
     dependencies:
