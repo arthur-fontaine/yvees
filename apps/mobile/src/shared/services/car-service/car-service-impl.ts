@@ -2,18 +2,22 @@ import { db } from 'db/runtime/server'
 import * as DI from 'diabolo'
 
 import type { CarService } from './car-service'
+import { journeyIdToNumber } from '../../schemas/journey-id'
 
 export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
   () => {
     const websockets = new Map<number, WebSocket>()
 
     const carService: CarService['value'] = {
-      async getCarInfos(carId) {
+      async getCarInfos({ journeyId }) {
+        const journeyIdFromUri = journeyIdToNumber(journeyId)
+
         const car = await db.query.cars.findFirst({
           columns: {
+            id: true,
             ip: true,
           },
-          where: (car, { eq }) => eq(car.id, carId),
+          where: (car, { eq }) => eq(car.journeyId, journeyIdFromUri),
         })
         if (car === undefined) {
           // eslint-disable-next-line fp/no-throw
@@ -29,9 +33,19 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
           }
         }
 
-        const { ip } = await carService.getCarInfos(carId)
+        const car = await db.query.cars.findFirst({
+          columns: {
+            ip: true,
+          },
+          where: (car, { eq }) => eq(car.id, carId),
+        })
 
-        const websocket = new WebSocket(`ws://${ip}:80/ws`)
+        if (car === undefined) {
+          // eslint-disable-next-line fp/no-throw
+          throw new Error('Car not found')
+        }
+
+        const websocket = new WebSocket(`ws://${car.ip}:80/ws`)
         websockets.set(carId, websocket)
 
         return websocket
