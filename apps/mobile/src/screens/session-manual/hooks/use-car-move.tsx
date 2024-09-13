@@ -2,9 +2,9 @@ import { createRoute } from 'agrume'
 import * as DI from 'diabolo'
 import { useCallback, useRef } from 'react'
 
+import { carService } from '../../../services/car-service/car-service'
 import { useCar } from '../../../shared/hooks/use-car'
 import { type CarId, carIdToNumber } from '../../../shared/schemas/car-id'
-import { carService } from '../../../shared/services/car-service/car-service'
 import { serverImpls } from '../../../shared/utils/server-impls'
 import type { Coordinates } from '../../../types/coordinates'
 

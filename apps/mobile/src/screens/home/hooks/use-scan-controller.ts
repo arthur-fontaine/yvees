@@ -4,9 +4,9 @@ import type { BarcodeScanningResult } from 'expo-camera'
 import { useCameraPermissions } from 'expo-camera'
 import { useCallback, useRef, useState } from 'react'
 
+import { joinSessionService } from '../../../services/join-session-service/join-session-service'
 import { useCar } from '../../../shared/hooks/use-car'
 import { carIdSchema } from '../../../shared/schemas/car-id'
-import { joinSessionService } from '../../../shared/services/join-session-service/join-session-service'
 import { agrumeSseClientForRn } from '../../../shared/utils/agrume-sse-client-for-rn'
 import { serverImpls } from '../../../shared/utils/server-impls'
 
