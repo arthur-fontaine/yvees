@@ -1,6 +1,6 @@
 import * as DI from 'diabolo'
 
-import type { IntRange } from '../../types/int-range'
+import type { IntRange } from '../../../types/int-range'
 
 export interface CarService extends DI.Service<
   'CarService',

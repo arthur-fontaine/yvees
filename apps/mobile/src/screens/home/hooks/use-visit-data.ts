@@ -3,7 +3,7 @@ import type { Journey, Museum, Visit } from 'db'
 import * as DI from 'diabolo'
 import { useEffect, useState } from 'react'
 
-import { visitService } from '../../../services/visit-service/visit-service'
+import { visitService } from '../../../shared/services/visit-service/visit-service'
 import { serverImpls } from '../../../shared/utils/server-impls'
 
 export type VisitWithJourneyAndMuseum = {

@@ -3,7 +3,7 @@ import * as DI from 'diabolo'
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
 
-import { carService } from '../../services/car-service/car-service'
+import { carService } from '../services/car-service/car-service'
 import type { GeneratorReturn } from '../../types/generator-return'
 import type { carEvent } from '../events/car-event'
 import { type CarId, carIdToNumber } from '../schemas/car-id'
