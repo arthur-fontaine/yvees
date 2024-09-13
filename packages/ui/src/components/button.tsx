@@ -29,12 +29,14 @@ export const Button = withVariants<
     cancel: {
       backgroundColor: '$cancelButtonBackground',
       color: '$cancelButtonTextColor',
+      cursor: 'pointer',
       hoverStyle: {
         backgroundColor: '$cancelButtonHoverBackground',
       },
     },
     empty: {
       backgroundColor: 'transparent',
+      cursor: 'pointer',
       hoverStyle: {
         backgroundColor: 'transparent',
       },
@@ -42,6 +44,7 @@ export const Button = withVariants<
     primary: {
       backgroundColor: '$primaryButtonBackground',
       color: '$primaryButtonTextColor',
+      cursor: 'pointer',
       hoverStyle: {
         backgroundColor: '$primaryButtonHoverBackground',
       },
@@ -49,6 +52,7 @@ export const Button = withVariants<
     secondary: {
       backgroundColor: '$secondaryButtonBackground',
       color: '$secondaryButtonTextColor',
+      cursor: 'pointer',
       hoverStyle: {
         backgroundColor: '$secondaryButtonHoverBackground',
       },

@@ -7,6 +7,7 @@ export interface CarService extends DI.Service<
   'CarService',
   {
     getCarInfos: (params: { journeyId: JourneyId }) => Promise<{
+      id: number
       ip: string
     }>
     getCarWebsocket: (carId: number) => Promise<WebSocket>

@@ -40,7 +40,10 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
           // eslint-disable-next-line fp/no-throw
           throw new Error('Car not found')
         }
-        return car
+        return {
+          id: car.id,
+          ip: car.ip,
+        }
       },
       async getCarWebsocket(carId) {
         if (websockets.has(carId)) {
