@@ -13,11 +13,11 @@ interface ThemeProviderProps extends React.PropsWithChildren {
  */
 export function ThemeProvider(props: ThemeProviderProps) {
   return (
-    <TamaguiProvider config={tamaguiConfig}>
-      {/* eslint-disable-next-line unicorn/no-null */}
-      <Theme name={props.theme ?? null}>
-        {props.children}
-      </Theme>
-    </TamaguiProvider>
+      <TamaguiProvider config={tamaguiConfig}>
+          {/* eslint-disable-next-line unicorn/no-null */}
+          <Theme name={props.theme ?? null}>
+              {props.children}
+          </Theme>
+      </TamaguiProvider>
   )
 }

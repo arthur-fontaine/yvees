@@ -1,9 +1,13 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "target": "ESNext",
     "jsx": "react",
     "module": "ESNext",
     "moduleResolution": "Bundler"
   },
-  "exclude": ["*.config.*", "dist"]
+  "exclude": [
+    "*.config.*",
+    "dist"
+  ]
 }

@@ -1,35 +1,19 @@
-import React, { useState } from 'react'
-import { Card } from 'ui'
-// import { createRoute } from 'agrume';
+import React from 'react'
+import { Text, View } from 'react-native'
 
-import { DefaultLayout } from '../../layouts/default-layout'
-
-// const getSessionPage = createRoute(
-//   async () => {},
-//   {
-//     path: '/session-auto',
-//   }
-// );
+import { IntroductionPopup } from './components/introduction-popup'
+import { DefaultLayout } from '../../shared/layouts/default-layout'
 
 /**
- *
+ * The session auto screen of the application.
  */
-export function SessionAuto() {
-  const [displayCard, setDisplayCard] = useState(true)
-
-    return (
+export function SessionAutoScreen() {
+  return (
       <DefaultLayout>
-        {displayCard && (
-          <Card
-            action={{
-              onClick: () => setDisplayCard(false),
-              text: 'Commencer',
-            }}
-            text="Yvees est votre guide personnel pour cette visite ! Pilotez-le, trouvez les QR Codes situés en-dessous des oeuvres du musée, et scannez-les avec la caméra de votre Yvees. Des informations complémentaires apparaîtront sur votre téléphone."
-            title="Pilotez votre Yvees"
-            variant="default"
-          />
-        )}
+          <View style={{ backgroundColor: 'red', flex: 1 }}>
+              <Text>CAR CAMERA</Text>
+          </View>
+          <IntroductionPopup />
       </DefaultLayout>
-    )
+  )
 }

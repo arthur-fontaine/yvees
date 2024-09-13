@@ -1,7 +1,11 @@
-import type { Variable } from 'tamagui'
+import type { Variable } from '@tamagui/core'
 
 type ThemeKeys =
   | 'backgroundColor'
+  | 'cancelButtonBackground'
+  | 'cancelButtonHoverBackground'
+  | 'cancelButtonTextColor'
+  | 'cardBackgroundColor'
   | 'defaultSeparatorColor'
   | 'defaultTitleIconColor'
   | 'defaultTitleTextColor'

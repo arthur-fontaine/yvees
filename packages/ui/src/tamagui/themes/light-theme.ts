@@ -3,6 +3,10 @@ import { tokens } from '../tokens'
 
 export const lightTheme: Theme = {
   backgroundColor: tokens.color.beige,
+  cancelButtonBackground: tokens.color.red,
+  cancelButtonHoverBackground: tokens.color.redDark,
+  cancelButtonTextColor: tokens.color.white,
+  cardBackgroundColor: tokens.color.beigeLight,
   defaultSeparatorColor: tokens.color.orangeLight,
   defaultTitleIconColor: tokens.color.orange,
   defaultTitleTextColor: tokens.color.brown,

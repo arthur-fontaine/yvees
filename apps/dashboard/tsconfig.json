@@ -1,9 +1,12 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "target": "ES2022",
     "jsx": "react",
     "module": "ESNext",
     "moduleResolution": "Bundler"
   },
-  "exclude": ["dist"]
+  "exclude": [
+    "dist"
+  ]
 }

@@ -5,8 +5,9 @@
   "customizations": {
     "vscode": {
       "settings": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
         "eslint.enable": true,
-        "eslint.experimental.useFlatConfig": true,
+        "eslint.useFlatConfig": true,
         "eslint.workingDirectories": [
           {
             "mode": "auto"
@@ -44,15 +45,19 @@
         "explorer.fileNesting.patterns": {
           ".env": "*.env, .env.*, .envrc, env.d.ts",
           ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
-          "package.json": "eslint*, tsconfig.*, turbo.json, app.json, *.config.js, *.config.ts, pnpm-lock.yaml, pnpm-workspace.yaml, .npmrc"
+          "package.json": "eslint*, tsconfig.*, turbo.json, app.json, eas.json, *.config.js, *.config.ts, pnpm-lock.yaml, pnpm-workspace.yaml, .npmrc"
         },
-        "terminal.integrated.defaultProfile.osx": "zsh",
-        "terminal.integrated.defaultProfile.linux": "zsh",
-        "terminal.integrated.defaultProfile.windows": "zsh"
+        "prettier.enable": false,
+        "terminal.integrated.defaultProfile.osx": "fish",
+        "terminal.integrated.defaultProfile.linux": "fish",
+        "terminal.integrated.defaultProfile.windows": "fish",
+        "typescript.tsdk": "./node_modules/typescript/lib"
       },
       "extensions": [
         "dbaeumer.vscode-eslint",
-        "mhutchie.git-graph"
+        "mhutchie.git-graph",
+        "yy0931.vscode-sqlite3-editor",
+        "kylpo.vscode-find-in-files-with-selection"
       ]
     }
   }

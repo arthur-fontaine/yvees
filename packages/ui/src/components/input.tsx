@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import type { GetProps } from 'tamagui'
 import { Input as TamaguiInput, View as TamaguiView } from 'tamagui'
 
@@ -10,10 +10,12 @@ import { withVariants } from '../utils/with-variants'
 interface InputProps {
   action?: {
     icon: typeof Icon[keyof typeof Icon]
-    onClick: () => void
+    onClick: GetProps<typeof Button>['onClick']
   }
+  autoCapitalize?: 'characters' | 'none' | 'sentences' | 'words'
   error?: false | string
   icon?: typeof Icon[keyof typeof Icon]
+  inputMd?: boolean
   onChangeText?: (e: string) => void
   placeholder?: string
   secureTextEntry?: boolean
@@ -23,75 +25,91 @@ interface InputProps {
 /**
  * Input component.
  */
-
 export const Input = withVariants<
-  'default',
+  'default' | 'outlined',
   GetProps<typeof TamaguiView>
 >(
   {
     $defaults: {
       alignItems: 'center',
-      backgroundColor: '#EDEDED',
-      borderRadius: '$mediumSizedElement',
       borderWidth: 0,
       display: 'flex',
       flexDirection: 'row',
+      minHeight: 48,
       paddingHorizontal: '$normal',
     },
-    default: {},
+    default: {
+      backgroundColor: '#EDEDED',
+      borderRadius: '$mediumSizedElement',
+    },
+    outlined: {
+      borderColor: '#E2E8F0',
+      borderRadius: '$smallSiezdElement',
+      borderWidth: 1,
+    },
   },
-)(({ variant }, {
+)(({ variant, variantName }, {
   action,
+  autoCapitalize,
   error,
   // eslint-disable-next-line ts/naming-convention
   icon: Icon,
+  inputMd,
   onChangeText,
   placeholder,
   secureTextEntry,
   value,
 }: InputProps) => {
+  const onActionClick = useCallback((event: Parameters<NonNullable<GetProps<typeof Button>['onClick']>>[0]) => {
+    event.preventDefault()
+    action?.onClick?.(event)
+  }, [action])
+
   return (
-    <TamaguiView
-      {...variant}
-      {...(action ? { paddingRight: '0' } : {})}
-      position="relative"
-      {...(error ? {
+      <TamaguiView
+        {...variant}
+        {...(action ? { paddingRight: '0' } : {})}
+        position="relative"
+        {...(error ? {
         borderColor: '$error',
         borderWidth: 1,
       } : {})}
-    >
-      {Icon && (
-        <TamaguiView marginRight={8} opacity={0.3}>
-          <Icon size={16} strokeWidth={3} />
-        </TamaguiView>
-      )}
-      <TamaguiInput
-        flex={1}
-        fontFamily="$body"
-        fontSize="$button"
-        fontWeight="$button"
-        lineHeight="$button"
-        onChangeText={onChangeText}
-        outlineWidth={0}
-        placeholder={placeholder}
-        secureTextEntry={secureTextEntry}
-        unstyled
       >
-        {value}
-      </TamaguiInput>
-      <Button
-        icon={action?.icon}
-        onClick={action?.onClick}
-        variant="secondary"
-      />
-
-      {error && (
-        <TamaguiView bottom={-16} left={0} position="absolute">
-          <Caption color="$error">
-            {error}
-          </Caption>
-        </TamaguiView>
+          {Icon && (
+          <TamaguiView marginRight={8} opacity={0.3}>
+              <Icon size={16} strokeWidth={3} />
+          </TamaguiView>
       )}
-    </TamaguiView>
+          <TamaguiInput
+            autoCapitalize={autoCapitalize}
+            defaultValue={value}
+            flex={1}
+            fontFamily="$body"
+            fontSize={inputMd ? '$inputMd' : '$button'}
+            fontWeight={inputMd ? '$inputMd' : '$button'}
+            lineHeight="$button"
+            onChangeText={onChangeText}
+            outlineWidth={0}
+            placeholder={placeholder}
+            placeholderTextColor="#64748B"
+            secureTextEntry={secureTextEntry}
+            unstyled
+          >
+          </TamaguiInput>
+          {action && (
+          <Button
+            icon={action?.icon}
+            onClick={onActionClick}
+            variant={variantName === 'outlined' ? 'empty' : 'secondary'}
+          />
+      )}
+          {error && (
+          <TamaguiView bottom={-16} left={0} position="absolute">
+              <Caption color="$error">
+                  {error}
+              </Caption>
+          </TamaguiView>
+      )}
+      </TamaguiView>
   )
 })

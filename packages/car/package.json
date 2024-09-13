@@ -1,0 +1,28 @@
+{
+  "name": "car",
+  "exports": {
+    ".": {
+      "types": "./dist/build-boot.d.ts",
+      "import": "./dist/build-boot.mjs",
+      "require": "./dist/build-boot.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "src/build-boot.ts",
+  "types": "./src",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/build-boot.ts --dts --format esm,cjs --outDir dist",
+    "dev": "pnpm build --watch",
+    "postinstall": "sh ./scripts/install-pio.sh"
+  },
+  "dependencies": {
+    "tmp-promise": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "tsup": "^8.0.2"
+  }
+}
