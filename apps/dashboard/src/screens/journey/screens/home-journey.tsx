@@ -50,13 +50,26 @@ export function JourneyHome({ journeyId }: { journeyId: string }) {
     if (b.end) {
       return -1
     }
-    return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime() // Sort the rest by creation date
+    return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
   })
   return (
-      <div className="h-screen p-10">
+      <div className="h-screen p-6">
+          <div className="mb-2">
+              <Button
+                buttonMd
+                icon={Icon.ArrowLeft}
+                onClick={() => {
+                router.push(RouteNames.JOURNEY_LIST)
+              }}
+                variant="empty"
+              >
+                  Retour aux parcours
+              </Button>
+          </div>
           <div className="flex justify-between my-4 items-center">
               <h1 className="text-3xl font-bold my-8">
                   Parcours :
+                  {' '}
                   {journey.name}
               </h1>
               <JourneyDropDown journey={journey} />
