@@ -64,9 +64,18 @@ export function JourneyDropDown(
         controlMode: newMode,
         journeyId: journey.id,
       })
+      toast({
+        description: `Le mode de visite a été changé en ${newMode === 'automatic' ? 'automatique' : 'manuel'} avec succès.`,
+        duration: 3500,
+        title: `Mode de visite ${newMode === 'automatic' ? 'automatique' : 'manuel'}`,
+      })
     }
     catch (error) {
-      console.error('Failed to update journey control mode:', error)
+      toast({
+        description: 'Échec du changement de mode de visite.',
+        duration: 3500,
+        title: 'Erreur',
+      })
     }
   }
 
@@ -157,4 +166,4 @@ export function JourneyDropDown(
           </DropdownMenuContent>
       </DropdownMenu>
   )
-}
+  }

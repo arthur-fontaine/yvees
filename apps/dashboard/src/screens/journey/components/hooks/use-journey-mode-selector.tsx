@@ -14,7 +14,7 @@ export function useJourneyModeSelector(journey: Pick<Journey, 'controlMode'>) {
   return {
     mode,
     setMode: useCallback(
-      (newMode: 'automatic' | 'manual') => () => setMode(newMode),
+      (newMode: 'automatic' | 'manual') => setMode(newMode),
       [],
     ),
   }
