@@ -1,4 +1,6 @@
-import React, { useCallback, useRef } from 'react'
+import { CameraView } from 'expo-camera'
+import React from 'react'
+import { Button, Card, Icon, ThemeProvider } from 'ui'
 
 import { Histories } from './components/histories'
 import { JoinCard } from './components/join-card'
