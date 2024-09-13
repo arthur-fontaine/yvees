@@ -16,6 +16,9 @@ export interface VisitService extends Service<'visit', {
       journeySteps: JourneyStep[]
     } & Visit | undefined
   >
+  updateVisit: (
+    params: { visitId: number }
+  ) => Promise<void>
 }> { }
 
 export const visitService = createService<VisitService>('visit')
