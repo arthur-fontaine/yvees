@@ -52,7 +52,7 @@ export const visitServiceImpl
           journeySteps: visits.flatMap(visit => visit.journeySteps || []),
         }))
     },
-    updateVisit: async ({ id, endedAt }) => {
+    updateVisit: async ({ id }) => {
       const visit = await db.query.visits.findFirst({
         where: (visits, { eq }) => eq(visits.id, id),
       })
@@ -60,7 +60,7 @@ export const visitServiceImpl
         console.error('Visit not found')
         return undefined
       }
-      endedAt = Date.now()
+      const endedAt = Date.now()
       await db
         .update(db.tables.visits)
         .set({

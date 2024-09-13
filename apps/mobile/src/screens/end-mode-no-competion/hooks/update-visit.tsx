@@ -5,19 +5,15 @@ import { visitService } from '../../../shared/services/visit-service/visit-servi
 import { serverImpls } from '../../../shared/utils/server-impls'
 
 export const updateVisit = createRoute(
-    DI.provide(async function* (id: number | undefined , endedAt: string | undefined)  {
-
-        if (!id) {
+    DI.provide(async function* (id: number) {
+        if (id === undefined) {
             return { message: 'Invalid visitId', success: false }
         }
-
-        const { updateVisit } = yield* DI.requireService(visitService)
-        await updateVisit({ id, endedAt })
-
+        const { updateVisit } = yield * DI.requireService(visitService)
+        await updateVisit({ id })
         return { success: true }
-
     }, serverImpls),
     {
         path: '/update-visit/:visitId/:endedAt',
     },
-);
+)

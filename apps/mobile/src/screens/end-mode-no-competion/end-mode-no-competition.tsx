@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { DefaultLayout } from '../../shared/layouts/default-layout'
 import { InfoVisit } from './components/info-visits'
+import { DefaultLayout } from '../../shared/layouts/default-layout'
 
 /**
  * The session end of mode no competition screen of the application.
@@ -9,7 +9,7 @@ import { InfoVisit } from './components/info-visits'
 export function EndModeNoCompetition() {
   return (
       <DefaultLayout>
-        <InfoVisit/>
+          <InfoVisit />
       </DefaultLayout>
   )
 }

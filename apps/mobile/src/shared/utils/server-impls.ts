@@ -6,6 +6,6 @@ import { visitServiceImpl } from '../services/visit-service/visit-service-impl'
 export const serverImpls = {
   CarService: carServiceImpl,
   JoinSessionService: joinSessionServiceImpl,
-  Visit: visitServiceImpl,
+  visit: visitServiceImpl,
 }
 /* eslint-enable ts/naming-convention */
