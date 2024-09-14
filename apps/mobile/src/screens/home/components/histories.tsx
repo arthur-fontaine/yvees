@@ -53,9 +53,11 @@ export function Histories(props: HistoriesProps) {
               <Icon.History color="orange" size={24} style={{ marginRight: 8 }} />
               <Title1 variant="default">Historique</Title1>
           </View>
-          {visits.length === 0 && <Text>Aucune visite disponible.</Text>}
+          {visits && visits.length === 0 && (
+          <Text>Aucune visite disponible.</Text>
+          )}
           <ScrollView style={{ width: '100%' }}>
-              {visits.map(visit => (
+              {visits && visits.map(visit => (
                   <View key={visit.id}>
                       <View
                         style={{

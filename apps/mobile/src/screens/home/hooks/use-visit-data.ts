@@ -1,3 +1,4 @@
+import { useAuth } from '@clerk/clerk-expo'
 import { createRoute } from 'agrume'
 import type { Journey, Museum, Visit } from 'db'
 import * as DI from 'diabolo'
@@ -6,32 +7,36 @@ import { useEffect, useState } from 'react'
 import { visitHistoryService } from '../../../services/visit-history-service/visit-history-service'
 import { serverImpls } from '../../../shared/utils/server-impls'
 
-export type VisitWithJourneyAndMuseum = {
-  journey: {
-    museum: Museum
-  } & Journey
-} & Visit
+export type VisitWithJourneyAndMuseum = Array<{
+  journey: Journey | undefined
+  museum: Museum | undefined
+} & Visit>
 
 export const getVisitsByUserId = createRoute(
-  DI.provide(async function* (userId: number) {
-    if (userId === undefined) {
+  DI.provide(async function* (clerckUserId: string) {
+    if (clerckUserId === undefined) {
       return []
     }
-    const { findVisitByUserId } = yield * DI.requireService(visitHistoryService)
-    const visits: VisitWithJourneyAndMuseum[] = await findVisitByUserId(
-      { userId },
+    const { findVisitByClerkUserId } = yield * DI.requireService(
+      visitHistoryService,
     )
-
-    return visits.map((visit) => {
-      return {
-        ...visit,
-        createdAt: visit.createdAt?.toISOString(),
-        journey: {
-          ...visit.journey.museum,
-        },
-        updatedAt: visit.updatedAt?.toISOString(),
-      }
-    })
+    const visits = await findVisitByClerkUserId(
+      { clerckUserId },
+    )
+    if (!visits) {
+      return []
+    }
+    return JSON.parse(JSON.stringify(visits.map(visit => ({
+      ...visit,
+      journey: visit.journey ? {
+        ...visit.journey,
+        createdAt: visit.journey.createdAt.toISOString(),
+        updatedAt: visit.journey.updatedAt.toISOString(),
+      } : undefined,
+      museum: visit.museum ? {
+        ...visit.museum,
+      } : undefined,
+    }))))
   }, serverImpls),
   {
     path: '/get-visits:user_id',
@@ -42,18 +47,17 @@ export const getVisitsByUserId = createRoute(
  * Hook to get the user's visit data.
  */
 export function useVisitData() {
-  const [visits, setVisits] = useState<VisitWithJourneyAndMuseum[]>([])
+  const [visits, setVisits] = useState<VisitWithJourneyAndMuseum>([])
   const [loading, setLoading] = useState<boolean>(true)
-  const userId = 0 // TODO Setup ID with clerk auth
+  const { userId } = useAuth()
 
   useEffect(() => {
-    if (userId === undefined) {
+    if (userId === undefined || userId === null) {
       setVisits([])
       setLoading(false)
       return
     }
-
-    getVisitsByUserId(userId).then((visits: VisitWithJourneyAndMuseum[]) => {
+    getVisitsByUserId(userId).then((visits) => {
       setVisits(visits)
       setLoading(false)
     })

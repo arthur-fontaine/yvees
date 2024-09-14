@@ -1,12 +1,14 @@
+import type { Journey, Museum, Visit } from 'db'
 import type { Service } from 'diabolo'
 import { createService } from 'diabolo'
 
-import type { VisitWithJourneyAndMuseum } from '../../screens/home/types/visit-with-journey-museum'
-
 export interface VisitHistoryService extends Service<'visit', {
-  findVisitByUserId: (
-    params: { userId: number }
-  ) => Promise<VisitWithJourneyAndMuseum[]>
+  findVisitByClerkUserId: (
+    params: { clerckUserId: string }
+  ) => Promise<Array<{
+    journey: Journey | undefined
+    museum: Museum | undefined
+  } & Visit>>
 }> {}
 
 export const visitHistoryService = createService<VisitHistoryService>('visit')
