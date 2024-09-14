@@ -1,4 +1,3 @@
-// import type { User } from 'db'
 import type { Service } from 'diabolo'
 import { createService } from 'diabolo'
 

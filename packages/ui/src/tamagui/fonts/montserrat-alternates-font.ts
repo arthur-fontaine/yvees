@@ -22,6 +22,7 @@ export const montserratAlternatesFont = createFont({
     title1: 32,
   },
   size: {
+    $4: 16,
     title1: 24,
   },
   weight: {

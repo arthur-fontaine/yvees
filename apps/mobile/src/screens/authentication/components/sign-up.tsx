@@ -4,9 +4,8 @@ import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'reac
 import { Box, Button, Icon, Input, OtpInput, Title1 } from 'ui'
 
 import { useTranslate } from '../../../shared/hooks/use-translate'
-import { useAuthForm } from '../hooks/use-auth-forms'
+import { setCreateUser, useAuthForm } from '../hooks/use-auth-forms'
 import { useErrorHandling } from '../hooks/use-error-handle'
-
 /**
  *  Sign up component.
  */
@@ -71,12 +70,16 @@ export function SignUp() {
     if (!isLoaded) {
       return
     }
-
     try {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code: codes.join(''),
       })
       await setActive({ session: completeSignUp.createdSessionId })
+      if (
+        completeSignUp.createdUserId !== undefined
+        && completeSignUp.createdUserId !== null) {
+        await setCreateUser(firstName, completeSignUp.createdUserId)
+      }
     }
     catch (err) {
       console.error(JSON.stringify(err, undefined, 2))
