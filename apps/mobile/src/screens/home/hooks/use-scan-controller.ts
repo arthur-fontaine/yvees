@@ -13,13 +13,18 @@ import { agrumeSseClientForRn } from '../../../shared/utils/agrume-sse-client-fo
 import { serverImpls } from '../../../shared/utils/server-impls'
 
 const joinSessionFn
-  = DI.provide(function* ({ journeyId }: { journeyId: JourneyId }) {
+  = DI.provide(async function* ({ journeyId }: { journeyId: JourneyId }) {
     const { joinSession } = yield * DI.requireService(joinSessionService)
     return joinSession({ journeyId })
   }, serverImpls)
-const joinSession = createRoute(joinSessionFn, {
-  getClient: agrumeSseClientForRn<typeof joinSessionFn>,
-})
+const joinSession = createRoute(
+  async function* ({ journeyId }: { journeyId: JourneyId }) {
+    yield * await joinSessionFn({ journeyId })
+  },
+  {
+    getClient: agrumeSseClientForRn<typeof joinSessionFn>,
+  },
+)
 
 interface UseScanControllerProps {
   onOpenCameraRef: React.MutableRefObject<
