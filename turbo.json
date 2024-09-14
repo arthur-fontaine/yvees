@@ -1,6 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
+  "globalEnv": ["QR_DECODE_SERVICE_PORT"],
   "tasks": {
     "build": {},
     "dev": {
