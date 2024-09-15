@@ -75,7 +75,7 @@ export function Histories(props: HistoriesProps) {
                               <Text>
                                   Visité le
                                   {' '}
-                                  {formatDate(visit.createdAt)}
+                                  {formatDate(new Date(visit.createdAt))}
                               </Text>
                           </View>
                           <Icon.ChevronRight color="orange" size={24} />

@@ -1,12 +1,16 @@
-import { visitServiceImpl } from '../../services/visit-history-service/visit-history-service-impl'
-import { carServiceImpl } from '../services/car-service/car-service-impl'
-import { joinSessionServiceImpl } from '../services/join-session-service/join-session-service-impl'
+export const serverImpls = (async () => {
+  if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
+    return undefined!
+  }
 
-/* eslint-disable ts/naming-convention */
-export const serverImpls = {
-  CarService: carServiceImpl,
-  JoinSessionService: joinSessionServiceImpl,
-  visit: visitServiceImpl,
+  const { carServiceImpl } = await import('../services/car-service/car-service-impl')
+  const { joinSessionServiceImpl } = await import('../services/join-session-service/join-session-service-impl')
+  const { visitServiceImpl } = await import('../../services/visit-history-service/visit-history-service-impl')
 
-}
-/* eslint-enable ts/naming-convention */
+  /* eslint-disable ts/naming-convention */
+  return {
+    CarService: carServiceImpl,
+    JoinSessionService: await joinSessionServiceImpl(),
+    visit: visitServiceImpl,
+  }
+})()

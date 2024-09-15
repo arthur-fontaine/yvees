@@ -22,16 +22,13 @@ export const getVisitsByUserId = createRoute(
       { userId },
     )
 
-    return visits.map((visit) => {
-      return {
-        ...visit,
-        createdAt: visit.createdAt?.toISOString(),
-        journey: {
-          ...visit.journey.museum,
-        },
-        updatedAt: visit.updatedAt?.toISOString(),
-      }
-    })
+    return visits.map(visit => ({
+      createdAt: visit.createdAt?.toISOString(),
+      id: visit.id,
+      journey: {
+        name: visit.journey.name,
+      },
+    }))
   }, serverImpls),
   {
     path: '/get-visits:user_id',
@@ -42,7 +39,8 @@ export const getVisitsByUserId = createRoute(
  * Hook to get the user's visit data.
  */
 export function useVisitData() {
-  const [visits, setVisits] = useState<VisitWithJourneyAndMuseum[]>([])
+  const [visits, setVisits]
+    = useState<Awaited<ReturnType<typeof getVisitsByUserId>>>([])
   const [loading, setLoading] = useState<boolean>(true)
   const userId = 0 // TODO Setup ID with clerk auth
 
@@ -53,7 +51,7 @@ export function useVisitData() {
       return
     }
 
-    getVisitsByUserId(userId).then((visits: VisitWithJourneyAndMuseum[]) => {
+    getVisitsByUserId(userId).then((visits) => {
       setVisits(visits)
       setLoading(false)
     })
