@@ -23,6 +23,7 @@ const joinSession = createRoute(
   },
   {
     getClient: agrumeSseClientForRn<typeof joinSessionFn>,
+    path: '/join-session',
   },
 )
 

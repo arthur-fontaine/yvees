@@ -3,6 +3,7 @@ import * as DI from 'diabolo'
 import { eq } from 'drizzle-orm'
 
 import type { JoinSessionService } from './join-session-service'
+import { carCommand } from '../car-service/car-service'
 
 /**
  * A service to join a session.
@@ -49,15 +50,13 @@ export const joinSessionServiceImpl = async function () {
         }
 
         if (journey.controlMode === 'automatic') {
-          await sendCommand(car.id, { cmd: 10, data: 1 })
+          await sendCommand(car.id, { cmd: carCommand.autoMode, data: 1 })
           return
         }
 
-        await sendCommand(car.id, { cmd: 10, data: 0 })
+        await sendCommand(car.id, { cmd: carCommand.autoMode, data: 0 })
 
-        if (!car) {
-          return
-        }
+        yield {} as never // Initial event
 
         let event
         while (event = (await carEvent.iterator().next()).value) {
