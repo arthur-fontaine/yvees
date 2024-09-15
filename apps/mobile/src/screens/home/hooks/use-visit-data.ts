@@ -23,20 +23,21 @@ export const getVisitsByUserId = createRoute(
     const visits = await findVisitByClerkUserId(
       { clerckUserId },
     )
-    if (!visits) {
-      return []
-    }
-    return JSON.parse(JSON.stringify(visits.map(visit => ({
-      ...visit,
-      journey: visit.journey ? {
-        ...visit.journey,
-        createdAt: visit.journey.createdAt.toISOString(),
-        updatedAt: visit.journey.updatedAt.toISOString(),
-      } : undefined,
-      museum: visit.museum ? {
-        ...visit.museum,
-      } : undefined,
-    }))))
+
+    return visits.map(visit => ({
+      createdAt: visit.createdAt?.toISOString(),
+      id: visit.id,
+      ...(visit.journey && {
+        journey: {
+          name: visit.journey.name,
+        },
+      }),
+      ...(visit.museum && {
+        museum: {
+          name: visit.museum.name,
+        },
+      }),
+    }))
   }, serverImpls),
   {
     path: '/get-visits:user_id',
@@ -47,7 +48,8 @@ export const getVisitsByUserId = createRoute(
  * Hook to get the user's visit data.
  */
 export function useVisitData() {
-  const [visits, setVisits] = useState<VisitWithJourneyAndMuseum>([])
+  const [visits, setVisits]
+    = useState<Awaited<ReturnType<typeof getVisitsByUserId>>>([])
   const [loading, setLoading] = useState<boolean>(true)
   const { userId } = useAuth()
 
@@ -57,6 +59,7 @@ export function useVisitData() {
       setLoading(false)
       return
     }
+
     getVisitsByUserId(userId).then((visits) => {
       setVisits(visits)
       setLoading(false)

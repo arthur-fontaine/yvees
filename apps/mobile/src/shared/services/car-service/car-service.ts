@@ -31,6 +31,7 @@ type CarCommand =
   | { cmd: 7, data: 0 | 1 } // alarm
   | { cmd: 8, data: [0 | 1, number] } // buzzer
   | { cmd: 9, data: 0 | 1 } // video recording
+  | { cmd: 10, data: 0 | 1 } // auto mode
 
 type HeadAngle = IntRange<0, 180>
 type ColorValue = IntRange<0, 255>
