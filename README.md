@@ -96,20 +96,39 @@ pnpm eslint --inspect-config
 
 ## Development
 
-First, you need to create a Clerk project. Then,
-create a `.env` files in the [`dashboard`](./apps/dashboard/) and
-[`mobile`](./apps/mobile/) folders.
+First, you need to initialize a SQLite database.
+Just run the following command:
 
-The `.env` in the `dashboard` folder should look like this:
+```bash
+pnpm --filter="db" run migrate
+```
+
+Then, you need to create a Clerk organization.
+
+Create a Clerk application named "mobile" (or whatever you want).
+Then, create a `.env` file in the [`mobile`](./apps/mobile/) folder
+and copy the "Publishable Key" of the application you just created.
+It should look like this:
+
+```env
+EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY="clerk_pk"
+```
+
+Create a second Clerk application named "dashboard" (or whatever you want).
+Then, create a `.env` file in the [`dashboard`](./apps/dashboard/) folder
+and copy the "Publishable Key" of the application you just created.
+It should look like this:
 
 ```env
 VITE_CLERK_PK="clerk_pk"
 ```
 
-The `.env` in the `mobile` folder should look like this:
+For now, as there is no sign-up system for museums, you need
+to add a museum manually in the database using your Clerk organization ID.
+You can do it by running the following command:
 
-```env
-EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY="clerk_pk"
+```bash
+sqlite3 packages/db/sqlite.db "INSERT INTO museum (name, clerk_organization_id) VALUES ('My Museum', 'clerk_organization_id');"
 ```
 
 After that, you need to generate the Expo dev clients
@@ -117,20 +136,6 @@ by running the following command:
 
 ```bash
 pnpm --filter="mobile" run build-dev-clients
-```
-
-After that, you need to initialize the database by
-running the following command:
-
-```bash
-pnpm --filter="db" run migrate
-```
-
-Add a museum linked to your Clerk project in your database:
-
-```bash
-cd packages/db
-sqlite3 sqlite.db "INSERT INTO museum (name, clerk_organization_id) VALUES ('My Museum', 'clerk_organization_id');"
 ```
 
 Finally, you can start the development server by running the following command:
