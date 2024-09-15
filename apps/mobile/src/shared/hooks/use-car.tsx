@@ -100,7 +100,7 @@ export function useCar() {
     ['carInfos', context.journeyId],
     () => getCarInfos({ journeyId: context.journeyId! }),
     {
-      enabled: !!context.journeyId,
+      enabled: context.journeyId !== undefined,
     },
   )
 

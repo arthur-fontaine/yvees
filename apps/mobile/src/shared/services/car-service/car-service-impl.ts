@@ -35,7 +35,8 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
       async getCarInfos({ journeyId }) {
         const journeyIdFromUri = journeyIdToNumber(journeyId)
 
-        const car = carsMap.get(journeyIdFromUri)
+        const car = Array.from(carsMap.values())
+          .find((car: Car) => car.journeyId === journeyIdFromUri)
         if (car === undefined) {
           // eslint-disable-next-line fp/no-throw
           throw new Error('Car not found')

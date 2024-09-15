@@ -56,9 +56,7 @@ export const joinSessionServiceImpl = async function () {
 
         await sendCommand(car.id, { cmd: carCommand.autoMode, data: 0 })
 
-        if (!car) {
-          return
-        }
+        yield {} as never // Initial event
 
         let event
         while (event = (await carEvent.iterator().next()).value) {
