@@ -2,6 +2,29 @@
 
 > Searching for your tasks? Go to the [project board](https://github.com/users/arthur-fontaine/projects/5/views/3)
 
+## Introduction
+
+Yvees is a school project for [HETIC](https://www.hetic.net/). The goal is to
+create a RC car that can be controlled by a mobile app.
+
+We chose to create a service for museums. A museum visitor can rent a car to
+visit the museum interactively with their smartphone.
+
+The main features are:
+- **A dashboard**
+
+  It allows the museum staff to manage the cars and the visitors.
+  It also allows the museum staff to boot their new cars when they receive them.
+
+- **A mobile app**
+
+  The mobile app allows the visitor to control the car and visit the museum.
+  It
+
+- **An automatic mode** to visit the museum without controlling the car.
+(working with black lines on the ground)
+- **A
+
 ## Setup
 
 First, clone this repository:
