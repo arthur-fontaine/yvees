@@ -13,17 +13,17 @@ visit the museum interactively with their smartphone.
 The main features are:
 - **A dashboard**
 
-  It allows the museum staff to manage the cars and the visitors.
+  It allows the museum staff to manage the cars.
   It also allows the museum staff to boot their new cars when they receive them.
 
 - **A mobile app**
 
   The mobile app allows the visitor to control the car and visit the museum.
-  It
+  It gives real-time information thanks to the camera on the car.
 
-- **An automatic mode** to visit the museum without controlling the car.
-(working with black lines on the ground)
-- **A
+- **An automatic mode**
+
+  The car can follow a black line on the ground.
 
 ## Setup
 
@@ -48,6 +48,8 @@ the notification, you surely have the extensions already installed.
 Now, open the command palette (Cmd+Shift+P) and run the command
 `"Dev Containers: Reopen in Container"`. This will build the development
 container and open a new VS Code window inside it.
+
+To start to develop, refer to the [Development](#development) section.
 
 ## Packages/Apps
 
@@ -94,7 +96,44 @@ pnpm eslint --inspect-config
 
 ## Development
 
-To start to develop, just run the following commands:
+First, you need to create a Clerk project. Then,
+create a `.env` files in the [`dashboard`](./apps/dashboard/) and
+[`mobile`](./apps/mobile/) folders.
+
+The `.env` in the `dashboard` folder should look like this:
+
+```env
+VITE_CLERK_PK="clerk_pk"
+```
+
+The `.env` in the `mobile` folder should look like this:
+
+```env
+EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY="clerk_pk"
+```
+
+After that, you need to generate the Expo dev clients
+by running the following command:
+
+```bash
+pnpm --filter="mobile" run build-dev-clients
+```
+
+After that, you need to initialize the database by
+running the following command:
+
+```bash
+pnpm --filter="db" run migrate
+```
+
+Add a museum linked to your Clerk project in your database:
+
+```bash
+cd packages/db
+sqlite3 sqlite.db "INSERT INTO museum (name, clerk_organization_id) VALUES ('My Museum', 'clerk_organization_id');"
+```
+
+Finally, you can start the development server by running the following command:
 
 ```bash
 pnpm install
