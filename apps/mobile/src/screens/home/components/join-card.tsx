@@ -112,7 +112,7 @@ export function JoinCard(props: JoinCardProps) {
 function useCardsAnimation({ isCameraOpen }: { isCameraOpen: boolean }) {
   const animatedOpacity = useAnimatedValue(0)
 
-  const maxHeight = useWindowDimensions().height - (getToken('$space.normal') * 2)
+  const maxHeight = useWindowDimensions().height - (getToken('$space.normal') * 2) - (16 + getToken('$space.normal') * 2)
   const defaultHeight = useRef(0)
   const animatedHeight = useAnimatedValue(0, { useNativeDriver: false })
 
