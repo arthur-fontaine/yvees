@@ -1,0 +1,1 @@
+ALTER TABLE `users` RENAME COLUMN `user` TO `clerk_user_id`;

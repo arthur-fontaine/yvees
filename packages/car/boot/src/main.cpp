@@ -44,6 +44,7 @@ PubSubClient client(espClient);
 // WiFiServer server_Cmd(4000);
 WiFiServer server_Camera(7000);
 bool videoFlag = 1;
+bool autoMode = 0;
 
 long last_message = 0;
 
@@ -150,6 +151,8 @@ void loop()
 
     Emotion_Show(emotion_task_mode); // Led matrix display function
     WS2812_Show(ws2812_task_mode);   // Car color lights display function
+
+    Track_Car(autoMode);
 
     // The MQTT part
     if (!client.connected())
@@ -273,6 +276,11 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len)
             int alarm_on = buzzer_data[0] == 1;
             int frequency_hz = buzzer_data[1];
             Buzzer_Variable(alarm_on, frequency_hz);
+        }
+        else if (10 == cmd)
+        {
+            bool auto_mode = doc["data"] == 1;
+            autoMode = auto_mode;
         }
 
         notifyClients();

@@ -1,6 +1,11 @@
+import { createRoute } from 'agrume'
+import * as DI from 'diabolo'
 import { useCallback, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 import type { Input as TamaguiInput } from 'tamagui'
+
+import { userService } from '../../../services/user-service/user-service'
+import { serverImpls } from '../../../shared/utils/server-impls'
 
 interface AuthFormState {
   codes: string[]
@@ -12,6 +17,17 @@ interface AuthFormState {
   showConfPassword: boolean
   showPassword: boolean
 }
+
+export const createUser = createRoute(
+  DI.provide(async function* ({ clerkUserId, name }) {
+    const { createUser } = yield * DI.requireService(userService)
+    await createUser({ clerkUserId, name })
+    return { success: true }
+  }, serverImpls),
+  {
+    path: '/create-user',
+  },
+)
 
 /**
  * Authentication form hook.
@@ -60,4 +76,12 @@ export function useAuthForm() {
     refs: refs.current,
     setFormValue,
   }
+}
+
+/**
+ *  Set the user's name.
+ */
+export async function setCreateUser(name: string, userId: string) {
+  await createUser({ clerkUserId: userId, name })
+  return { success: true }
 }

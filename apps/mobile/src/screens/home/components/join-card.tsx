@@ -9,16 +9,22 @@ import { Box, Button, Card, Icon } from 'ui'
 import { useTranslate } from '../../../shared/hooks/use-translate'
 import { useScanController } from '../hooks/use-scan-controller'
 
+interface JoinCardProps {
+  onOpenCameraRef: Parameters<typeof useScanController>[0]['onOpenCameraRef']
+}
+
 /**
  * A card to join a session.
  */
-export function JoinCard() {
+export function JoinCard(props: JoinCardProps) {
   const {
     closeCamera,
     handleBarCodeScanned,
     isCameraOpen,
     openCamera,
-  } = useScanController()
+  } = useScanController({
+    onOpenCameraRef: props.onOpenCameraRef,
+  })
 
   const {
     cameraCardHeight,
@@ -106,7 +112,7 @@ export function JoinCard() {
 function useCardsAnimation({ isCameraOpen }: { isCameraOpen: boolean }) {
   const animatedOpacity = useAnimatedValue(0)
 
-  const maxHeight = useWindowDimensions().height - (getToken('$space.normal') * 2)
+  const maxHeight = useWindowDimensions().height - (getToken('$space.normal') * 2) - (16 + getToken('$space.normal') * 2)
   const defaultHeight = useRef(0)
   const animatedHeight = useAnimatedValue(0, { useNativeDriver: false })
 

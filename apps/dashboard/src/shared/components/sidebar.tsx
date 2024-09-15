@@ -3,7 +3,7 @@ import React from 'react'
 import { Icon } from 'ui'
 
 import { useSideBar } from './hooks/use-side-bar'
-import { router } from '../../utils/router'
+import { RouteNames, router } from '../../utils/router'
 import { Button } from '../components/ui/button'
 
 /**
@@ -13,7 +13,9 @@ export function Sidebar() {
   const [activeButton] = useSideBar()
   const { signOut } = useClerk()
 
-  const handleButtonClick = (buttonName: 'data' | 'journeyhome' | 'robothome') => {
+  const handleButtonClick = (
+    buttonName: 'data' | 'journeylist' | 'robothome',
+  ) => {
     router.push(buttonName)
   }
 
@@ -22,29 +24,29 @@ export function Sidebar() {
           <div className="pt-12">
               <SidebarButton
                 icon={<Icon.BarChart4 color="$orange" size={24} />}
-                isActive={activeButton === 'data'}
+                isActive={activeButton === RouteNames.DATA}
                 label="Données"
-                onClick={() => handleButtonClick('data')}
+                onClick={() => handleButtonClick(RouteNames.DATA)}
               />
               <SidebarButton
                 icon={<Icon.Bot color="$orange" size={24} />}
-                isActive={activeButton === 'robothome' || activeButton === 'robotconfigure'}
+                isActive={activeButton === RouteNames.ROBOT_HOME}
                 label="Robot"
-                onClick={() => handleButtonClick('robothome')}
+                onClick={() => handleButtonClick(RouteNames.ROBOT_HOME)}
               />
               <SidebarButton
                 icon={<Icon.Waypoints color="$orange" size={24} />}
-                isActive={activeButton === 'journeyhome' || activeButton === 'journeycreate'}
+                isActive={activeButton === RouteNames.JOURNEY_LIST}
                 label="Parcours"
-                onClick={() => handleButtonClick('journeyhome')}
+                onClick={() => handleButtonClick(RouteNames.JOURNEY_LIST)}
               />
           </div>
           <div className="flex-grow"></div>
           <SidebarButton
             icon={<Icon.LogOut color="$orange" size={24} />}
             isActive={activeButton === 'Logout'}
-            label="Deconnexion"
-            onClick={() => signOut(() => router.push('login'))}
+            label="Déconnexion"
+            onClick={() => signOut(() => router.push(RouteNames.LOGIN))}
           />
       </div>
   )

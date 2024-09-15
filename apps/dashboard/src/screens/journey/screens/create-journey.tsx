@@ -15,7 +15,7 @@ import {
 } from '../../../shared/components/ui/form'
 import { Textarea } from '../../../shared/components/ui/textarea'
 import { toast } from '../../../shared/components/ui/use-toast'
-import { router } from '../../../utils/router'
+import { RouteNames, router } from '../../../utils/router'
 import { useInsertJourney } from '../hooks/use-create-journey'
 import type { JourneyForm } from '../types/create-journey'
 
@@ -54,6 +54,8 @@ export function JourneyCreate() {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     const journeyData: JourneyForm = {
+      archived: false,
+      controlMode: 'automatic',
       description: data.description,
       draft: true,
       name: data.name,
@@ -82,11 +84,13 @@ export function JourneyCreate() {
           <h1 className="text-3xl font-bold my-8">Création d'un parcours :</h1>
           <div>
               <p className="text-sm text-muted-foreground max-w-3xl">
-                  Vous êtes entrain de créer un nouveau parcours. Après avoir
-                  rempli les différents champs, vous pourrez accéder à la page
-                  de ce parcours, où vous pourrez modifier les champs et ajouter
-                  des étapes. À la création d'un parcours, les étapes de début
-                  et de fin sont automatiquement créées.
+                  Vous êtes entrain de créer un nouveau parcours.
+                  Après avoir rempli les
+                  différents champs, vous pourrez accéder à la page
+                  de ce parcours, où
+                  vous pourrez modifier les champs et ajouter des étapes. À la
+                  créationd'un parcours, les étapes de début et de fin sont
+                  automatiquement créées.
               </p>
           </div>
           <h2 className="text-xl mt-8">Remplissez les différents champs :</h2>
@@ -121,7 +125,9 @@ export function JourneyCreate() {
                     name="description"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="mt-20">Description du parcours :</FormLabel>
+                            <FormLabel className="mt-20">
+                                Description du parcours :
+                            </FormLabel>
                             <FormControl>
                                 <Textarea
                                   className="resize-none"
@@ -142,7 +148,7 @@ export function JourneyCreate() {
                         onClick={form.handleSubmit(async (data) => {
                 await onSubmit(data)
                 if (!error) {
-                  router.push('journeyhome')
+                  router.push(RouteNames.JOURNEY_LIST)
                 }
               })}
                         variant="primary"
@@ -153,7 +159,7 @@ export function JourneyCreate() {
                         buttonMd
                         onClick={() => {
                 form.reset()
-                router.replace('journeyhome')
+                router.push(RouteNames.JOURNEY_LIST)
               }}
                         variant="cancel"
                       >

@@ -145,6 +145,7 @@ export default antfu(
       'apps/mobile/.expo/',
       'packages/car/boot/',
       'packages/db/drizzle/meta/',
+      '**/.venv/',
     ],
   },
 )

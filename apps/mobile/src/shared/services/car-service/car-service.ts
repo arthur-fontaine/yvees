@@ -1,11 +1,13 @@
 import * as DI from 'diabolo'
 
 import type { IntRange } from '../../../types/int-range'
+import type { JourneyId } from '../../schemas/journey-id'
 
 export interface CarService extends DI.Service<
   'CarService',
   {
-    getCarInfos: (carId: number) => Promise<{
+    getCarInfos: (params: { journeyId: JourneyId }) => Promise<{
+      id: number
       ip: string
     }>
     getCarWebsocket: (carId: number) => Promise<WebSocket>
@@ -21,6 +23,7 @@ export const carService = DI.createService<CarService>('CarService')
 
 export const carCommand = {
   alarm: 7 as const,
+  autoMode: 10 as const,
   buzzer: 8 as const,
   face: 2 as const,
   headAngle: 3 as const,
@@ -40,6 +43,7 @@ type CarCommand =
     data: [ColorValue, ColorValue, ColorValue, ColorValue]
   } // secondary led color
   | { cmd: typeof carCommand.alarm, data: 0 | 1 } // alarm
+  | { cmd: typeof carCommand.autoMode, data: 0 | 1 } // auto mode
   | { cmd: typeof carCommand.buzzer, data: [0 | 1, number] } // buzzer
   | { cmd: typeof carCommand.face, data: number } // face
   | { cmd: typeof carCommand.headAngle, data: [HeadAngle, HeadAngle] } // head angle
