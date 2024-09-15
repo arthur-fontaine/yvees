@@ -1,16 +1,17 @@
 import { ClerkProvider } from '@clerk/clerk-expo'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
-import { View } from 'react-native'
+import { Text, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { ThemeProvider } from 'ui'
+import { Sheet, ThemeProvider } from 'ui'
 
 import { useInitialLoading } from './hooks/use-initial-loading'
 import { Navigator } from './navigator/navigator'
 import { tokenCache } from './utils/clerk-token-cache'
 import { CarEventsProvider } from '../shared/hooks/use-car'
 import { config } from '../shared/utils/config'
+
 
 const queryClient = new QueryClient()
 
@@ -35,12 +36,17 @@ export function App() {
                       >
                           <CarEventsProvider>
                               <Navigator />
+                              <Sheet imageLink="https://chatfaitdubien.fr/wp-content/uploads/2022/03/quelles-petites-races-sont-plus.jpg" open={true} title="MIAOU MIAOU">
+                                  <Text>
+                                      CHAT TROP MINION
+                                  </Text>
+                              </Sheet>
                           </CarEventsProvider>
                       </ClerkProvider>
                   </GestureHandlerRootView>
               </ThemeProvider>
+              <StatusBar style="auto" />
           </QueryClientProvider>
-          <StatusBar style="auto" />
       </View>
   )
 }
