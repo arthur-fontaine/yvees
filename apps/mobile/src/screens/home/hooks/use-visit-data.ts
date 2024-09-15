@@ -1,16 +1,10 @@
 import { useAuth } from '@clerk/clerk-expo'
 import { createRoute } from 'agrume'
-import type { Journey, Museum, Visit } from 'db'
 import * as DI from 'diabolo'
 import { useEffect, useState } from 'react'
 
 import { visitHistoryService } from '../../../services/visit-history-service/visit-history-service'
 import { serverImpls } from '../../../shared/utils/server-impls'
-
-export type VisitWithJourneyAndMuseum = Array<{
-  journey: Journey | undefined
-  museum: Museum | undefined
-} & Visit>
 
 export const getVisitsByUserId = createRoute(
   DI.provide(async function* (clerckUserId: string) {
