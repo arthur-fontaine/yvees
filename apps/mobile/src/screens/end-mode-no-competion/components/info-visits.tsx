@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Text, View } from 'react-native'
 import { Title1 } from 'ui'
 
-import { RouteNames, router } from '../../../../../dashboard/src/utils/router'
+// import { RouteNames, router } from '../../../../../dashboard/src/utils/router'
 import { updateVisit } from '../../end-mode-no-competion/hooks/update-visit'
 import { useVisitWithJourney } from '../hooks/use-visit-journey'
 
@@ -22,7 +22,7 @@ export function InfoVisit() {
     if (visitId) {
       await updateVisit(visitId)
     }
-    router.push(RouteNames.ROBOT_HOME)
+    // router.push(RouteNames.ROBOT_HOME)
   }
 
   return (

@@ -22,7 +22,7 @@ const moveCar = createRoute(DI.provide(async function* (
  * Hook to move the car.
  */
 export function useMoveCar() {
-  const { carId } = useCar()
+  const { carInfos } = useCar()
   const lastMoveCarTs = useRef<number | undefined>()
 
   return {
@@ -39,11 +39,11 @@ export function useMoveCar() {
 
       lastMoveCarTs.current = Date.now()
 
-      if (carId === undefined) {
+      if (carInfos?.id === undefined) {
         return
       }
 
-      await moveCar({ carId, coordinates })
-    }, [carId]),
+      await moveCar({ carId: `yvees-car-${carInfos.id}` as const, coordinates })
+    }, [carInfos?.id]),
   }
 }

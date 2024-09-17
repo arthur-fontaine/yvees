@@ -1,25 +1,50 @@
+import type { Car, Journey } from 'db'
 import { db } from 'db/runtime/server'
 import * as DI from 'diabolo'
 
-import type { CarService } from './car-service'
+import { type CarService, carCommand } from './car-service'
+import { journeyIdToNumber } from '../../schemas/journey-id'
 
 export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
   () => {
     const websockets = new Map<number, WebSocket>()
 
+    const carsMap = new Map<number, Car>()
+    const FETCH_CARS_INTERVAL = 10000
+    const fetchCars = async () => {
+      const cars = await db.query.cars.findMany()
+      for (const car of cars) {
+        carsMap.set(car.id, car)
+      }
+    }
+    setInterval(fetchCars, FETCH_CARS_INTERVAL)
+    fetchCars()
+
+    const journeysMap = new Map<number, Journey>()
+    const FETCH_JOURNEYS_INTERVAL = 10000
+    const fetchJourneys = async () => {
+      const journeys = await db.query.journeys.findMany()
+      for (const journey of journeys) {
+        journeysMap.set(journey.id, journey)
+      }
+    }
+    setInterval(fetchJourneys, FETCH_JOURNEYS_INTERVAL)
+    fetchJourneys()
+
     const carService: CarService['value'] = {
-      async getCarInfos(carId) {
-        const car = await db.query.cars.findFirst({
-          columns: {
-            ip: true,
-          },
-          where: (car, { eq }) => eq(car.id, carId),
-        })
+      async getCarInfos({ journeyId }) {
+        const journeyIdFromUri = journeyIdToNumber(journeyId)
+
+        const car = Array.from(carsMap.values())
+          .find((car: Car) => car.journeyId === journeyIdFromUri)
         if (car === undefined) {
           // eslint-disable-next-line fp/no-throw
           throw new Error('Car not found')
         }
-        return car
+        return {
+          id: car.id,
+          ip: car.ip,
+        }
       },
       async getCarWebsocket(carId) {
         if (websockets.has(carId)) {
@@ -29,14 +54,43 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
           }
         }
 
-        const { ip } = await carService.getCarInfos(carId)
+        const car = carsMap.get(carId)
 
-        const websocket = new WebSocket(`ws://${ip}:80/ws`)
+        if (car === undefined) {
+          // eslint-disable-next-line fp/no-throw
+          throw new Error('Car not found')
+        }
+
+        const websocket = new WebSocket(`ws://${car.ip}:80/ws`)
         websockets.set(carId, websocket)
 
         return websocket
       },
       async moveCarByJoystickPosition(carId, joystickPosition) {
+        const car = carsMap.get(carId)
+
+        if (car === undefined) {
+          // eslint-disable-next-line fp/no-throw
+          throw new Error('Car not found')
+        }
+
+        if (car.journeyId === null) {
+          // eslint-disable-next-line fp/no-throw
+          throw new Error('Car is not in a journey')
+        }
+
+        const journey = journeysMap.get(car.journeyId)
+
+        if (journey === undefined) {
+          // eslint-disable-next-line fp/no-throw
+          throw new Error('Journey not found')
+        }
+
+        if (journey.controlMode === 'automatic') {
+          // eslint-disable-next-line fp/no-throw
+          throw new Error('Car is in automatic mode')
+        }
+
         if (joystickPosition.x < -1 || joystickPosition.x > 1) {
           // eslint-disable-next-line fp/no-throw
           throw new Error('Invalid joystick x position')
@@ -70,10 +124,8 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
         //   * (joystickPosition.x > 0 ? 1 : 1 + joystickPosition.x)
         //   + extraSpeed
 
-        // console.log([leftSpeed, leftSpeed, rightSpeed, rightSpeed])
-
         // await carService.sendCommand(carId, {
-        //   cmd: 1,
+        //   cmd: carCommand.move,
         //   data: [leftSpeed, leftSpeed, rightSpeed, rightSpeed],
         // })
 
@@ -105,7 +157,7 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
           : [speedLittleSide, speedBigSide] // turn left or go straight
 
         await carService.sendCommand(carId, {
-          cmd: 1,
+          cmd: carCommand.move,
           data: [leftSpeed, leftSpeed, rightSpeed, rightSpeed],
         })
       },

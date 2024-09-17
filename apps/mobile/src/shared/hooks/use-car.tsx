@@ -3,19 +3,19 @@ import * as DI from 'diabolo'
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
 
-import { carService } from '../services/car-service/car-service'
+import { carService } from '../../shared/services/car-service/car-service'
 import type { GeneratorReturn } from '../../types/generator-return'
 import type { carEvent } from '../events/car-event'
-import { type CarId, carIdToNumber } from '../schemas/car-id'
+import type { JourneyId } from '../schemas/journey-id'
 import { serverImpls } from '../utils/server-impls'
 
 type CarEventsIterator = AsyncGenerator<GeneratorReturn<ReturnType<typeof carEvent['iterator']>>>
 
 interface CarEventsContextValue {
   carEventsIterator?: CarEventsIterator | undefined
-  carId: CarId | undefined
+  journeyId: JourneyId | undefined
   registerCarEventsIterator: (iterator: CarEventsIterator) => void
-  setCarId: (carId: CarId) => void
+  setJourneyId: (journeyId: JourneyId) => void
 }
 
 // eslint-disable-next-line ts/naming-convention
@@ -30,15 +30,15 @@ export function CarEventsProvider({ children }: React.PropsWithChildren) {
   const [carEventsIterator, setCarEventsIterator]
     = useState<CarEventsIterator>()
 
-  const [carId, setCarId] = useState<CarId>()
+  const [journeyId, setJourneyId] = useState<JourneyId>()
   /* eslint-enable use-encapsulation/prefer-custom-hooks */
 
   return (
       <CarEventsContext.Provider value={{
       carEventsIterator,
-      carId,
+      journeyId,
       registerCarEventsIterator: setCarEventsIterator,
-      setCarId,
+      setJourneyId,
     }}
       >
           {children}
@@ -46,10 +46,12 @@ export function CarEventsProvider({ children }: React.PropsWithChildren) {
   )
 }
 
-const getCarInfos = createRoute(DI.provide(function* (carId: CarId) {
+const getCarInfos = createRoute(DI.provide(function* (
+  { journeyId }: { journeyId: JourneyId },
+) {
   const { getCarInfos } = yield * DI.requireService(carService)
-  return getCarInfos(carIdToNumber(carId))
-}, serverImpls))
+  return getCarInfos({ journeyId })
+}, serverImpls), { path: '/get-car-infos' })
 
 /**
  * A hook to subscribe to car events.
@@ -86,25 +88,25 @@ export function useCar() {
     runListeners()
   }, [runListeners])
 
-  const registerCar = useCallback(({ carEventsIterator, carId }: {
+  const registerCar = useCallback(({ carEventsIterator, journeyId }: {
     carEventsIterator: CarEventsIterator
-    carId: CarId
+    journeyId: JourneyId
   }) => {
-    context.setCarId(carId)
+    context.setJourneyId(journeyId)
     context.registerCarEventsIterator(carEventsIterator)
   }, [context])
 
   const { data: carInfos } = useQuery(
-    ['carInfos', context.carId],
-    () => getCarInfos(context.carId!),
+    ['carInfos', context.journeyId],
+    () => getCarInfos({ journeyId: context.journeyId! }),
     {
-      enabled: !!context.carId,
+      enabled: context.journeyId !== undefined,
     },
   )
 
   return {
-    carId: context.carId,
     carInfos,
+    journeyId: context.journeyId,
     onCarEvent,
     registerCar,
   }

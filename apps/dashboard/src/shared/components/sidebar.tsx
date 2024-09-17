@@ -45,7 +45,7 @@ export function Sidebar() {
           <SidebarButton
             icon={<Icon.LogOut color="$orange" size={24} />}
             isActive={activeButton === 'Logout'}
-            label="Deconnexion"
+            label="Déconnexion"
             onClick={() => signOut(() => router.push(RouteNames.LOGIN))}
           />
       </div>

@@ -19,7 +19,7 @@
     "@clerk/clerk-expo": "^1.1.8",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
-    "@tamagui/card": "^1.110.1",
+    "@tamagui/card": "1.110.2",
     "agrume": "^2.0.0",
     "db": "workspace:*",
     "diabolo": "npm:@jsr/arthur-fontaine__diabolo@^1.4.0",

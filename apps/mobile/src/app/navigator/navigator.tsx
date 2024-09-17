@@ -47,7 +47,7 @@ export function Navigator() {
 
 function useNavigationAuthEffect() {
   const { isLoaded, isSignedIn } = useAuth()
-  const { carId } = useCar()
+  const { journeyId } = useCar()
   const navigationRef = useRef<NavigationContainerRef<PagesList>>(null)
 
   useEffect(() => {
@@ -60,13 +60,13 @@ function useNavigationAuthEffect() {
       return
     }
 
-    if (carId !== undefined) {
+    if (journeyId !== undefined) {
       navigationRef.current?.navigate('sessionManual')
       return
     }
 
     navigationRef.current?.navigate(HOME_PAGE)
-  }, [isLoaded, isSignedIn, carId])
+  }, [isLoaded, isSignedIn, journeyId])
 
   return { navigationRef }
 }
