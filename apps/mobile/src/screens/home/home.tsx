@@ -1,8 +1,9 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useRef } from 'react'
 
 import { Histories } from './components/histories'
 import { JoinCard } from './components/join-card'
 import { DefaultLayout } from '../../shared/layouts/default-layout'
+import { EndModeNoCompetition } from '../end-mode-no-competion/end-mode-no-competition'
 
 /**
  * The home screen of the application.
@@ -20,6 +21,7 @@ export function HomeScreen() {
       <DefaultLayout>
           <JoinCard onOpenCameraRef={onOpenCameraRef} />
           <Histories onOpenCameraRef={onOpenCameraRef} />
+          <EndModeNoCompetition/>
       </DefaultLayout>
   )
 }
