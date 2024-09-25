@@ -4,6 +4,7 @@ const { ui } = require('ui/babel-rn');
 const { state } = require('@agrume/internals');
 
 state.set((state) => {
+  state.isRegistering = true;
   state.options.tunnel = {
     type: 'localtunnel',
   };

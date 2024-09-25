@@ -17,8 +17,6 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
         carsMap.set(car.id, car)
       }
     }
-    setInterval(fetchCars, FETCH_CARS_INTERVAL)
-    fetchCars()
 
     const journeysMap = new Map<number, Journey>()
     const FETCH_JOURNEYS_INTERVAL = 10000
@@ -28,8 +26,13 @@ export const carServiceImpl = DI.lazyCreateServiceImpl<CarService>(
         journeysMap.set(journey.id, journey)
       }
     }
-    setInterval(fetchJourneys, FETCH_JOURNEYS_INTERVAL)
-    fetchJourneys()
+
+    if ('AGRUME_RUN_LOADER' in globalThis === false) {
+      setInterval(fetchCars, FETCH_CARS_INTERVAL)
+      fetchCars()
+      setInterval(fetchJourneys, FETCH_JOURNEYS_INTERVAL)
+      fetchJourneys()
+    }
 
     const carService: CarService['value'] = {
       async getCarInfos({ journeyId }) {

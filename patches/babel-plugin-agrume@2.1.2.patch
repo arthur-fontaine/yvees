@@ -1,8 +1,8 @@
 diff --git a/dist/agrume-plugin.cjs b/dist/agrume-plugin.cjs
-index 8e0fbb2dcb53927df10531fc91f1588268366a7b..79e9baa4494d4e14bdbab9a8cb431dc1648b890c 100644
+index 8e0fbb2dcb53927df10531fc91f1588268366a7b..6910bdce99de470f9867321b56dd0483aca4a1b2 100644
 --- a/dist/agrume-plugin.cjs
 +++ b/dist/agrume-plugin.cjs
-@@ -604,14 +604,14 @@ function transformCreateRoute(callPath, state) {
+@@ -604,14 +604,15 @@ function transformCreateRoute(callPath, state) {
    if (routeOptionsLoader instanceof Error) {
      return routeOptionsLoader;
    }
@@ -17,15 +17,16 @@ index 8e0fbb2dcb53927df10531fc91f1588268366a7b..79e9baa4494d4e14bdbab9a8cb431dc1
 -function runLoader(loader) {
 -  const _require = typeof require === "undefined" ? node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.src || new URL('agrume-plugin.cjs', document.baseURI).href))) : require;
 +function runLoader(loader, filePath) {
++  globalThis.AGRUME_RUN_LOADER = "true";
 +  const _require = node_module.createRequire(filePath.startsWith('file://') ? filePath : `file://${filePath}`);
    function _import(moduleName) {
      const modulePath = _require.resolve(moduleName);
      const module = importSync__default(modulePath);
 diff --git a/dist/agrume-plugin.mjs b/dist/agrume-plugin.mjs
-index 6385503ac092df590abbbe56b5f06a437ca0e782..186bc449f80299a349210e43e3974905d3e86ecf 100644
+index 6385503ac092df590abbbe56b5f06a437ca0e782..13832c70f2f81adb0bb1cf059dc4ed785d6e8521 100644
 --- a/dist/agrume-plugin.mjs
 +++ b/dist/agrume-plugin.mjs
-@@ -592,14 +592,14 @@ function transformCreateRoute(callPath, state) {
+@@ -592,14 +592,15 @@ function transformCreateRoute(callPath, state) {
    if (routeOptionsLoader instanceof Error) {
      return routeOptionsLoader;
    }
@@ -40,6 +41,7 @@ index 6385503ac092df590abbbe56b5f06a437ca0e782..186bc449f80299a349210e43e3974905
 -function runLoader(loader) {
 -  const _require = typeof require === "undefined" ? createRequire(import.meta.url) : require;
 +function runLoader(loader, filePath) {
++  globalThis.AGRUME_RUN_LOADER = "true";
 +  const _require = createRequire(filePath.startsWith("file://") ? filePath : `file://${filePath}`);
    function _import(moduleName) {
      const modulePath = _require.resolve(moduleName);
