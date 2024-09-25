@@ -1,3 +1,4 @@
+import qrcode from 'qrcode'
 import React from 'react'
 import { Button, Icon } from 'ui'
 
@@ -154,6 +155,17 @@ export function JourneyDropDown(
                           </DropdownMenuSubContent>
                       </DropdownMenuPortal>
                   </DropdownMenuSub>
+
+                  <DropdownMenuItem
+                    onClick={() => qrcode.toDataURL(`yvees-journey-${journey.id}`).then((url) => {
+                      const a = document.createElement('a')
+                      a.href = url
+                      a.download = `qrcode-journey-${journey.id}.png`
+                      a.click()
+                    })}
+                  >
+                      <span>Télécharger le QR code</span>
+                  </DropdownMenuItem>
 
                   <DropdownMenuItem
                     onClick={() => handleDeleteJourney(Number(journey.id))}
