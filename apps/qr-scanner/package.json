@@ -1,0 +1,7 @@
+{
+  "name": "qr-scanner-service",
+  "scripts": {
+    "dev": "uv run src/main.py",
+    "start": "uv run src/main.py"
+  }
+}
