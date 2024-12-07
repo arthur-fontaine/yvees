@@ -3,10 +3,10 @@ import * as DI from 'diabolo'
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
 
+import { carService } from '../../shared/services/car-service/car-service'
 import type { GeneratorReturn } from '../../types/generator-return'
 import type { carEvent } from '../events/car-event'
 import type { JourneyId } from '../schemas/journey-id'
-import { carService } from '../services/car-service/car-service'
 import { serverImpls } from '../utils/server-impls'
 
 type CarEventsIterator = AsyncGenerator<GeneratorReturn<ReturnType<typeof carEvent['iterator']>>>

@@ -349,18 +349,35 @@ importers:
   packages/ui:
     dependencies:
       '@tamagui/animations-react-native':
+<<<<<<< HEAD
+        specifier: ^1.110.2
+=======
         specifier: 1.110.2
+>>>>>>> origin/main
         version: 1.110.2(react@18.2.0)
       '@tamagui/babel-plugin':
         specifier: 1.110.2
         version: 1.110.2(@swc/helpers@0.5.13)(react@18.2.0)
       '@tamagui/card':
+<<<<<<< HEAD
+        specifier: ^1.110.2
+=======
         specifier: 1.110.2
+>>>>>>> origin/main
         version: 1.110.2(react@18.2.0)
       '@tamagui/helpers-icon':
         specifier: 1.110.2
         version: 1.110.2(react-native-svg@15.6.0(react-native@0.74.1(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.3.5)(react@18.2.0))(react@18.2.0))(react@18.2.0)
       '@tamagui/list-item':
+<<<<<<< HEAD
+        specifier: ^1.110.2
+        version: 1.110.2(react@18.2.0)
+      '@tamagui/lucide-icons':
+        specifier: ^1.110.2
+        version: 1.110.2(react-native-svg@15.6.0(react-native@0.74.1(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.3.5)(react@18.2.0))(react@18.2.0))(react@18.2.0)
+      '@tamagui/sheet':
+        specifier: ^1.110.2
+=======
         specifier: 1.110.2
         version: 1.110.2(react@18.2.0)
       '@tamagui/lucide-icons':
@@ -368,6 +385,7 @@ importers:
         version: 1.110.2(react-native-svg@15.6.0(react-native@0.74.1(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.3.5)(react@18.2.0))(react@18.2.0))(react@18.2.0)
       '@tamagui/sheet':
         specifier: 1.110.2
+>>>>>>> origin/main
         version: 1.110.2(@types/react@18.3.5)(react@18.2.0)
       '@tamagui/vite-plugin':
         specifier: 1.110.2

@@ -6,6 +6,8 @@ import { Button, Icon } from 'ui'
 import { Histories } from './components/histories'
 import { JoinCard } from './components/join-card'
 import { DefaultLayout } from '../../shared/layouts/default-layout'
+import { EndModeNoCompetition } from '../end-mode-no-competion/end-mode-no-competition'
+
 /**
  * The home screen of the application.
  */
@@ -26,6 +28,7 @@ export function HomeScreen() {
           </View>
           <JoinCard onOpenCameraRef={onOpenCameraRef} />
           <Histories onOpenCameraRef={onOpenCameraRef} />
+          <EndModeNoCompetition />
       </DefaultLayout>
   )
 }
